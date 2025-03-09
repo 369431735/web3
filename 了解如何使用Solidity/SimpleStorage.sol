@@ -5,11 +5,11 @@ contract SimpleStorage {
 
     uint256 public test;
 
-   public change(uint256 i){
+    function change(uint256 i) public{
      test=i;
   }
 
-  public get() returns (uint256){
+    function get() public returns (uint256){
    return test;
    }
 }
