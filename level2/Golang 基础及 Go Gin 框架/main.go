@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/ethereum/go-ethereum/common/hexutil"
+	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
 	"golang.org/x/crypto/sha3"
 
@@ -20,11 +21,54 @@ import (
 	hdwallet "github.com/miguelmota/go-ethereum-hdwallet"
 )
 
-const (
-	accountAddress = "0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0"
-	nodeURL        = "http://localhost:8545"
-	privateKey     = "0x6cbed15c793ce57650b9877cf6fa156fbef513c4e6134f022a85b1ffdd59b2a1"
+// 网络环境配置
+type NetworkConfig struct {
+	ChainID     *big.Int
+	NetworkName string
+	NodeURL     string
+	IsTestnet   bool
+}
+
+var (
+	// 常量定义
+	accountAddress  = "0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0"
+	accountAddress2 = "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1"
+	privateKey      = "0x6cbed15c793ce57650b9877cf6fa156fbef513c4e6134f022a85b1ffdd59b2a1"
+	privateKey2     = "0x4f3edf983ac636a65a842ce7c78d9aa706d3b113bce9c46f30d7d21715b23b1d"
+
+	// 预定义网络配置
+	networks = map[string]NetworkConfig{
+		"mainnet": {
+			ChainID:     big.NewInt(1),
+			NetworkName: "Mainnet",
+			NodeURL:     "https://mainnet.infura.io/v3/YOUR-PROJECT-ID",
+			IsTestnet:   false,
+		},
+		"goerli": {
+			ChainID:     big.NewInt(5),
+			NetworkName: "Goerli",
+			NodeURL:     "https://goerli.infura.io/v3/YOUR-PROJECT-ID",
+			IsTestnet:   true,
+		},
+		"local": {
+			ChainID:     nil, // 将在运行时动态获取
+			NetworkName: "Local",
+			NodeURL:     "http://localhost:8545",
+			IsTestnet:   true,
+		},
+	}
+
+	// 当前使用的网络配置
+	currentNetwork = networks["local"]
 )
+
+// 获取适合当前网络的签名器
+func getNetworkSigner(chainID *big.Int) types.Signer {
+	if currentNetwork.NetworkName == "Local" {
+		return types.NewEIP155Signer(chainID)
+	}
+	return types.NewLondonSigner(chainID)
+}
 
 func main() {
 	log.SetFlags(log.LstdFlags | log.Lmicroseconds)
@@ -64,6 +108,24 @@ func main() {
 		log.Printf("地址检查失败: %v", err)
 	}
 
+	log.Println("\n7. 区块信息查询")
+	if err := block_info(); err != nil {
+		log.Printf("区块信息查询失败: %v", err)
+	}
+
+	log.Println("\n8. 创建并发送交易")
+	txHash, err := createAndSendTransaction()
+	if err != nil {
+		log.Printf("创建并发送交易失败: %v", err)
+	} else {
+		log.Println("\n9. 交易查询演示")
+		// 等待几秒钟让交易被打包
+		time.Sleep(2 * time.Second)
+		if err := queryTransaction(txHash); err != nil {
+			log.Printf("交易查询失败: %v", err)
+		}
+	}
+
 	log.Println("\n=== 程序执行完成 ===")
 }
 
@@ -72,7 +134,7 @@ func address_cul() error {
 	log.Println("=== 根据私钥计算地址 ===")
 
 	// 将私钥字符串转换为字节
-	privateKeyBytes, err := hexutil.Decode(privateKey)
+	privateKeyBytes, err := hexutil.Decode(privateKey2)
 	if err != nil {
 		return fmt.Errorf("私钥解码失败: %v", err)
 	}
@@ -99,11 +161,11 @@ func address_cul() error {
 
 // 初始化以太坊客户端
 func initClient() (*ethclient.Client, error) {
-	client, err := ethclient.Dial(nodeURL)
+	client, err := ethclient.Dial(currentNetwork.NodeURL)
 	if err != nil {
 		return nil, err
 	}
-	log.Println("成功连接到本地以太坊网络")
+	log.Printf("成功连接到%s以太坊网络", currentNetwork.NetworkName)
 	return client, nil
 }
 
@@ -276,7 +338,7 @@ func address_check() error {
 	log.Printf("格式是否有效: %v", re.MatchString(invalidAddr))
 
 	// 连接到以太坊网络
-	client, err := ethclient.Dial(nodeURL)
+	client, err := ethclient.Dial(currentNetwork.NodeURL)
 	if err != nil {
 		return fmt.Errorf("连接以太坊网络失败: %v", err)
 	}
@@ -359,4 +421,159 @@ func block_info() error {
 	log.Printf("区块Gas使用量: %d", block.GasUsed())
 
 	return nil
+}
+
+// 查询交易
+func queryTransaction(txHash string) error {
+	log.Println("=== 交易查询演示 ===")
+
+	client, err := initClient()
+	if err != nil {
+		return fmt.Errorf("连接以太坊网络失败: %v", err)
+	}
+
+	// 将字符串转换为common.Hash类型
+	hash := common.HexToHash(txHash)
+
+	// 获取交易详情
+	tx, isPending, err := client.TransactionByHash(context.Background(), hash)
+	if err != nil {
+		return fmt.Errorf("获取交易信息失败: %v", err)
+	}
+
+	// 获取交易发送者
+	chainID, err := client.NetworkID(context.Background())
+	if err != nil {
+		return fmt.Errorf("获取链ID失败: %v", err)
+	}
+
+	signer := getNetworkSigner(chainID)
+	sender, err := signer.Sender(tx)
+	if err != nil {
+		return fmt.Errorf("获取交易发送者失败: %v", err)
+	}
+
+	// 输出交易基本信息
+	log.Printf("交易哈希: %s", tx.Hash().Hex())
+	log.Printf("交易是否待处理: %v", isPending)
+	log.Printf("交易发送者: %s", sender.Hex())
+	if tx.To() != nil {
+		log.Printf("交易接收者: %s", tx.To().Hex())
+	} else {
+		log.Println("交易接收者: 合约创建交易")
+	}
+	log.Printf("交易金额: %s Wei", tx.Value().String())
+	log.Printf("交易Gas限制: %d", tx.Gas())
+	log.Printf("交易Gas价格: %s Wei", tx.GasPrice().String())
+	log.Printf("交易Nonce: %d", tx.Nonce())
+
+	// 如果交易已完成，获取交易收据
+	if !isPending {
+		receipt, err := client.TransactionReceipt(context.Background(), hash)
+		if err != nil {
+			return fmt.Errorf("获取交易收据失败: %v", err)
+		}
+
+		log.Printf("交易状态: %d", receipt.Status)
+		log.Printf("交易所在区块号: %d", receipt.BlockNumber)
+		log.Printf("交易实际Gas使用量: %d", receipt.GasUsed)
+		log.Printf("交易累计Gas使用量: %d", receipt.CumulativeGasUsed)
+	}
+
+	return nil
+}
+
+// 创建并发送交易
+func createAndSendTransaction() (string, error) {
+	log.Println("=== 创建并发送交易演示 ===")
+
+	// 连接到以太坊网络
+	client, err := initClient()
+	if err != nil {
+		return "", fmt.Errorf("连接以太坊网络失败: %v", err)
+	}
+
+	// 获取链ID并更新本地网络配置
+	chainID, err := client.NetworkID(context.Background())
+	if err != nil {
+		return "", fmt.Errorf("获取链ID失败: %v", err)
+	}
+	if currentNetwork.NetworkName == "Local" {
+		currentNetwork.ChainID = chainID
+	}
+	log.Printf("当前网络: %s (Chain ID: %d)", currentNetwork.NetworkName, chainID)
+
+	// 解码私钥
+	privateKeyBytes, err := hexutil.Decode(privateKey)
+	if err != nil {
+		return "", fmt.Errorf("私钥解码失败: %v", err)
+	}
+
+	// 创建私钥对象
+	privateKeyECDSA, err := crypto.ToECDSA(privateKeyBytes)
+	if err != nil {
+		return "", fmt.Errorf("创建私钥对象失败: %v", err)
+	}
+
+	// 获取发送者地址
+	fromAddress := crypto.PubkeyToAddress(privateKeyECDSA.PublicKey)
+	log.Printf("发送者地址: %s", fromAddress.Hex())
+
+	// 获取接收者地址
+	toAddress := common.HexToAddress("0x8e215d06ea7ec1fdb4fc5fd21768f4b34ee92ef4")
+	log.Printf("接收者地址: %s", toAddress.Hex())
+
+	// 获取发送者的 nonce
+	nonce, err := client.PendingNonceAt(context.Background(), fromAddress)
+	if err != nil {
+		return "", fmt.Errorf("获取nonce失败: %v", err)
+	}
+	log.Printf("当前 nonce: %d", nonce)
+
+	// 设置交易金额（根据是否是测试网络调整）
+	value := big.NewInt(10000000000000000) // 0.01 ETH
+	if currentNetwork.IsTestnet {
+		value = big.NewInt(1000000000000000) // 0.001 ETH for testnet
+	}
+	log.Printf("发送金额: %s Wei", value.String())
+
+	// 设置 gas 限制
+	gasLimit := uint64(21000)
+	log.Printf("Gas 限制: %d", gasLimit)
+
+	// 获取当前建议的 gas 价格
+	gasPrice, err := client.SuggestGasPrice(context.Background())
+	if err != nil {
+		return "", fmt.Errorf("获取gas价格失败: %v", err)
+	}
+	log.Printf("Gas 价格: %s Wei", gasPrice.String())
+
+	// 创建交易对象
+	tx := types.NewTx(&types.LegacyTx{
+		Nonce:    nonce,
+		To:       &toAddress,
+		Value:    value,
+		Gas:      gasLimit,
+		GasPrice: gasPrice,
+		Data:     nil,
+	})
+
+	// 使用适合当前网络的签名器
+	signer := getNetworkSigner(chainID)
+	signedTx, err := types.SignTx(tx, signer, privateKeyECDSA)
+	if err != nil {
+		return "", fmt.Errorf("签名交易失败: %v", err)
+	}
+	log.Println("交易签名成功")
+
+	// 发送交易
+	err = client.SendTransaction(context.Background(), signedTx)
+	if err != nil {
+		return "", fmt.Errorf("发送交易失败: %v", err)
+	}
+
+	txHash := signedTx.Hash().Hex()
+	log.Printf("交易发送成功，交易哈希: %s", txHash)
+
+	return txHash, nil
 }
