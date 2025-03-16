@@ -4,10 +4,13 @@ import (
 	"context"
 	"crypto/ecdsa"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"math"
 	"math/big"
+	"net/http"
 	"regexp"
+	"strings"
 	"time"
 
 	"github.com/ethereum/go-ethereum/common/hexutil"
@@ -27,14 +30,17 @@ type NetworkConfig struct {
 	NetworkName string
 	NodeURL     string
 	IsTestnet   bool
+	GetSigner   func(*big.Int) types.Signer // 添加获取签名器的函数
 }
 
 var (
 	// 常量定义
-	accountAddress  = "0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0"
-	accountAddress2 = "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1"
-	privateKey      = "0x6cbed15c793ce57650b9877cf6fa156fbef513c4e6134f022a85b1ffdd59b2a1"
-	privateKey2     = "0x4f3edf983ac636a65a842ce7c78d9aa706d3b113bce9c46f30d7d21715b23b1d"
+	// Ganache 默认账户
+	accountAddress  = "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1"
+	accountAddress2 = "0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0"
+	// Ganache 默认私钥
+	privateKey  = "0x4f3edf983ac636a65a842ce7c78d9aa706d3b113bce9c46f30d7d21715b23b1d"
+	privateKey2 = "0x6cbed15c793ce57650b9877cf6fa156fbef513c4e6134f022a85b1ffdd59b2a1"
 
 	// 预定义网络配置
 	networks = map[string]NetworkConfig{
@@ -43,18 +49,21 @@ var (
 			NetworkName: "Mainnet",
 			NodeURL:     "https://mainnet.infura.io/v3/YOUR-PROJECT-ID",
 			IsTestnet:   false,
+			GetSigner:   func(chainID *big.Int) types.Signer { return types.NewLondonSigner(chainID) },
 		},
 		"goerli": {
 			ChainID:     big.NewInt(5),
 			NetworkName: "Goerli",
 			NodeURL:     "https://goerli.infura.io/v3/YOUR-PROJECT-ID",
 			IsTestnet:   true,
+			GetSigner:   func(chainID *big.Int) types.Signer { return types.NewLondonSigner(chainID) },
 		},
 		"local": {
-			ChainID:     nil, // 将在运行时动态获取
+			ChainID:     big.NewInt(1337), // Ganache 默认 chainID
 			NetworkName: "Local",
 			NodeURL:     "http://localhost:8545",
 			IsTestnet:   true,
+			GetSigner:   func(chainID *big.Int) types.Signer { return types.HomesteadSigner{} },
 		},
 	}
 
@@ -65,9 +74,41 @@ var (
 // 获取适合当前网络的签名器
 func getNetworkSigner(chainID *big.Int) types.Signer {
 	if currentNetwork.NetworkName == "Local" {
-		return types.NewEIP155Signer(chainID)
+		return types.LatestSignerForChainID(chainID)
 	}
 	return types.NewLondonSigner(chainID)
+}
+
+// 设置账户余额
+func setAccountBalance() error {
+	log.Println("=== 设置账户余额演示 ===")
+
+	// 构造 JSON-RPC 请求
+	jsonReq := `{
+		"jsonrpc": "2.0",
+		"method": "evm_setAccountBalance",
+		"params": [
+			"` + accountAddress + `",
+			"0x56BC75E2D63100000"  // 100 ETH in wei (0x56BC75E2D63100000 = 100000000000000000000)
+		],
+		"id": 1
+	}`
+
+	// 发送 HTTP POST 请求到 Ganache
+	resp, err := http.Post(currentNetwork.NodeURL, "application/json", strings.NewReader(jsonReq))
+	if err != nil {
+		return fmt.Errorf("发送请求失败: %v", err)
+	}
+	defer resp.Body.Close()
+
+	// 读取响应
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return fmt.Errorf("读取响应失败: %v", err)
+	}
+
+	log.Printf("设置余额响应: %s", string(body))
+	return nil
 }
 
 func main() {
@@ -79,6 +120,11 @@ func main() {
 			log.Printf("程序发生错误: %v", r)
 		}
 	}()
+
+	// 设置账户余额
+	if err := setAccountBalance(); err != nil {
+		log.Printf("设置账户余额失败: %v", err)
+	}
 
 	log.Println("\n1. 地址转换演示")
 	address()
@@ -441,13 +487,14 @@ func queryTransaction(txHash string) error {
 		return fmt.Errorf("获取交易信息失败: %v", err)
 	}
 
-	// 获取交易发送者
+	// 获取实际的链ID
 	chainID, err := client.NetworkID(context.Background())
 	if err != nil {
 		return fmt.Errorf("获取链ID失败: %v", err)
 	}
 
-	signer := getNetworkSigner(chainID)
+	// 使用网络配置中的签名器
+	signer := currentNetwork.GetSigner(chainID)
 	sender, err := signer.Sender(tx)
 	if err != nil {
 		return fmt.Errorf("获取交易发送者失败: %v", err)
@@ -493,13 +540,10 @@ func createAndSendTransaction() (string, error) {
 		return "", fmt.Errorf("连接以太坊网络失败: %v", err)
 	}
 
-	// 获取链ID并更新本地网络配置
+	// 获取实际的链ID
 	chainID, err := client.NetworkID(context.Background())
 	if err != nil {
 		return "", fmt.Errorf("获取链ID失败: %v", err)
-	}
-	if currentNetwork.NetworkName == "Local" {
-		currentNetwork.ChainID = chainID
 	}
 	log.Printf("当前网络: %s (Chain ID: %d)", currentNetwork.NetworkName, chainID)
 
@@ -531,10 +575,7 @@ func createAndSendTransaction() (string, error) {
 	log.Printf("当前 nonce: %d", nonce)
 
 	// 设置交易金额（根据是否是测试网络调整）
-	value := big.NewInt(10000000000000000) // 0.01 ETH
-	if currentNetwork.IsTestnet {
-		value = big.NewInt(1000000000000000) // 0.001 ETH for testnet
-	}
+	value := big.NewInt(1000000000000000) // 0.001 ETH for testnet
 	log.Printf("发送金额: %s Wei", value.String())
 
 	// 设置 gas 限制
@@ -548,18 +589,21 @@ func createAndSendTransaction() (string, error) {
 	}
 	log.Printf("Gas 价格: %s Wei", gasPrice.String())
 
-	// 创建交易对象
-	tx := types.NewTx(&types.LegacyTx{
+	// 创建基础交易数据
+	data := &types.LegacyTx{
 		Nonce:    nonce,
 		To:       &toAddress,
 		Value:    value,
 		Gas:      gasLimit,
 		GasPrice: gasPrice,
 		Data:     nil,
-	})
+	}
 
-	// 使用适合当前网络的签名器
-	signer := getNetworkSigner(chainID)
+	// 创建交易
+	tx := types.NewTx(data)
+
+	// 使用网络配置中的签名器
+	signer := currentNetwork.GetSigner(chainID)
 	signedTx, err := types.SignTx(tx, signer, privateKeyECDSA)
 	if err != nil {
 		return "", fmt.Errorf("签名交易失败: %v", err)
