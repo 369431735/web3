@@ -1,0 +1,1 @@
+ganache-cli --accounts accounts.json > ganache.log 2>&1 &
