@@ -80,7 +80,7 @@ func GenerateBindings() error {
 		cmd := exec.Command("abigen",
 			"--abi", tempAbiFile,
 			"--bin", tempBinFile,
-			"--pkg", "main",
+			"--pkg", "bindings",
 			"--type", contractName,
 			"--out", outputFile,
 		)
@@ -99,4 +99,11 @@ func GenerateBindings() error {
 
 	fmt.Println("所有合约绑定生成完成")
 	return nil
+}
+
+func main() {
+	if err := GenerateBindings(); err != nil {
+		fmt.Printf("生成绑定失败: %v\n", err)
+		os.Exit(1)
+	}
 }
