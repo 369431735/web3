@@ -1,0 +1,395 @@
+ganache v7.9.2 (@ganache/cli: 0.10.2, @ganache/core: 0.10.2)
+Starting RPC server
+
+Available Accounts
+==================
+(no accounts unlocked)
+
+HD Wallet
+==================
+Mnemonic:      mean warfare company foil axis subway family silent stable control typical valley
+Base HD Path:  m/44'/60'/0'/0/{account_index}
+
+Default Gas Price
+==================
+2000000000
+
+BlockGas Limit
+==================
+30000000
+
+Call Gas Limit
+==================
+50000000
+
+Chain
+==================
+Hardfork: shanghai
+Id:       1337
+
+RPC Listening on 127.0.0.1:8545
+eth_getBalance
+eth_getBlockByNumber
+eth_getBalance
+eth_getBalance
+eth_getCode
+eth_getCode
+net_version
+eth_syncing
+eth_getBlockByNumber
+eth_getBlockByNumber
+net_version
+eth_getTransactionCount
+eth_gasPrice
+eth_sendRawTransaction
+evm_setAccountBalance
+eth_getBalance
+eth_getBlockByNumber
+eth_getBalance
+eth_getBalance
+eth_getCode
+eth_getCode
+net_version
+eth_syncing
+eth_getBlockByNumber
+eth_getBlockByNumber
+net_version
+eth_getTransactionCount
+eth_gasPrice
+eth_sendRawTransaction
+
+  Transaction: 0xc21264ee3047916b0ab8057f7daf80bc73694e532dfc6a98327e9045f5b17727
+  Gas usage: 21000
+  Block number: 2
+  Block time: Mon Mar 17 2025 11:17:54 GMT+0800 (中国标准时间)
+
+evm_setAccountBalance
+eth_getBalance
+eth_getBlockByNumber
+eth_getBalance
+eth_getBalance
+eth_getCode
+eth_getCode
+net_version
+eth_syncing
+eth_getBlockByNumber
+eth_getBlockByNumber
+net_version
+eth_getTransactionCount
+eth_gasPrice
+eth_sendRawTransaction
+
+  Transaction: 0x22febd2f38923b6042f5e83138858eb57a44289ff0c7ddae2b0812419191be08
+  Gas usage: 21000
+  Block number: 3
+  Block time: Mon Mar 17 2025 11:19:47 GMT+0800 (中国标准时间)
+
+evm_setAccountBalance
+eth_getBalance
+eth_getBlockByNumber
+eth_getBalance
+eth_getBalance
+eth_getCode
+eth_getCode
+net_version
+eth_syncing
+eth_getBlockByNumber
+eth_getBlockByNumber
+net_version
+eth_getTransactionCount
+eth_gasPrice
+eth_sendRawTransaction
+
+  Transaction: 0xb2b8915b144a7f9cbd4cb0f09f02e42be118af76ef0c383e3b5b293072bb291f
+  Gas usage: 21000
+  Block number: 5
+  Block time: Mon Mar 17 2025 11:20:13 GMT+0800 (中国标准时间)
+
+evm_setAccountBalance
+eth_getBalance
+eth_getBlockByNumber
+eth_getBalance
+eth_getBalance
+eth_getCode
+eth_getCode
+net_version
+eth_syncing
+eth_getBlockByNumber
+eth_getBlockByNumber
+net_version
+eth_getTransactionCount
+eth_gasPrice
+eth_sendRawTransaction
+
+  Transaction: 0xac85fe8b50af03a0efa1952725b4db22507258871b3a207b742d02ef108f844d
+  Gas usage: 21000
+  Block number: 7
+  Block time: Mon Mar 17 2025 11:28:06 GMT+0800 (中国标准时间)
+
+evm_setAccountBalance
+eth_getBalance
+eth_getBlockByNumber
+eth_getBalance
+eth_getBalance
+eth_getCode
+eth_getCode
+net_version
+eth_syncing
+eth_getBlockByNumber
+eth_getBlockByNumber
+net_version
+eth_getTransactionCount
+eth_gasPrice
+eth_sendRawTransaction
+
+  Transaction: 0x4142c47eb06bac22a2e76dececd7c5ce1e9780d78f76e9720a00adc22c07e907
+  Gas usage: 21000
+  Block number: 9
+  Block time: Mon Mar 17 2025 11:32:59 GMT+0800 (中国标准时间)
+
+evm_setAccountBalance
+eth_getBalance
+eth_getBlockByNumber
+eth_getBalance
+eth_getBalance
+eth_getCode
+eth_getCode
+net_version
+eth_syncing
+eth_getBlockByNumber
+eth_getBlockByNumber
+net_version
+eth_getTransactionCount
+eth_gasPrice
+eth_sendRawTransaction
+
+  Transaction: 0x042a8d67b9238e51a031a3057f0e90b55884457e68f092761c31f818e479b9d1
+  Gas usage: 21000
+  Block number: 11
+  Block time: Mon Mar 17 2025 11:34:41 GMT+0800 (中国标准时间)
+
+evm_setAccountBalance
+eth_getBalance
+eth_getBlockByNumber
+eth_getBalance
+eth_getBalance
+eth_getCode
+eth_getCode
+net_version
+eth_syncing
+eth_getBlockByNumber
+eth_getBlockByNumber
+net_version
+eth_getTransactionCount
+eth_gasPrice
+eth_sendRawTransaction
+
+  Transaction: 0x870b612c50da78ddbb3401e7382ae59dbc08adb36af5153ffb39275095159897
+  Gas usage: 21000
+  Block number: 13
+  Block time: Mon Mar 17 2025 11:37:52 GMT+0800 (中国标准时间)
+
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+evm_setAccountBalance
+eth_getBalance
+eth_getBlockByNumber
+eth_getBalance
+eth_getBalance
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getCode
+eth_getCode
+net_version
+eth_syncing
+eth_getBlockByNumber
+eth_getBlockByNumber
+net_version
+eth_getTransactionCount
+eth_gasPrice
+eth_sendRawTransaction
+
+  Transaction: 0xdeff5c7f973a3971b5b1661010259fbb930bed5050060f36beaa125fb162f0e2
+  Gas usage: 21000
+  Block number: 15
+  Block time: Mon Mar 17 2025 11:38:53 GMT+0800 (中国标准时间)
+
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getTransactionByHash
+net_version
+eth_getTransactionReceipt
+net_version
+eth_getTransactionCount
+eth_gasPrice
+eth_sendRawTransaction
+eth_getBlockByNumber
+
+  Transaction: 0xcb2043e517877c1a518ac033977f80feb38775f10acf65d5d478539eb40441c6
+  Gas usage: 21000
+  Block number: 16
+  Block time: Mon Mar 17 2025 11:38:55 GMT+0800 (中国标准时间)
+
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getTransactionByHash
+net_version
+eth_getTransactionReceipt
+net_version
+eth_getTransactionCount
+eth_gasPrice
+eth_sendRawTransaction
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+evm_setAccountBalance
+eth_getBalance
+eth_getBlockByNumber
+eth_getBalance
+eth_getBalance
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getCode
+eth_getCode
+net_version
+eth_syncing
+eth_getBlockByNumber
+eth_getBlockByNumber
+net_version
+eth_getTransactionCount
+eth_gasPrice
+eth_sendRawTransaction
+
+  Transaction: 0x1b728e4b43494c66da455a1fd8ea34b6cd1c6a811c21c96d33fc2580311fa9bf
+  Gas usage: 21000
+  Block number: 18
+  Block time: Mon Mar 17 2025 11:47:47 GMT+0800 (中国标准时间)
+
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getTransactionByHash
+net_version
+eth_getTransactionReceipt
+net_version
+eth_getTransactionCount
+eth_gasPrice
+eth_sendRawTransaction
+
+  Transaction: 0x316e7645c7df7bcdde627ca0d0d5309b34a87869161c15bd5d017fd63d6b28b4
+  Gas usage: 21000
+  Block number: 19
+  Block time: Mon Mar 17 2025 11:47:49 GMT+0800 (中国标准时间)
+
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber
+eth_getBlockByNumber

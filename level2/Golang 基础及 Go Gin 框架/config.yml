@@ -1,0 +1,36 @@
+currentEnv: local
+
+networks:
+  mainnet:
+    chainID: 1
+    networkName: Mainnet
+    nodeURL: https://mainnet.infura.io/v3/YOUR-PROJECT-ID
+    isTestnet: false
+    abiPath: ./artifacts/contracts
+    bindingsPath: abi/bindings
+  sepolia:
+    chainID: 11155111
+    networkName: Sepolia
+    nodeURL: https://sepolia.infura.io/v3/YOUR-PROJECT-ID
+    isTestnet: true
+    abiPath: ./artifacts/contracts
+    bindingsPath: abi/bindings
+  local:
+    chainID: 31337
+    networkName: Local
+    nodeURL: http://localhost:8545
+    isTestnet: true
+    abiPath: D:/work/gitspace/web3/web3/hardhat-project/artifacts/contracts
+    bindingsPath: abi/bindings
+
+contracts:
+  lockValue: 1000000000000000000  # 1 ETH
+  purchaseValue: 2000000000000000000  # 2 ETH
+  auctionTime: 3600
+  lockTime: 3600
+
+accounts:
+  defaultBalance: 100000000000000000000  # 100 ETH
+  addresses:
+    default: 0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1
+    second: 0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0 
