@@ -8,6 +8,8 @@ import (
 	"math/big"
 	"time"
 
+	"task2/config"
+
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
@@ -26,8 +28,10 @@ func CreateRawTransaction() error {
 	}
 	log.Println("成功连接到以太坊网络")
 
+	network := config.GetCurrentNetwork()
+
 	// 获取私钥
-	privateKeyBytes, err := hexutil.Decode(PrivateKey)
+	privateKeyBytes, err := hexutil.Decode(network.PrivateKey)
 	if err != nil {
 		return fmt.Errorf("解析私钥失败: %v", err)
 	}
@@ -80,10 +84,10 @@ func CreateRawTransaction() error {
 	if err != nil {
 		return fmt.Errorf("获取链ID失败: %v", err)
 	}
-	log.Printf("当前网络: %s (Chain ID: %d)", CurrentNetwork.NetworkName, chainID)
+	log.Printf("当前网络: %s (Chain ID: %d)", network.NetworkName, chainID)
 
 	// 签名交易
-	signer := CurrentNetwork.GetSigner(chainID)
+	signer := network.GetSigner(chainID)
 	signedTx, err := types.SignTx(tx, signer, privateKey)
 	if err != nil {
 		return fmt.Errorf("签名交易失败: %v", err)

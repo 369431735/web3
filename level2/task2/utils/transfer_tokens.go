@@ -6,6 +6,8 @@ import (
 	"log"
 	"math/big"
 
+	"task2/config"
+
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/core/types"
@@ -27,61 +29,51 @@ func TransferTokens(toAddress string, amount *big.Int) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("获取链ID失败: %v", err)
 	}
-	log.Printf("当前网络: %s (Chain ID: %d)", CurrentNetwork.NetworkName, chainID)
+
+	network := config.GetCurrentNetwork()
+	log.Printf("当前网络: %s (Chain ID: %d)", network.NetworkName, chainID)
 
 	// 解码私钥
-	privateKeyBytes, err := hexutil.Decode(PrivateKey)
+	privateKeyBytes, err := hexutil.Decode(network.PrivateKey)
 	if err != nil {
 		return "", fmt.Errorf("私钥解码失败: %v", err)
 	}
 
-	// 创建私钥对象
+	// 获取私钥
 	privateKeyECDSA, err := crypto.ToECDSA(privateKeyBytes)
 	if err != nil {
-		return "", fmt.Errorf("创建私钥对象失败: %v", err)
+		return "", fmt.Errorf("转换私钥失败: %v", err)
 	}
 
 	// 获取发送者地址
 	fromAddress := crypto.PubkeyToAddress(privateKeyECDSA.PublicKey)
 	log.Printf("发送者地址: %s", fromAddress.Hex())
 
-	// 获取接收者地址
-	to := common.HexToAddress(toAddress)
-	log.Printf("接收者地址: %s", to.Hex())
-
-	// 获取发送者的 nonce
+	// 获取nonce
 	nonce, err := client.PendingNonceAt(context.Background(), fromAddress)
 	if err != nil {
 		return "", fmt.Errorf("获取nonce失败: %v", err)
 	}
-	log.Printf("当前 nonce: %d", nonce)
+	log.Printf("当前nonce: %d", nonce)
 
-	// 设置 gas 限制
+	// 获取gas limit
 	gasLimit := uint64(21000)
-	log.Printf("Gas 限制: %d", gasLimit)
+	log.Printf("Gas limit: %d", gasLimit)
 
-	// 获取当前建议的 gas 价格
+	// 获取gas price
 	gasPrice, err := client.SuggestGasPrice(context.Background())
 	if err != nil {
-		return "", fmt.Errorf("获取gas价格失败: %v", err)
+		return "", fmt.Errorf("获取gas price失败: %v", err)
 	}
-	log.Printf("Gas 价格: %s Wei", gasPrice.String())
-
-	// 创建基础交易数据
-	data := &types.LegacyTx{
-		Nonce:    nonce,
-		To:       &to,
-		Value:    amount,
-		Gas:      gasLimit,
-		GasPrice: gasPrice,
-		Data:     nil,
-	}
+	log.Printf("Gas price: %s", gasPrice.String())
 
 	// 创建交易
-	tx := types.NewTx(data)
+	to := common.HexToAddress(toAddress)
+	tx := types.NewTransaction(nonce, to, amount, gasLimit, gasPrice, nil)
+	log.Println("交易创建成功")
 
 	// 使用网络配置中的签名器
-	signer := CurrentNetwork.GetSigner(chainID)
+	signer := network.GetSigner(chainID)
 	signedTx, err := types.SignTx(tx, signer, privateKeyECDSA)
 	if err != nil {
 		return "", fmt.Errorf("签名交易失败: %v", err)
@@ -96,7 +88,6 @@ func TransferTokens(toAddress string, amount *big.Int) (string, error) {
 
 	txHash := signedTx.Hash().Hex()
 	log.Printf("交易发送成功，交易哈希: %s", txHash)
-
 	return txHash, nil
 }
 
@@ -115,61 +106,51 @@ func TransferTokensWithData(toAddress string, amount *big.Int, data []byte) (str
 	if err != nil {
 		return "", fmt.Errorf("获取链ID失败: %v", err)
 	}
-	log.Printf("当前网络: %s (Chain ID: %d)", CurrentNetwork.NetworkName, chainID)
+
+	network := config.GetCurrentNetwork()
+	log.Printf("当前网络: %s (Chain ID: %d)", network.NetworkName, chainID)
 
 	// 解码私钥
-	privateKeyBytes, err := hexutil.Decode(PrivateKey)
+	privateKeyBytes, err := hexutil.Decode(network.PrivateKey)
 	if err != nil {
 		return "", fmt.Errorf("私钥解码失败: %v", err)
 	}
 
-	// 创建私钥对象
+	// 获取私钥
 	privateKeyECDSA, err := crypto.ToECDSA(privateKeyBytes)
 	if err != nil {
-		return "", fmt.Errorf("创建私钥对象失败: %v", err)
+		return "", fmt.Errorf("转换私钥失败: %v", err)
 	}
 
 	// 获取发送者地址
 	fromAddress := crypto.PubkeyToAddress(privateKeyECDSA.PublicKey)
 	log.Printf("发送者地址: %s", fromAddress.Hex())
 
-	// 获取接收者地址
-	to := common.HexToAddress(toAddress)
-	log.Printf("接收者地址: %s", to.Hex())
-
-	// 获取发送者的 nonce
+	// 获取nonce
 	nonce, err := client.PendingNonceAt(context.Background(), fromAddress)
 	if err != nil {
 		return "", fmt.Errorf("获取nonce失败: %v", err)
 	}
-	log.Printf("当前 nonce: %d", nonce)
+	log.Printf("当前nonce: %d", nonce)
 
-	// 设置 gas 限制（对于带数据的交易，需要更多的 gas）
-	gasLimit := uint64(100000) // 增加 gas 限制
-	log.Printf("Gas 限制: %d", gasLimit)
+	// 获取gas limit
+	gasLimit := uint64(21000)
+	log.Printf("Gas limit: %d", gasLimit)
 
-	// 获取当前建议的 gas 价格
+	// 获取gas price
 	gasPrice, err := client.SuggestGasPrice(context.Background())
 	if err != nil {
-		return "", fmt.Errorf("获取gas价格失败: %v", err)
+		return "", fmt.Errorf("获取gas price失败: %v", err)
 	}
-	log.Printf("Gas 价格: %s Wei", gasPrice.String())
-
-	// 创建基础交易数据
-	txData := &types.LegacyTx{
-		Nonce:    nonce,
-		To:       &to,
-		Value:    amount,
-		Gas:      gasLimit,
-		GasPrice: gasPrice,
-		Data:     data,
-	}
+	log.Printf("Gas price: %s", gasPrice.String())
 
 	// 创建交易
-	tx := types.NewTx(txData)
+	to := common.HexToAddress(toAddress)
+	tx := types.NewTransaction(nonce, to, amount, gasLimit, gasPrice, data)
+	log.Println("交易创建成功")
 
 	// 使用网络配置中的签名器
-	signer := CurrentNetwork.GetSigner(chainID)
+	signer := network.GetSigner(chainID)
 	signedTx, err := types.SignTx(tx, signer, privateKeyECDSA)
 	if err != nil {
 		return "", fmt.Errorf("签名交易失败: %v", err)
@@ -184,6 +165,5 @@ func TransferTokensWithData(toAddress string, amount *big.Int, data []byte) (str
 
 	txHash := signedTx.Hash().Hex()
 	log.Printf("交易发送成功，交易哈希: %s", txHash)
-
 	return txHash, nil
 }

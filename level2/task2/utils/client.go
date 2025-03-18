@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"web3/config"
+	"task2/config"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/crypto"
@@ -37,9 +37,6 @@ func SetAccountBalance() error {
 	if err != nil {
 		return fmt.Errorf("解析私钥失败: %v", err)
 	}
-
-	// 获取账户地址
-	address := crypto.PubkeyToAddress(privateKey.PublicKey)
 
 	// 获取链ID
 	chainID, err := client.ChainID(context.Background())

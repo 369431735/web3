@@ -14,6 +14,13 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 )
 
+// 常量定义
+const (
+	PrivateKey2     = "0x6cbed15c793ce57650b9877cf6fa156fbef513c4e6134f022a85b1ffdd59b2a1"
+	AccountAddress  = "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1"
+	AccountAddress2 = "0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0"
+)
+
 // 根据私钥计算地址
 func AddressCul() error {
 	log.Println("=== 根据私钥计算地址 ===")

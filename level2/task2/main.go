@@ -16,8 +16,8 @@ import (
 	"math/big"
 	"time"
 
-	"web3/level2/golang_gin/abi/bindings"
-	"web3/level2/golang_gin/utils"
+	"task2/abi/bindings"
+	"task2/utils"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/core/types"

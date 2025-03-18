@@ -6,6 +6,8 @@ import (
 	"log"
 	"math/big"
 
+	"task2/config"
+
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/core/types"
@@ -27,10 +29,12 @@ func CreateAndSendTransaction() (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("获取链ID失败: %v", err)
 	}
-	log.Printf("当前网络: %s (Chain ID: %d)", CurrentNetwork.NetworkName, chainID)
+
+	network := config.GetCurrentNetwork()
+	log.Printf("当前网络: %s (Chain ID: %d)", network.NetworkName, chainID)
 
 	// 解码私钥
-	privateKeyBytes, err := hexutil.Decode(PrivateKey)
+	privateKeyBytes, err := hexutil.Decode(network.PrivateKey)
 	if err != nil {
 		return "", fmt.Errorf("私钥解码失败: %v", err)
 	}
@@ -85,7 +89,7 @@ func CreateAndSendTransaction() (string, error) {
 	tx := types.NewTx(data)
 
 	// 使用网络配置中的签名器
-	signer := CurrentNetwork.GetSigner(chainID)
+	signer := network.GetSigner(chainID)
 	signedTx, err := types.SignTx(tx, signer, privateKeyECDSA)
 	if err != nil {
 		return "", fmt.Errorf("签名交易失败: %v", err)
@@ -129,7 +133,7 @@ func QueryTransaction(txHash string) error {
 	}
 
 	// 使用网络配置中的签名器
-	signer := CurrentNetwork.GetSigner(chainID)
+	signer := config.GetCurrentNetwork().GetSigner(chainID)
 	sender, err := signer.Sender(tx)
 	if err != nil {
 		return fmt.Errorf("获取交易发送者失败: %v", err)
