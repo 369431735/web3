@@ -61,7 +61,8 @@ func CreateKs() error {
 	password := "secret"
 	account, err := ks.NewAccount(password)
 	if err != nil {
-		return fmt.Errorf("创建账户失败: %v", err)
+		log.Printf("创建账户失败: %v", err)
+		return nil
 	}
 	log.Printf("成功创建新账户，地址: %s", account.Address.Hex())
 

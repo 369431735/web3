@@ -10,7 +10,6 @@ import (
 	"regexp"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/crypto"
 )
 
@@ -26,19 +25,13 @@ func AddressCul() error {
 	log.Println("=== 根据私钥计算地址 ===")
 
 	// 将私钥字符串转换为字节
-	privateKeyBytes, err := hexutil.Decode(PrivateKey2)
+	privateKey, err := GetPrivateKey(PrivateKey2)
 	if err != nil {
 		return fmt.Errorf("私钥解码失败: %v", err)
 	}
 
-	// 从字节创建私钥对象
-	privateKeyECDSA, err := crypto.ToECDSA(privateKeyBytes)
-	if err != nil {
-		return fmt.Errorf("创建私钥对象失败: %v", err)
-	}
-
 	// 从私钥获取公钥
-	publicKey := privateKeyECDSA.Public()
+	publicKey := privateKey.Public()
 	publicKeyECDSA, ok := publicKey.(*ecdsa.PublicKey)
 	if !ok {
 		return fmt.Errorf("转换公钥类型失败")

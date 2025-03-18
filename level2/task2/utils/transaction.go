@@ -9,7 +9,6 @@ import (
 	"task2/config"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
 )
@@ -33,20 +32,14 @@ func CreateAndSendTransaction() (string, error) {
 	network := config.GetCurrentNetwork()
 	log.Printf("当前网络: %s (Chain ID: %d)", network.NetworkName, chainID)
 
-	// 解码私钥
-	privateKeyBytes, err := hexutil.Decode(network.PrivateKey)
+	// 获取私钥
+	privateKey, err := GetPrivateKey(network.PrivateKey)
 	if err != nil {
-		return "", fmt.Errorf("私钥解码失败: %v", err)
-	}
-
-	// 创建私钥对象
-	privateKeyECDSA, err := crypto.ToECDSA(privateKeyBytes)
-	if err != nil {
-		return "", fmt.Errorf("创建私钥对象失败: %v", err)
+		return "", fmt.Errorf("解析私钥失败: %v", err)
 	}
 
 	// 获取发送者地址
-	fromAddress := crypto.PubkeyToAddress(privateKeyECDSA.PublicKey)
+	fromAddress := crypto.PubkeyToAddress(privateKey.PublicKey)
 	log.Printf("发送者地址: %s", fromAddress.Hex())
 
 	// 获取接收者地址
@@ -90,7 +83,7 @@ func CreateAndSendTransaction() (string, error) {
 
 	// 使用网络配置中的签名器
 	signer := network.GetSigner(chainID)
-	signedTx, err := types.SignTx(tx, signer, privateKeyECDSA)
+	signedTx, err := types.SignTx(tx, signer, privateKey)
 	if err != nil {
 		return "", fmt.Errorf("签名交易失败: %v", err)
 	}

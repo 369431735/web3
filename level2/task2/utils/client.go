@@ -7,9 +7,13 @@ import (
 	"task2/config"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
 )
+
+// GetConfig 获取全局配置
+func GetConfig() *config.Config {
+	return config.GetConfig()
+}
 
 // InitClient 初始化以太坊客户端
 func InitClient() (*ethclient.Client, error) {
@@ -33,7 +37,7 @@ func SetAccountBalance() error {
 	cfg := config.GetConfig()
 
 	// 获取私钥
-	privateKey, err := crypto.HexToECDSA(network.PrivateKey)
+	privateKey, err := GetPrivateKey(network.PrivateKey)
 	if err != nil {
 		return fmt.Errorf("解析私钥失败: %v", err)
 	}

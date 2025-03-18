@@ -12,7 +12,6 @@ import (
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
 )
@@ -31,14 +30,9 @@ func CreateRawTransaction() error {
 	network := config.GetCurrentNetwork()
 
 	// 获取私钥
-	privateKeyBytes, err := hexutil.Decode(network.PrivateKey)
+	privateKey, err := GetPrivateKey(network.PrivateKey)
 	if err != nil {
 		return fmt.Errorf("解析私钥失败: %v", err)
-	}
-
-	privateKey, err := crypto.ToECDSA(privateKeyBytes)
-	if err != nil {
-		return fmt.Errorf("创建私钥对象失败: %v", err)
 	}
 
 	// 从私钥获取公钥

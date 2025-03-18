@@ -1,11 +1,11 @@
 /node_modules/level2.iml
 level2/.idea/
-level2/Golang 基础及 Go Gin 框架/go.sum
-level2/Golang 基础及 Go Gin 框架/tmp/
-level2/Golang 基础及 Go Gin 框架/ganache.log
+level2/task2/go.sum
+level2/task2/tmp/
+level2/task2/ganache.log
 
-level2/Golang 基础及 Go Gin 框架/__debug_bin659923412.exe
+level2/task2/__debug_bin659923412.exe
 
-level2/Golang 基础及 Go Gin 框架/__debug_bin2525092076.exe
+level2/task2/__debug_bin2525092076.exe
 了解如何使用Solidity/ganache.log
 level2/Golang 基础及 Go Gin 框架/*.exe

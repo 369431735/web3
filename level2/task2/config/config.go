@@ -1,218 +1,217 @@
 package config
 
 import (
+	"fmt"
+	"log"
 	"math/big"
 	"os"
-	"strconv"
 
-	"log"
-
-	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/joho/godotenv"
 	"gopkg.in/yaml.v3"
 )
 
-// NetworkConfig 网络环境配置
+// NetworkConfig 网络配置
 type NetworkConfig struct {
-	ChainID      *big.Int
-	NetworkName  string
-	NodeURL      string
-	IsTestnet    bool
-	ABIPath      string
-	BindingsPath string
-	PrivateKey   string
-	GetSigner    func(*big.Int) types.Signer
+	NetworkName string `yaml:"network_name"`
+	ChainID     int64  `yaml:"chain_id"`
+	NodeURL     string `yaml:"node_url"`
+	PrivateKey  string `yaml:"private_key"`
 }
 
 // ContractConfig 合约配置
 type ContractConfig struct {
-	LockValue     *big.Int
-	PurchaseValue *big.Int
-	AuctionTime   int64
-	LockTime      int64
+	SimpleStorageAddress string   `yaml:"simpleStorageAddress"`
+	LockAddress          string   `yaml:"lockAddress"`
+	ShippingAddress      string   `yaml:"shippingAddress"`
+	SimpleAuctionAddress string   `yaml:"simpleAuctionAddress"`
+	PurchaseAddress      string   `yaml:"purchaseAddress"`
+	LockTime             int64    `yaml:"lockTime"`
+	LockValue            *big.Int `yaml:"lockValue"`
+	AuctionTime          int64    `yaml:"auctionTime"`
+	PurchaseValue        *big.Int `yaml:"purchaseValue"`
 }
 
 // AccountConfig 账户配置
 type AccountConfig struct {
-	DefaultBalance *big.Int
-	Addresses      map[string]common.Address
-	PrivateKeys    map[string]string
+	DefaultBalance *big.Int `yaml:"default_balance"`
 }
 
 // Config 全局配置
 type Config struct {
-	Networks   map[string]NetworkConfig
-	Contracts  ContractConfig
-	Accounts   AccountConfig
-	CurrentEnv string
+	Networks  map[string]NetworkConfig `yaml:"networks"`
+	Contracts ContractConfig           `yaml:"contracts"`
+	Accounts  AccountConfig            `yaml:"accounts"`
 }
 
 var (
-	// 预定义网络配置
-	Networks = map[string]NetworkConfig{
-		"mainnet": {
-			ChainID:      big.NewInt(1),
-			NetworkName:  "Mainnet",
-			NodeURL:      "https://mainnet.infura.io/v3/YOUR-PROJECT-ID",
-			IsTestnet:    false,
-			ABIPath:      "./artifacts/contracts",
-			BindingsPath: "abi/bindings",
-			PrivateKey:   os.Getenv("ETH_MAINNET_PRIVATE_KEY"),
-			GetSigner:    func(chainID *big.Int) types.Signer { return types.NewLondonSigner(chainID) },
-		},
-		"sepolia": {
-			ChainID:      big.NewInt(11155111),
-			NetworkName:  "Sepolia",
-			NodeURL:      "https://sepolia.infura.io/v3/YOUR-PROJECT-ID",
-			IsTestnet:    true,
-			ABIPath:      "./artifacts/contracts",
-			BindingsPath: "abi/bindings",
-			PrivateKey:   os.Getenv("ETH_TESTNET_PRIVATE_KEY"),
-			GetSigner:    func(chainID *big.Int) types.Signer { return types.NewLondonSigner(chainID) },
-		},
-		"local": {
-			ChainID:      big.NewInt(31337),
-			NetworkName:  "Local",
-			NodeURL:      "http://localhost:8545",
-			IsTestnet:    true,
-			ABIPath:      "D:/work/gitspace/web3/web3/hardhat-project/artifacts/contracts",
-			BindingsPath: "abi/bindings",
-			PrivateKey:   "ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
-			GetSigner:    func(chainID *big.Int) types.Signer { return types.NewLondonSigner(chainID) },
-		},
-	}
-
-	// 合约配置
-	Contracts = ContractConfig{
-		LockValue:     new(big.Int),
-		PurchaseValue: new(big.Int),
-		AuctionTime:   3600,
-		LockTime:      3600,
-	}
-
-	// 账户配置
-	Accounts = AccountConfig{
-		DefaultBalance: new(big.Int),
-		Addresses: map[string]common.Address{
-			"default": common.HexToAddress("0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1"),
-			"second":  common.HexToAddress("0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0"),
-		},
-		PrivateKeys: map[string]string{
-			"default": "0x4f3edf983ac636a65a842ce7c78d9aa706d3b113bce9c46f30d7d21715b23b1d",
-			"second":  "0x6cbed15c793ce57650b9877cf6fa156fbef513c4e6134f022a85b1ffdd59b2a1",
-		},
-	}
-
-	// GlobalConfig 全局配置实例
-	GlobalConfig = &Config{
-		Networks:   Networks,
-		Contracts:  Contracts,
-		Accounts:   Accounts,
-		CurrentEnv: "local", // 默认使用本地网络
-	}
+	globalConfig   Config
+	currentNetwork string
 )
-
-func init() {
-	// 加载.env文件
-	if err := godotenv.Load(); err != nil {
-		log.Printf("警告：无法加载.env文件: %v", err)
-	}
-
-	// 设置默认值
-	GlobalConfig.Contracts.LockValue.SetString("1000000000000000000", 10)       // 1 ETH
-	GlobalConfig.Contracts.PurchaseValue.SetString("2000000000000000000", 10)   // 2 ETH
-	GlobalConfig.Accounts.DefaultBalance.SetString("100000000000000000000", 10) // 100 ETH
-
-	// 首先从环境变量加载配置
-	loadFromEnv()
-
-	// 然后尝试从配置文件加载（会覆盖环境变量的值）
-	loadFromFile()
-
-	// 设置环境变量
-	network := GetCurrentNetwork()
-	os.Setenv("ABI_PATH", network.ABIPath)
-}
-
-// loadFromEnv 从环境变量加载配置
-func loadFromEnv() {
-	// 加载当前环境
-	if env := os.Getenv("ETH_ENV"); env != "" {
-		GlobalConfig.CurrentEnv = env
-	}
-
-	// 加载合约配置
-	if lockValue := os.Getenv("CONTRACT_LOCK_VALUE"); lockValue != "" {
-		if value, ok := new(big.Int).SetString(lockValue, 10); ok {
-			GlobalConfig.Contracts.LockValue = value
-		}
-	}
-	if purchaseValue := os.Getenv("CONTRACT_PURCHASE_VALUE"); purchaseValue != "" {
-		if value, ok := new(big.Int).SetString(purchaseValue, 10); ok {
-			GlobalConfig.Contracts.PurchaseValue = value
-		}
-	}
-	if auctionTime := os.Getenv("CONTRACT_AUCTION_TIME"); auctionTime != "" {
-		if value, err := strconv.ParseInt(auctionTime, 10, 64); err == nil {
-			GlobalConfig.Contracts.AuctionTime = value
-		}
-	}
-	if lockTime := os.Getenv("CONTRACT_LOCK_TIME"); lockTime != "" {
-		if value, err := strconv.ParseInt(lockTime, 10, 64); err == nil {
-			GlobalConfig.Contracts.LockTime = value
-		}
-	}
-
-	// 加载账户配置
-	if balance := os.Getenv("ACCOUNT_DEFAULT_BALANCE"); balance != "" {
-		if value, ok := new(big.Int).SetString(balance, 10); ok {
-			GlobalConfig.Accounts.DefaultBalance = value
-		}
-	}
-}
-
-// loadFromFile 从配置文件加载配置
-func loadFromFile() {
-	data, err := os.ReadFile("config.yml")
-	if err != nil {
-		log.Printf("无法读取配置文件: %v", err)
-		return
-	}
-
-	var config Config
-	if err := yaml.Unmarshal(data, &config); err != nil {
-		log.Printf("解析配置文件失败: %v", err)
-		return
-	}
-
-	// 合并配置
-	if config.CurrentEnv != "" {
-		GlobalConfig.CurrentEnv = config.CurrentEnv
-	}
-	if config.Contracts.LockValue != nil {
-		GlobalConfig.Contracts.LockValue = config.Contracts.LockValue
-	}
-	if config.Contracts.PurchaseValue != nil {
-		GlobalConfig.Contracts.PurchaseValue = config.Contracts.PurchaseValue
-	}
-	if config.Contracts.AuctionTime != 0 {
-		GlobalConfig.Contracts.AuctionTime = config.Contracts.AuctionTime
-	}
-	if config.Contracts.LockTime != 0 {
-		GlobalConfig.Contracts.LockTime = config.Contracts.LockTime
-	}
-	if config.Accounts.DefaultBalance != nil {
-		GlobalConfig.Accounts.DefaultBalance = config.Accounts.DefaultBalance
-	}
-}
-
-// GetCurrentNetwork 获取当前网络配置
-func GetCurrentNetwork() NetworkConfig {
-	return GlobalConfig.Networks[GlobalConfig.CurrentEnv]
-}
 
 // GetConfig 获取全局配置
 func GetConfig() *Config {
-	return GlobalConfig
+	return &globalConfig
+}
+
+// GetCurrentNetwork 获取当前网络配置
+func GetCurrentNetwork() *NetworkConfig {
+	if network, ok := globalConfig.Networks[currentNetwork]; ok {
+		return &network
+	}
+	return nil
+}
+
+// GetSigner 获取签名器
+func (n *NetworkConfig) GetSigner(chainID *big.Int) types.Signer {
+	return types.NewLondonSigner(chainID)
+}
+
+// 初始化配置
+func init() {
+	// 加载环境变量
+	if err := godotenv.Load(); err != nil {
+		log.Printf("警告: .env 文件未找到，使用默认配置")
+	}
+
+	// 创建大整数
+	lockValue := new(big.Int)
+	lockValue.SetString("1000000000000000000", 10) // 1 ETH
+
+	purchaseValue := new(big.Int)
+	purchaseValue.SetString("2000000000000000000", 10) // 2 ETH
+
+	defaultBalance := new(big.Int)
+	defaultBalance.SetString("10000000000000000000", 10) // 10 ETH
+
+	// 设置默认配置
+	globalConfig = Config{
+		Networks: map[string]NetworkConfig{
+			"mainnet": {
+				NetworkName: "Mainnet",
+				ChainID:     1,
+				NodeURL:     "https://mainnet.infura.io/v3/your-project-id",
+			},
+			"sepolia": {
+				NetworkName: "Sepolia",
+				ChainID:     11155111,
+				NodeURL:     "https://sepolia.infura.io/v3/your-project-id",
+			},
+			"local": {
+				NetworkName: "Local",
+				ChainID:     31337,
+				NodeURL:     "http://127.0.0.1:8545",
+				PrivateKey:  "ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
+			},
+		},
+		Contracts: ContractConfig{
+			LockTime:      3600,          // 1小时
+			LockValue:     lockValue,     // 1 ETH
+			AuctionTime:   7200,          // 2小时
+			PurchaseValue: purchaseValue, // 2 ETH
+		},
+		Accounts: AccountConfig{
+			DefaultBalance: defaultBalance, // 10 ETH
+		},
+	}
+
+	// 从配置文件加载
+	configFile := "config.yml"
+	if _, err := os.Stat(configFile); err == nil {
+		data, err := os.ReadFile(configFile)
+		if err != nil {
+			log.Printf("读取配置文件失败: %v", err)
+			return
+		}
+
+		var fileConfig Config
+		if err := yaml.Unmarshal(data, &fileConfig); err != nil {
+			log.Printf("解析配置文件失败: %v", err)
+			return
+		}
+
+		// 合并配置
+		mergeConfig(&globalConfig, &fileConfig)
+	}
+
+	// 设置当前网络
+	network := os.Getenv("NETWORK")
+	if network == "" {
+		network = "local" // 默认使用本地网络
+	}
+	if _, ok := globalConfig.Networks[network]; !ok {
+		log.Printf("警告: 网络 %s 未配置，使用本地网络", network)
+		network = "local"
+	}
+	currentNetwork = network
+}
+
+// 合并配置
+func mergeConfig(dst, src *Config) {
+	// 合并网络配置
+	for name, network := range src.Networks {
+		if _, ok := dst.Networks[name]; !ok {
+			dst.Networks[name] = network
+		}
+	}
+
+	// 合并合约配置
+	if src.Contracts.LockTime > 0 {
+		dst.Contracts.LockTime = src.Contracts.LockTime
+	}
+	if src.Contracts.LockValue != nil {
+		dst.Contracts.LockValue = src.Contracts.LockValue
+	}
+	if src.Contracts.AuctionTime > 0 {
+		dst.Contracts.AuctionTime = src.Contracts.AuctionTime
+	}
+	if src.Contracts.PurchaseValue != nil {
+		dst.Contracts.PurchaseValue = src.Contracts.PurchaseValue
+	}
+
+	// 合并账户配置
+	if src.Accounts.DefaultBalance != nil {
+		dst.Accounts.DefaultBalance = src.Accounts.DefaultBalance
+	}
+}
+
+// SaveContractAddresses 保存合约地址到配置文件
+func SaveContractAddresses(contracts ContractConfig) error {
+	// 读取现有的配置文件
+	data, err := os.ReadFile("config.yml")
+	if err != nil {
+		if os.IsNotExist(err) {
+			// 如果文件不存在，创建一个新的配置
+			data = []byte{}
+		} else {
+			return fmt.Errorf("读取配置文件失败: %v", err)
+		}
+	}
+
+	// 解析现有的配置
+	var config Config
+	if len(data) > 0 {
+		if err := yaml.Unmarshal(data, &config); err != nil {
+			return fmt.Errorf("解析配置文件失败: %v", err)
+		}
+	}
+
+	// 更新合约地址
+	config.Contracts.SimpleStorageAddress = contracts.SimpleStorageAddress
+	config.Contracts.LockAddress = contracts.LockAddress
+	config.Contracts.ShippingAddress = contracts.ShippingAddress
+	config.Contracts.SimpleAuctionAddress = contracts.SimpleAuctionAddress
+	config.Contracts.PurchaseAddress = contracts.PurchaseAddress
+
+	// 将配置写回文件
+	newData, err := yaml.Marshal(config)
+	if err != nil {
+		return fmt.Errorf("序列化配置失败: %v", err)
+	}
+
+	if err := os.WriteFile("config.yml", newData, 0644); err != nil {
+		return fmt.Errorf("保存配置文件失败: %v", err)
+	}
+
+	return nil
 }
