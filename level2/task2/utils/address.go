@@ -8,6 +8,7 @@ import (
 	"math"
 	"math/big"
 	"regexp"
+	"task2/config"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
@@ -15,17 +16,16 @@ import (
 
 // 常量定义
 const (
-	PrivateKey2     = "0x6cbed15c793ce57650b9877cf6fa156fbef513c4e6134f022a85b1ffdd59b2a1"
-	AccountAddress  = "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1"
-	AccountAddress2 = "0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0"
+	AccountAddress = "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
 )
 
 // 根据私钥计算地址
 func AddressCul() error {
 	log.Println("=== 根据私钥计算地址 ===")
 
-	// 将私钥字符串转换为字节
-	privateKey, err := GetPrivateKey(PrivateKey2)
+	// 从配置文件获取私钥
+	network := config.GetCurrentNetwork()
+	privateKey, err := GetPrivateKey(network.PrivateKey)
 	if err != nil {
 		return fmt.Errorf("私钥解码失败: %v", err)
 	}

@@ -5,7 +5,22 @@ import (
 	"fmt"
 	"log"
 	"time"
+
+	"github.com/ethereum/go-ethereum"
+	"github.com/ethereum/go-ethereum/common"
+	ethTypes "github.com/ethereum/go-ethereum/core/types"
+	"github.com/ethereum/go-ethereum/ethclient"
 )
+
+// LogError 记录错误日志
+func LogError(message string, err error) {
+	log.Printf("错误: %s - %v", message, err)
+}
+
+// LogInfo 记录信息日志
+func LogInfo(message string, data map[string]interface{}) {
+	log.Printf("信息: %s - %+v", message, data)
+}
 
 // 查询区块信息
 func BlockInfo() error {
@@ -62,4 +77,82 @@ func BlockInfo() error {
 	log.Printf("区块Gas使用量: %d", block.GasUsed())
 
 	return nil
+}
+
+// SubscribeNewBlock 订阅新区块
+func SubscribeNewBlock(client *ethclient.Client) error {
+	headers := make(chan *ethTypes.Header)
+	sub, err := client.SubscribeNewHead(context.Background(), headers)
+	if err != nil {
+		return err
+	}
+
+	go func() {
+		for {
+			select {
+			case err := <-sub.Err():
+				log.Printf("订阅错误: %v", err)
+			case header := <-headers:
+				block, err := client.BlockByHash(context.Background(), header.Hash())
+				if err != nil {
+					log.Printf("获取区块错误: %v", err)
+					continue
+				}
+				log.Printf("新区块: 区块号=%v, 时间戳=%v, 交易数=%v",
+					block.Number().String(),
+					block.Time(),
+					len(block.Transactions()))
+			}
+		}
+	}()
+
+	return nil
+}
+
+// SubscribeContractEvents 订阅合约事件
+func SubscribeContractEvents(client *ethclient.Client, contracts map[string]common.Address) {
+	for name, address := range contracts {
+		go subscribeContractEvents(client, name, address)
+	}
+}
+
+// subscribeContractEvents 订阅单个合约的事件
+func subscribeContractEvents(client *ethclient.Client, name string, address common.Address) {
+	// 创建事件过滤器
+	query := ethereum.FilterQuery{
+		Addresses: []common.Address{address},
+	}
+
+	// 订阅日志
+	logs := make(chan ethTypes.Log)
+	sub, err := client.SubscribeFilterLogs(context.Background(), query, logs)
+	if err != nil {
+		LogError("订阅合约事件失败", err)
+		return
+	}
+
+	// 处理事件
+	for {
+		select {
+		case err := <-sub.Err():
+			LogError("合约事件订阅错误", err)
+		case vLog := <-logs:
+			// 记录事件信息
+			LogInfo("合约事件", map[string]interface{}{
+				"contract": name,
+				"address":  address.Hex(),
+				"topics":   vLog.Topics,
+				"data":     vLog.Data,
+			})
+		}
+	}
+}
+
+// ContractEvent 合约事件结构
+type ContractEvent struct {
+	ContractName string
+	EventName    string
+	Address      common.Address
+	Topics       []common.Hash
+	Data         []byte
 }

@@ -1,0 +1,48 @@
+{
+    // ${workspaceFolder} 会自动指向项目根目录 (D:\work\gitspace\web3\web3\level2\task2)
+    // 确保通过 VS Code 打开 task2 目录，而不是其父目录或子目录
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Web3 API",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}", // 指向 task2 目录
+            "env": {
+                "GIN_MODE": "debug",
+                "NETWORK": "local",  // 修改为 local
+                "PORT": "8080"
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}", // 工作目录设置为项目根目录
+            "output": "${workspaceFolder}/debug"
+        },
+        {
+            "name": "Generate Contract Bindings",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/cmd/generate",
+            "env": {
+                "ABI_PATH": "${workspaceFolder}/../hardhat-project/artifacts/contracts"
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Test Web3 API",
+            "type": "go",
+            "request": "launch",
+            "mode": "test",
+            "program": "${workspaceFolder}",
+            "env": {
+                "GIN_MODE": "test",
+                "NETWORK": "local"
+            },
+            "args": ["-v"],
+            "cwd": "${workspaceFolder}"
+        }
+    ],
+    "compounds": []
+}

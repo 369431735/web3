@@ -14,7 +14,7 @@ import (
 )
 
 // 创建并发送交易
-func CreateAndSendTransaction() (string, error) {
+func CreateAndSendTransaction(from string, to string, amount *big.Int) (string, error) {
 	log.Println("=== 创建并发送交易演示 ===")
 
 	// 连接到以太坊网络
@@ -33,7 +33,7 @@ func CreateAndSendTransaction() (string, error) {
 	log.Printf("当前网络: %s (Chain ID: %d)", network.NetworkName, chainID)
 
 	// 获取私钥
-	privateKey, err := GetPrivateKey(network.PrivateKey)
+	privateKey, err := GetPrivateKey(config.Accounts[from].PrivateKey)
 	if err != nil {
 		return "", fmt.Errorf("解析私钥失败: %v", err)
 	}
@@ -43,7 +43,7 @@ func CreateAndSendTransaction() (string, error) {
 	log.Printf("发送者地址: %s", fromAddress.Hex())
 
 	// 获取接收者地址
-	toAddress := common.HexToAddress("0x8e215d06ea7ec1fdb4fc5fd21768f4b34ee92ef4")
+	toAddress := common.HexToAddress(config.Accounts[to].PrivateKey)
 	log.Printf("接收者地址: %s", toAddress.Hex())
 
 	// 获取发送者的 nonce
@@ -54,7 +54,7 @@ func CreateAndSendTransaction() (string, error) {
 	log.Printf("当前 nonce: %d", nonce)
 
 	// 设置交易金额（根据是否是测试网络调整）
-	value := big.NewInt(1000000000000000) // 0.001 ETH for testnet
+	value := amount // 0.001 ETH for testnet
 	log.Printf("发送金额: %s Wei", value.String())
 
 	// 设置 gas 限制

@@ -1,0 +1,2 @@
+1  task/controller 下申明的struct 都放在controller/types.go中
+2

@@ -5,10 +5,11 @@ import (
 	"log"
 	"math/big"
 	"os"
+	"path/filepath"
 
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/joho/godotenv"
-	"gopkg.in/yaml.v3"
+	"gopkg.in/yaml.v2"
 )
 
 // NetworkConfig 网络配置
@@ -17,40 +18,77 @@ type NetworkConfig struct {
 	ChainID     int64  `yaml:"chain_id"`
 	NodeURL     string `yaml:"node_url"`
 	PrivateKey  string `yaml:"private_key"`
+	Port        int    `yaml:"port"`
 }
 
 // ContractConfig 合约配置
 type ContractConfig struct {
+	LockTime             int64    `yaml:"lockTime"`
+	LockValue            *big.Int `yaml:"lockValue"`
+	AuctionTime          int64    `yaml:"auctionTime"`
+	PurchaseValue        *big.Int `yaml:"purchaseValue"`
 	SimpleStorageAddress string   `yaml:"simpleStorageAddress"`
 	LockAddress          string   `yaml:"lockAddress"`
 	ShippingAddress      string   `yaml:"shippingAddress"`
 	SimpleAuctionAddress string   `yaml:"simpleAuctionAddress"`
 	PurchaseAddress      string   `yaml:"purchaseAddress"`
-	LockTime             int64    `yaml:"lockTime"`
-	LockValue            *big.Int `yaml:"lockValue"`
-	AuctionTime          int64    `yaml:"auctionTime"`
-	PurchaseValue        *big.Int `yaml:"purchaseValue"`
 }
 
 // AccountConfig 账户配置
 type AccountConfig struct {
-	DefaultBalance *big.Int `yaml:"default_balance"`
+	PrivateKey string `yaml:"private_key"`
+	Address    string `yaml:"address"`
 }
 
-// Config 全局配置
+// ServerConfig 服务器配置
+type ServerConfig struct {
+	Port     int    `yaml:"port"`
+	Host     string `yaml:"host"`
+	BasePath string `yaml:"base_path"`
+	CORS     struct {
+		AllowedOrigins []string `yaml:"allowed_origins"`
+		AllowedMethods []string `yaml:"allowed_methods"`
+		AllowedHeaders []string `yaml:"allowed_headers"`
+	} `yaml:"cors"`
+	Swagger struct {
+		Enabled      bool   `yaml:"enabled"`
+		Path         string `yaml:"path"`
+		Title        string `yaml:"title"`
+		Description  string `yaml:"description"`
+		Version      string `yaml:"version"`
+		ContactName  string `yaml:"contact_name"`
+		ContactEmail string `yaml:"contact_email"`
+		LicenseName  string `yaml:"license_name"`
+		LicenseURL   string `yaml:"license_url"`
+	} `yaml:"swagger"`
+}
+
+// LogConfig 日志配置
+type LogConfig struct {
+	Level    string `yaml:"level"`
+	Filename string `yaml:"filename"`
+}
+
+// Config 配置结构体
 type Config struct {
 	Networks  map[string]NetworkConfig `yaml:"networks"`
+	Server    ServerConfig             `yaml:"server"`
 	Contracts ContractConfig           `yaml:"contracts"`
-	Accounts  AccountConfig            `yaml:"accounts"`
+	Accounts  map[string]AccountConfig `yaml:"accounts"`
+	Log       LogConfig                `yaml:"log"`
 }
 
 var (
 	globalConfig   Config
 	currentNetwork string
+	Accounts       map[string]AccountConfig
 )
 
-// GetConfig 获取全局配置
+// GetConfig 获取配置实例
 func GetConfig() *Config {
+	if globalConfig.Server.Port == 0 {
+		globalConfig.load()
+	}
 	return &globalConfig
 }
 
@@ -91,27 +129,34 @@ func init() {
 				NetworkName: "Mainnet",
 				ChainID:     1,
 				NodeURL:     "https://mainnet.infura.io/v3/your-project-id",
+				Port:        8545,
 			},
 			"sepolia": {
 				NetworkName: "Sepolia",
 				ChainID:     11155111,
-				NodeURL:     "https://sepolia.infura.io/v3/your-project-id",
+				NodeURL:     "https://sepolia.infura.io/v3/6174f2eb846e40ac97d70174693afb97",
+				Port:        8545,
 			},
 			"local": {
 				NetworkName: "Local",
 				ChainID:     31337,
 				NodeURL:     "http://127.0.0.1:8545",
 				PrivateKey:  "ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
+				Port:        8545,
 			},
 		},
 		Contracts: ContractConfig{
-			LockTime:      3600,          // 1小时
-			LockValue:     lockValue,     // 1 ETH
-			AuctionTime:   7200,          // 2小时
-			PurchaseValue: purchaseValue, // 2 ETH
+			SimpleStorageAddress: "",
+			LockTime:             3600,
+			LockValue:            lockValue,
+			AuctionTime:          7200,
+			PurchaseValue:        purchaseValue,
 		},
-		Accounts: AccountConfig{
-			DefaultBalance: defaultBalance, // 10 ETH
+		Accounts: map[string]AccountConfig{
+			"default": {
+				PrivateKey: "ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
+				Address:    "0x0000000000000000000000000000000000000000",
+			},
 		},
 	}
 
@@ -134,7 +179,7 @@ func init() {
 		mergeConfig(&globalConfig, &fileConfig)
 	}
 
-	// 设置当前网络
+	// 设置当前网络（优先使用环境变量）
 	network := os.Getenv("NETWORK")
 	if network == "" {
 		network = "local" // 默认使用本地网络
@@ -144,6 +189,7 @@ func init() {
 		network = "local"
 	}
 	currentNetwork = network
+	log.Printf("当前使用网络: %s", network)
 }
 
 // 合并配置
@@ -170,8 +216,10 @@ func mergeConfig(dst, src *Config) {
 	}
 
 	// 合并账户配置
-	if src.Accounts.DefaultBalance != nil {
-		dst.Accounts.DefaultBalance = src.Accounts.DefaultBalance
+	for name, account := range src.Accounts {
+		if _, ok := dst.Accounts[name]; !ok {
+			dst.Accounts[name] = account
+		}
 	}
 }
 
@@ -214,4 +262,58 @@ func SaveContractAddresses(contracts ContractConfig) error {
 	}
 
 	return nil
+}
+
+// load 加载配置文件
+func (c *Config) load() {
+	file, err := os.ReadFile("config.yml")
+	if err != nil {
+		panic(fmt.Sprintf("读取配置文件失败: %v", err))
+	}
+
+	err = yaml.Unmarshal(file, c)
+	if err != nil {
+		panic(fmt.Sprintf("解析配置文件失败: %v", err))
+	}
+}
+
+// GetServerConfig 获取服务器配置
+func GetServerConfig() ServerConfig {
+	return globalConfig.Server
+}
+
+// LoadConfig 加载配置文件
+func LoadConfig() (*Config, error) {
+	// 获取当前工作目录
+	workDir, err := os.Getwd()
+	if err != nil {
+		return nil, fmt.Errorf("获取工作目录失败: %v", err)
+	}
+
+	// 构建配置文件路径
+	configPath := filepath.Join(workDir, "config.yml")
+
+	// 读取配置文件
+	data, err := os.ReadFile(configPath)
+	if err != nil {
+		return nil, fmt.Errorf("读取配置文件失败: %v", err)
+	}
+
+	// 解析配置文件
+	var config Config
+	if err := yaml.Unmarshal(data, &config); err != nil {
+		return nil, fmt.Errorf("解析配置文件失败: %v", err)
+	}
+
+	// 设置全局账户配置
+	Accounts = config.Accounts
+
+	// 从环境变量获取当前网络
+	network := os.Getenv("NETWORK")
+	if network == "" {
+		network = "local" // 默认使用 local 网络
+	}
+	log.Printf("当前使用网络: %s", network)
+
+	return &config, nil
 }

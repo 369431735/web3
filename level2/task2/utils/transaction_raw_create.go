@@ -16,6 +16,11 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 )
 
+// 常量定义
+const (
+	AccountAddress2 = "0x70997970C51812dc3A010C7d01b50e0d17dc79C8" // Alice的地址
+)
+
 // CreateRawTransaction 创建一个原始交易
 func CreateRawTransaction() error {
 	log.Println("=== 创建原始交易演示 ===")

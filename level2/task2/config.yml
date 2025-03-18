@@ -1,28 +1,57 @@
 networks:
     local:
-        network_name: ""
-        chain_id: 0
-        node_url: ""
-        private_key: ""
+        network_name: "Local"
+        chain_id: 1337
+        node_url: "http://localhost:8545"
+        private_key: "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"
+        port: 8545
     mainnet:
-        network_name: ""
-        chain_id: 0
-        node_url: ""
+        network_name: "Mainnet"
+        chain_id: 1
+        node_url: "https://mainnet.infura.io/v3/YOUR-PROJECT-ID"
         private_key: ""
+        port: 8545
     sepolia:
-        network_name: ""
-        chain_id: 0
-        node_url: ""
+        network_name: "Sepolia"
+        chain_id: 11155111
+        node_url: "https://sepolia.infura.io/v3/6174f2eb846e40ac97d70174693afb97"
         private_key: ""
+        port: 8545
+server:
+    port: 8080  # Gin服务器端口
+    host: "0.0.0.0"  # 允许所有IP访问
+    base_path: /api/v1  # 添加基础路径配置
+    cors:
+        allowed_origins: ["*"]
+        allowed_methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+        allowed_headers: ["*"]
+    swagger:
+        enabled: true
+        path: "/swagger/*any"
+        title: Web3 API Documentation
+        description: Web3 API Documentation
+        version: 1.0.0
+        contact_name: API Support
+        contact_email: support@example.com
+        license_name: Apache 2.0
+        license_url: http://www.apache.org/licenses/LICENSE-2.0.html
 contracts:
-    simpleStorageAddress: 0x4ed7c70F96B99c776995fB64377f0d4aB3B0e1C1
-    lockAddress: 0x322813Fd9A801c5507c9de605d63CEA4f2CE6c44
-    shippingAddress: 0xa85233C63b9Ee964Add6F2cffe00Fd84eb32338f
-    simpleAuctionAddress: 0x4A679253410272dd5232B3Ff7cF5dbB88f295319
-    purchaseAddress: 0x7a2088a1bFc9d81c55368AE168C2C02570cB814F
-    lockTime: 3600
-    lockValue: "1000000000000000000"
-    auctionTime: 3600
-    purchaseValue: "2000000000000000000"
+    simple_storage_address: ""
+    lock_time: 3600
+    lock_value: 1000000000000000000
+    auction_time: 7200
+    purchase_value: 2000000000000000000
 accounts:
-    default_balance: null
+    default:
+        private_key: "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"
+        address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+    alice:
+        private_key: "0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d"
+        address: "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+    bob:
+        private_key: "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890"
+        address: "0xabcdef123456789012345678901234567890abcdef"
+
+log:
+    level: "debug"
+    filename: "web3.log"

@@ -1,0 +1,503 @@
+basePath: /api/v1
+definitions:
+  controller.AccountBalance:
+    properties:
+      address:
+        example: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
+        type: string
+      balance:
+        example: "1000000000000000000"
+        type: string
+    type: object
+  controller.AccountResponse:
+    properties:
+      address:
+        example: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
+        type: string
+      balance:
+        example: "1000000000000000000"
+        type: string
+    type: object
+  controller.BlockResponse:
+    properties:
+      hash:
+        example: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+        type: string
+      number:
+        example: "123456"
+        type: string
+      parentHash:
+        example: 0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
+        type: string
+      timestamp:
+        example: 1634567890
+        type: integer
+      txCount:
+        example: 10
+        type: integer
+    type: object
+  controller.ErrorResponse:
+    properties:
+      code:
+        example: 500
+        type: integer
+      message:
+        example: 服务器内部错误
+        type: string
+    type: object
+  controller.NetworkInfo:
+    properties:
+      chainId:
+        example: 11155111
+        type: integer
+      name:
+        example: Sepolia
+        type: string
+      nodeUrl:
+        example: https://sepolia.infura.io/v3/...
+        type: string
+    type: object
+  controller.TransactionRequest:
+    type: object
+  types.ContractBytecodeRequest:
+    properties:
+      address:
+        example: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
+        type: string
+    required:
+    - address
+    type: object
+  types.ContractBytecodeResponse:
+    properties:
+      bytecode:
+        example: 0x608060405234801561001057600080fd...
+        type: string
+    type: object
+  types.ContractDeployRequest:
+    properties:
+      contract_name:
+        example: SimpleStorage
+        type: string
+    required:
+    - contract_name
+    type: object
+  types.ContractResponse:
+    properties:
+      address:
+        example: 0x123...
+        type: string
+      tx_hash:
+        example: 0x456...
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@example.com
+    name: API Support
+  description: 提供以太坊区块链相关的API服务，包括账户管理、交易处理、合约部署等功能
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Web3 区块链接口服务
+  version: "1.0"
+paths:
+  /account/balance:
+    get:
+      consumes:
+      - application/json
+      description: 获取指定账户的以太坊余额
+      parameters:
+      - description: 账户地址
+        in: query
+        name: address
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.AccountResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 获取账户余额
+      tags:
+      - 账户
+    post:
+      consumes:
+      - application/json
+      description: 设置指定账户的以太坊余额（仅用于测试网络）
+      parameters:
+      - description: 账户余额信息
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controller.AccountBalance'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.AccountResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 设置账户余额
+      tags:
+      - 账户
+  /account/hdwallet:
+    post:
+      consumes:
+      - application/json
+      description: 创建新的分层确定性钱包
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 创建 HD 钱包
+      tags:
+      - 账户
+  /account/keystore:
+    post:
+      consumes:
+      - application/json
+      description: 创建新的以太坊密钥库文件
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.AccountResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 创建密钥库
+      tags:
+      - 账户
+  /account/wallet:
+    post:
+      consumes:
+      - application/json
+      description: 创建新的以太坊钱包
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.AccountResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 创建钱包
+      tags:
+      - 账户
+  /block/info:
+    get:
+      consumes:
+      - application/json
+      description: 获取指定区块的详细信息
+      parameters:
+      - description: 区块号
+        in: query
+        name: number
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.BlockResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 获取区块信息
+      tags:
+      - 区块
+  /block/latest:
+    get:
+      consumes:
+      - application/json
+      description: 获取最新的区块信息
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.BlockResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 获取最新区块
+      tags:
+      - 区块
+  /block/subscribe:
+    get:
+      consumes:
+      - application/json
+      description: 订阅新区块事件
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.BlockResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 订阅区块
+      tags:
+      - 区块
+    post:
+      consumes:
+      - application/json
+      description: 订阅以太坊网络的新区块
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 订阅新区块
+      tags:
+      - 区块
+  /contract/bytecode:
+    post:
+      consumes:
+      - application/json
+      description: 根据合约地址获取智能合约的字节码
+      parameters:
+      - description: 合约地址
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.ContractBytecodeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.ContractBytecodeResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 获取智能合约字节码
+      tags:
+      - 合约
+  /contracts:
+    get:
+      consumes:
+      - application/json
+      description: 获取所有已部署合约的地址
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: 获取合约地址
+      tags:
+      - 合约
+  /contracts/deploy:
+    post:
+      consumes:
+      - application/json
+      description: 部署智能合约
+      parameters:
+      - description: 合约部署参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.ContractDeployRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.ContractResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 部署合约
+      tags:
+      - 合约
+  /contracts/deploy-all:
+    post:
+      consumes:
+      - application/json
+      description: 一次性部署所有支持的智能合约
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              $ref: '#/definitions/types.ContractResponse'
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 部署所有合约
+      tags:
+      - 合约
+  /events/subscribe:
+    post:
+      consumes:
+      - application/json
+      description: 订阅所有已部署合约的事件
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 订阅合约事件
+      tags:
+      - 事件
+  /health:
+    get:
+      consumes:
+      - application/json
+      description: 检查服务是否正常运行
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: 健康检查
+      tags:
+      - 系统
+  /network:
+    get:
+      consumes:
+      - application/json
+      description: 获取当前连接的网络信息
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.NetworkInfo'
+      summary: 获取网络信息
+      tags:
+      - 网络
+  /transaction/create:
+    post:
+      consumes:
+      - application/json
+      description: 创建一个新的交易并发送到以太坊网络
+      parameters:
+      - description: 交易请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controller.TransactionRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回交易哈希
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 创建并发送交易
+      tags:
+      - 交易
+  /transaction/raw:
+    post:
+      consumes:
+      - application/json
+      description: 创建一个未签名的原始交易
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 创建原始交易
+      tags:
+      - 交易
+schemes:
+- http
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

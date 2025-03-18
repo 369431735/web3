@@ -3,6 +3,7 @@ package utils
 import (
 	"context"
 	"fmt"
+	"math/big"
 
 	"task2/config"
 
@@ -34,7 +35,6 @@ func SetAccountBalance() error {
 	defer client.Close()
 
 	network := config.GetCurrentNetwork()
-	cfg := config.GetConfig()
 
 	// 获取私钥
 	privateKey, err := GetPrivateKey(network.PrivateKey)
@@ -54,8 +54,8 @@ func SetAccountBalance() error {
 		return fmt.Errorf("创建交易选项失败: %v", err)
 	}
 
-	// 设置余额
-	auth.Value = cfg.Accounts.DefaultBalance
+	// 设置默认余额为 1 ETH
+	auth.Value = big.NewInt(1000000000000000000) // 1 ETH = 10^18 wei
 
 	return nil
 }
