@@ -1,2 +1,11 @@
-1  task/controller 下申明的struct 都放在controller/types.go中
-2
+1  task2/controller 下申明的struct 都放在controller/types.go中
+
+ 其他功能
+  项目中需要引入swagger
+  前后端交互 不要使用表单传输对象 用requestBody
+ 合约功能
+   将xxxx路径下的合约转化为go可调用的文件放在contracts路径下
+   提供合约一键部署和单个部署功能，部署后记录合约地址
+   给合约中的每个方法提供前端接口调用，controller层方法放到contract_methods.go
+   给前端提供接口获取合约部署的地址
+   获取合约字节码

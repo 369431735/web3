@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"strings"
-	"task2/controller"
 
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi"
@@ -74,7 +73,6 @@ func SubscribeContractEvents(client *ethclient.Client, contractName string, cont
 
 				// 如果有事件名称，尝试解析参数
 				if event.EventName != "" {
-					eventABI := contractABI.Events[event.EventName]
 					data := make(map[string]interface{})
 
 					err := contractABI.UnpackIntoMap(data, event.EventName, event.Data)
@@ -102,7 +100,6 @@ func SubscribeAllContracts(client *ethclient.Client, contracts map[string]common
 	for contractName, address := range contracts {
 		// 获取合约 ABI
 		var contractABI *abi.ABI
-		var err error
 
 		switch strings.ToLower(contractName) {
 		case "simplestorage":
@@ -129,6 +126,12 @@ func SubscribeAllContracts(client *ethclient.Client, contracts map[string]common
 				return fmt.Errorf("解析 SimpleAuction ABI 失败: %v", err)
 			}
 			contractABI = &parsed
+		case "arraydemo":
+			parsed, err := abi.JSON(strings.NewReader(ArrayDemoABI))
+			if err != nil {
+				return fmt.Errorf("解析 ArrayDemo ABI 失败: %v", err)
+			}
+			contractABI = &parsed
 		default:
 			log.Printf("警告: 未知合约类型 %s，跳过订阅", contractName)
 			continue
@@ -140,18 +143,6 @@ func SubscribeAllContracts(client *ethclient.Client, contracts map[string]common
 		}
 
 		log.Printf("成功订阅合约 %s 的事件 (地址: %s)", contractName, address.Hex())
-	}
-
-	return nil
-}
-
-func SubscribeNewBlock(client *ethclient.Client) error {
-	// 获取已部署的合约地址
-	contracts := controller.DeployedContracts
-
-	// 订阅所有合约事件
-	if err := SubscribeAllContracts(client, contracts); err != nil {
-		return fmt.Errorf("订阅合约事件失败: %v", err)
 	}
 
 	return nil

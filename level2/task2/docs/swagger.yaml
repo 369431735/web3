@@ -18,6 +18,14 @@ definitions:
         example: "1000000000000000000"
         type: string
     type: object
+  controller.ArrayDemoAddValueRequest:
+    properties:
+      value:
+        example: "42"
+        type: string
+    required:
+    - value
+    type: object
   controller.BlockResponse:
     properties:
       hash:
@@ -45,6 +53,8 @@ definitions:
         example: 服务器内部错误
         type: string
     type: object
+  controller.LockWithdrawRequest:
+    type: object
   controller.NetworkInfo:
     properties:
       chainId:
@@ -57,12 +67,37 @@ definitions:
         example: https://sepolia.infura.io/v3/...
         type: string
     type: object
+  controller.ShippingAdvanceStateRequest:
+    type: object
+  controller.SimpleAuctionBidRequest:
+    properties:
+      bid_amount:
+        example: "1000000000000000000"
+        type: string
+    required:
+    - bid_amount
+    type: object
+  controller.SimpleAuctionWithdrawRequest:
+    type: object
+  controller.SimpleStorageGetResponse:
+    properties:
+      value:
+        example: "42"
+        type: string
+    type: object
+  controller.SimpleStorageSetRequest:
+    properties:
+      value:
+        example: "42"
+        type: string
+    required:
+    - value
+    type: object
   controller.TransactionRequest:
     type: object
   types.ContractBytecodeRequest:
     properties:
       address:
-        example: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
         type: string
     required:
     - address
@@ -70,13 +105,11 @@ definitions:
   types.ContractBytecodeResponse:
     properties:
       bytecode:
-        example: 0x608060405234801561001057600080fd...
         type: string
     type: object
   types.ContractDeployRequest:
     properties:
       contract_name:
-        example: SimpleStorage
         type: string
     required:
     - contract_name
@@ -84,10 +117,15 @@ definitions:
   types.ContractResponse:
     properties:
       address:
-        example: 0x123...
         type: string
       tx_hash:
-        example: 0x456...
+        type: string
+    type: object
+  types.ErrorResponse:
+    properties:
+      code:
+        type: integer
+      message:
         type: string
     type: object
 host: localhost:8080
@@ -294,6 +332,61 @@ paths:
       summary: 订阅新区块
       tags:
       - 区块
+  /contract/arraydemo/add-value:
+    post:
+      consumes:
+      - application/json
+      description: 添加一个值到数组中
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controller.ArrayDemoAddValueRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+      summary: 调用ArrayDemo合约的put方法
+      tags:
+      - 合约方法
+  /contract/arraydemo/get-values:
+    get:
+      consumes:
+      - application/json
+      description: 获取数组中的所有值
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+      summary: 调用ArrayDemo合约的getArray方法
+      tags:
+      - 合约方法
   /contract/bytecode:
     post:
       consumes:
@@ -324,6 +417,208 @@ paths:
       summary: 获取智能合约字节码
       tags:
       - 合约
+  /contract/lock/withdraw:
+    post:
+      consumes:
+      - application/json
+      description: 从Lock合约中提取资金
+      parameters:
+      - description: 提取请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controller.LockWithdrawRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+      summary: 调用Lock合约的withdraw方法
+      tags:
+      - 合约方法
+  /contract/shipping/advance-state:
+    post:
+      consumes:
+      - application/json
+      description: 更新Shipping合约的运输状态
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controller.ShippingAdvanceStateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+      summary: 调用Shipping合约的Shipped方法
+      tags:
+      - 合约方法
+  /contract/shipping/get-state:
+    get:
+      consumes:
+      - application/json
+      description: 获取Shipping合约的运输状态
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+      summary: 调用Shipping合约的Status方法
+      tags:
+      - 合约方法
+  /contract/simpleauction/bid:
+    post:
+      consumes:
+      - application/json
+      description: 参与拍卖出价
+      parameters:
+      - description: 出价请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controller.SimpleAuctionBidRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+      summary: 调用SimpleAuction合约的bid方法
+      tags:
+      - 合约方法
+  /contract/simpleauction/withdraw:
+    post:
+      consumes:
+      - application/json
+      description: 从拍卖合约中提取资金
+      parameters:
+      - description: 提取请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controller.SimpleAuctionWithdrawRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+      summary: 调用SimpleAuction合约的withdraw方法
+      tags:
+      - 合约方法
+  /contract/simplestorage/get:
+    get:
+      consumes:
+      - application/json
+      description: 获取SimpleStorage合约的存储值
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.SimpleStorageGetResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+      summary: 调用SimpleStorage合约的get方法
+      tags:
+      - 合约方法
+  /contract/simplestorage/set:
+    post:
+      consumes:
+      - application/json
+      description: 设置SimpleStorage合约的存储值
+      parameters:
+      - description: 设置请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controller.SimpleStorageSetRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+      summary: 调用SimpleStorage合约的set方法
+      tags:
+      - 合约方法
   /contracts:
     get:
       consumes:

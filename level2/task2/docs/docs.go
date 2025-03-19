@@ -314,6 +314,89 @@ const docTemplate = `{
                 }
             }
         },
+        "/contract/arraydemo/add-value": {
+            "post": {
+                "description": "添加一个值到数组中",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "合约方法"
+                ],
+                "summary": "调用ArrayDemo合约的put方法",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.ArrayDemoAddValueRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contract/arraydemo/get-values": {
+            "get": {
+                "description": "获取数组中的所有值",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "合约方法"
+                ],
+                "summary": "调用ArrayDemo合约的getArray方法",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/contract/bytecode": {
             "post": {
                 "description": "根据合约地址获取智能合约的字节码",
@@ -355,6 +438,312 @@ const docTemplate = `{
                         "description": "Internal Server Error",
                         "schema": {
                             "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contract/lock/withdraw": {
+            "post": {
+                "description": "从Lock合约中提取资金",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "合约方法"
+                ],
+                "summary": "调用Lock合约的withdraw方法",
+                "parameters": [
+                    {
+                        "description": "提取请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.LockWithdrawRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contract/shipping/advance-state": {
+            "post": {
+                "description": "更新Shipping合约的运输状态",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "合约方法"
+                ],
+                "summary": "调用Shipping合约的Shipped方法",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.ShippingAdvanceStateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contract/shipping/get-state": {
+            "get": {
+                "description": "获取Shipping合约的运输状态",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "合约方法"
+                ],
+                "summary": "调用Shipping合约的Status方法",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contract/simpleauction/bid": {
+            "post": {
+                "description": "参与拍卖出价",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "合约方法"
+                ],
+                "summary": "调用SimpleAuction合约的bid方法",
+                "parameters": [
+                    {
+                        "description": "出价请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.SimpleAuctionBidRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contract/simpleauction/withdraw": {
+            "post": {
+                "description": "从拍卖合约中提取资金",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "合约方法"
+                ],
+                "summary": "调用SimpleAuction合约的withdraw方法",
+                "parameters": [
+                    {
+                        "description": "提取请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.SimpleAuctionWithdrawRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contract/simplestorage/get": {
+            "get": {
+                "description": "获取SimpleStorage合约的存储值",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "合约方法"
+                ],
+                "summary": "调用SimpleStorage合约的get方法",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.SimpleStorageGetResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contract/simplestorage/set": {
+            "post": {
+                "description": "设置SimpleStorage合约的存储值",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "合约方法"
+                ],
+                "summary": "调用SimpleStorage合约的set方法",
+                "parameters": [
+                    {
+                        "description": "设置请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.SimpleStorageSetRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
                         }
                     }
                 }
@@ -646,6 +1035,18 @@ const docTemplate = `{
                 }
             }
         },
+        "controller.ArrayDemoAddValueRequest": {
+            "type": "object",
+            "required": [
+                "value"
+            ],
+            "properties": {
+                "value": {
+                    "type": "string",
+                    "example": "42"
+                }
+            }
+        },
         "controller.BlockResponse": {
             "type": "object",
             "properties": {
@@ -684,6 +1085,9 @@ const docTemplate = `{
                 }
             }
         },
+        "controller.LockWithdrawRequest": {
+            "type": "object"
+        },
         "controller.NetworkInfo": {
             "type": "object",
             "properties": {
@@ -701,6 +1105,45 @@ const docTemplate = `{
                 }
             }
         },
+        "controller.ShippingAdvanceStateRequest": {
+            "type": "object"
+        },
+        "controller.SimpleAuctionBidRequest": {
+            "type": "object",
+            "required": [
+                "bid_amount"
+            ],
+            "properties": {
+                "bid_amount": {
+                    "type": "string",
+                    "example": "1000000000000000000"
+                }
+            }
+        },
+        "controller.SimpleAuctionWithdrawRequest": {
+            "type": "object"
+        },
+        "controller.SimpleStorageGetResponse": {
+            "type": "object",
+            "properties": {
+                "value": {
+                    "type": "string",
+                    "example": "42"
+                }
+            }
+        },
+        "controller.SimpleStorageSetRequest": {
+            "type": "object",
+            "required": [
+                "value"
+            ],
+            "properties": {
+                "value": {
+                    "type": "string",
+                    "example": "42"
+                }
+            }
+        },
         "controller.TransactionRequest": {
             "type": "object"
         },
@@ -711,8 +1154,7 @@ const docTemplate = `{
             ],
             "properties": {
                 "address": {
-                    "type": "string",
-                    "example": "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
+                    "type": "string"
                 }
             }
         },
@@ -720,8 +1162,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "bytecode": {
-                    "type": "string",
-                    "example": "0x608060405234801561001057600080fd..."
+                    "type": "string"
                 }
             }
         },
@@ -732,8 +1173,7 @@ const docTemplate = `{
             ],
             "properties": {
                 "contract_name": {
-                    "type": "string",
-                    "example": "SimpleStorage"
+                    "type": "string"
                 }
             }
         },
@@ -741,12 +1181,21 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "address": {
-                    "type": "string",
-                    "example": "0x123..."
+                    "type": "string"
                 },
                 "tx_hash": {
-                    "type": "string",
-                    "example": "0x456..."
+                    "type": "string"
+                }
+            }
+        },
+        "types.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "message": {
+                    "type": "string"
                 }
             }
         }

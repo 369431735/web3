@@ -112,6 +112,40 @@ func SetupRouter() *gin.Engine {
 		contract := v1.Group("/contract")
 		{
 			contract.POST("/bytecode", controller.GetContractBytecode)
+
+			// SimpleStorage合约方法
+			simplestorage := contract.Group("/simplestorage")
+			{
+				simplestorage.POST("/set", controller.SimpleStorageSet)
+				simplestorage.GET("/get", controller.SimpleStorageGet)
+			}
+
+			// Lock合约方法
+			lock := contract.Group("/lock")
+			{
+				lock.POST("/withdraw", controller.LockWithdraw)
+			}
+
+			// SimpleAuction合约方法
+			simpleauction := contract.Group("/simpleauction")
+			{
+				simpleauction.POST("/bid", controller.SimpleAuctionBid)
+				simpleauction.POST("/withdraw", controller.SimpleAuctionWithdraw)
+			}
+
+			// Shipping合约方法
+			shipping := contract.Group("/shipping")
+			{
+				shipping.POST("/advance-state", controller.ShippingAdvanceState)
+				shipping.GET("/get-state", controller.ShippingGetState)
+			}
+
+			// ArrayDemo合约方法
+			arraydemo := contract.Group("/arraydemo")
+			{
+				arraydemo.POST("/add-value", controller.ArrayDemoAddValue)
+				arraydemo.GET("/get-values", controller.ArrayDemoGetValues)
+			}
 		}
 
 		// 交易相关路由

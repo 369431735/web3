@@ -3,9 +3,13 @@ package controller
 import (
 	"math/big"
 	"net/http"
+	"task2/abi"
+	"task2/config"
 	"task2/types"
 	"task2/utils"
 
+	// 避免循环导入，使用其他方式获取事件订阅功能
+	"github.com/ethereum/go-ethereum/common"
 	ethTypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/gin-gonic/gin"
 )
@@ -244,7 +248,43 @@ func CreateRawTransaction(c *gin.Context) {
 // @Failure      500  {object}  ErrorResponse
 // @Router       /events/subscribe [post]
 func SubscribeContractEvents(c *gin.Context) {
+	client, err := utils.InitClient()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+			Code:    http.StatusInternalServerError,
+			Message: "初始化以太坊客户端失败: " + err.Error(),
+		})
+		return
+	}
+
+	// 获取当前网络配置中的合约
+	network := config.GetCurrentNetwork()
+	if network == nil {
+		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+			Code:    http.StatusInternalServerError,
+			Message: "获取网络配置失败",
+		})
+		return
+	}
+
+	// 准备合约地址映射
+	contracts := make(map[string]common.Address)
+	for name, contract := range network.Contracts {
+		contracts[name] = common.HexToAddress(contract.Address)
+	}
+
+	// 调用abi包中的订阅所有合约事件方法
+	if err := abi.SubscribeAllContracts(client, contracts); err != nil {
+		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+			Code:    http.StatusInternalServerError,
+			Message: "订阅合约事件失败: " + err.Error(),
+		})
+		return
+	}
+
+	// 暂时返回成功消息
 	c.JSON(http.StatusOK, gin.H{
-		"message": "合约事件订阅功能暂未实现",
+		"message": "合约事件订阅已处理",
+		"count":   len(contracts),
 	})
 }

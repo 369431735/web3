@@ -37,7 +37,7 @@ func GetContractByteCode(client *ethclient.Client, address common.Address) (stri
 // DeploySimpleStorage 部署 SimpleStorage 合约
 func DeploySimpleStorage(client *ethclient.Client) (common.Address, common.Hash, *bindings.SimpleStorage, error) {
 	network := config.GetCurrentNetwork()
-	privateKey, err := utils.GetPrivateKey(network.PrivateKey)
+	privateKey, err := utils.GetPrivateKey(network.Accounts["default"].PrivateKey)
 	if err != nil {
 		return common.Address{}, common.Hash{}, nil, fmt.Errorf("解析私钥失败: %v", err)
 	}
@@ -62,7 +62,7 @@ func DeploySimpleStorage(client *ethclient.Client) (common.Address, common.Hash,
 // DeployLock 部署 Lock 合约
 func DeployLock(client *ethclient.Client) (common.Address, common.Hash, *bindings.Lock, error) {
 	network := config.GetCurrentNetwork()
-	privateKey, err := utils.GetPrivateKey(network.PrivateKey)
+	privateKey, err := utils.GetPrivateKey(network.Accounts["default"].PrivateKey)
 	if err != nil {
 		return common.Address{}, common.Hash{}, nil, fmt.Errorf("解析私钥失败: %v", err)
 	}
@@ -89,7 +89,7 @@ func DeployLock(client *ethclient.Client) (common.Address, common.Hash, *binding
 // DeployShipping 部署 Shipping 合约
 func DeployShipping(client *ethclient.Client) (common.Address, common.Hash, *bindings.Shipping, error) {
 	network := config.GetCurrentNetwork()
-	privateKey, err := utils.GetPrivateKey(network.PrivateKey)
+	privateKey, err := utils.GetPrivateKey(network.Accounts["default"].PrivateKey)
 	if err != nil {
 		return common.Address{}, common.Hash{}, nil, fmt.Errorf("解析私钥失败: %v", err)
 	}
@@ -115,7 +115,7 @@ func DeployShipping(client *ethclient.Client) (common.Address, common.Hash, *bin
 // DeploySimpleAuction 部署 SimpleAuction 合约
 func DeploySimpleAuction(client *ethclient.Client) (common.Address, common.Hash, *bindings.SimpleAuction, error) {
 	network := config.GetCurrentNetwork()
-	privateKey, err := utils.GetPrivateKey(network.PrivateKey)
+	privateKey, err := utils.GetPrivateKey(network.Accounts["default"].PrivateKey)
 	if err != nil {
 		return common.Address{}, common.Hash{}, nil, fmt.Errorf("解析私钥失败: %v", err)
 	}
@@ -143,7 +143,7 @@ func DeploySimpleAuction(client *ethclient.Client) (common.Address, common.Hash,
 // DeployArrayDemo 部署 ArrayDemo 合约
 func DeployArrayDemo(client *ethclient.Client) (common.Address, common.Hash, *bindings.ArrayDemo, error) {
 	network := config.GetCurrentNetwork()
-	privateKey, err := utils.GetPrivateKey(network.PrivateKey)
+	privateKey, err := utils.GetPrivateKey(network.Accounts["default"].PrivateKey)
 	if err != nil {
 		return common.Address{}, common.Hash{}, nil, fmt.Errorf("解析私钥失败: %v", err)
 	}
