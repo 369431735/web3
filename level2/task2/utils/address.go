@@ -25,7 +25,12 @@ func AddressCul() error {
 
 	// 从配置文件获取私钥
 	network := config.GetCurrentNetwork()
-	privateKey, err := GetPrivateKey(network.PrivateKey)
+	if network == nil {
+		return fmt.Errorf("未找到网络配置")
+	}
+
+	account := network.Accounts["default"]
+	privateKey, err := GetPrivateKey(account.PrivateKey)
 	if err != nil {
 		return fmt.Errorf("私钥解码失败: %v", err)
 	}
@@ -42,6 +47,11 @@ func AddressCul() error {
 	log.Printf("计算得到的地址: %s", address.Hex())
 
 	return nil
+}
+
+// GetPrivateKey 从十六进制字符串获取私钥
+func GetPrivateKey(privateKeyHex string) (*ecdsa.PrivateKey, error) {
+	return crypto.HexToECDSA(privateKeyHex)
 }
 
 // 地址转换演示
@@ -154,4 +164,34 @@ func AddressCheck() error {
 	log.Printf("是否是合约地址: %v", isContract)
 
 	return nil
+}
+
+// GetAccountAddress 获取账户地址
+func GetAccountAddress(accountName string) (string, error) {
+	network := config.GetCurrentNetwork()
+	if network == nil {
+		return "", fmt.Errorf("未找到网络配置")
+	}
+
+	account, ok := network.Accounts[accountName]
+	if !ok {
+		return "", fmt.Errorf("未找到账户: %s", accountName)
+	}
+
+	return account.Address, nil
+}
+
+// GetAccountPrivateKey 获取账户私钥
+func GetAccountPrivateKey(accountName string) (string, error) {
+	network := config.GetCurrentNetwork()
+	if network == nil {
+		return "", fmt.Errorf("未找到网络配置")
+	}
+
+	account, ok := network.Accounts[accountName]
+	if !ok {
+		return "", fmt.Errorf("未找到账户: %s", accountName)
+	}
+
+	return account.PrivateKey, nil
 }

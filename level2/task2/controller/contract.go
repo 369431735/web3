@@ -1,20 +1,23 @@
 package controller
 
 import (
+	"math/big"
 	"net/http"
+	"time"
 
 	"task2/contracts"
 	"task2/types"
 	"task2/utils"
 
+	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
+	ethTypes "github.com/ethereum/go-ethereum/core/types"
+	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/gin-gonic/gin"
 )
 
 // 存储已部署合约的地址
 var DeployedContracts = make(map[string]common.Address)
-
-// GetContractAddresses 获取所有已部署合约的地址
 
 // 注册合约地址到映射表
 func registerContract(name string, address common.Address) {
@@ -45,21 +48,52 @@ func DeployContracts(c *gin.Context) {
 		return
 	}
 
+	// 获取网络配置
+	network := utils.GetCurrentNetwork()
+	if network == nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse{Code: http.StatusInternalServerError, Message: "未找到网络配置"})
+		return
+	}
+
+	// 获取默认账户
+	defaultAccount, ok := network.Accounts["default"]
+	if !ok {
+		c.JSON(http.StatusInternalServerError, ErrorResponse{Code: http.StatusInternalServerError, Message: "未找到默认账户"})
+		return
+	}
+
+	// 获取私钥
+	privateKey, err := crypto.HexToECDSA(defaultAccount.PrivateKey[2:]) // 移除 "0x" 前缀
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse{Code: http.StatusInternalServerError, Message: "解析私钥失败: " + err.Error()})
+		return
+	}
+
+	// 创建交易选项
+	auth, err := bind.NewKeyedTransactorWithChainID(privateKey, big.NewInt(network.ChainID))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse{Code: http.StatusInternalServerError, Message: "创建交易选项失败: " + err.Error()})
+		return
+	}
+
 	// 根据合约名称部署对应的合约
 	var address common.Address
-	var txHash common.Hash
+	var tx *ethTypes.Transaction
 
 	switch req.ContractName {
 	case "SimpleStorage":
-		address, txHash, _, err = contracts.DeploySimpleStorage(client)
+		address, tx, _, err = contracts.DeploySimpleStorage(auth, client)
 	case "Lock":
-		address, txHash, _, err = contracts.DeployLock(client)
+		unlockTime := time.Now().Add(24 * time.Hour).Unix()
+		address, tx, _, err = contracts.DeployLock(auth, client, big.NewInt(unlockTime))
 	case "Shipping":
-		address, txHash, _, err = contracts.DeployShipping(client)
+		address, tx, _, err = contracts.DeployShipping(auth, client)
 	case "SimpleAuction":
-		address, txHash, _, err = contracts.DeploySimpleAuction(client)
+		beneficiary := common.HexToAddress(defaultAccount.Address)
+		biddingTime := big.NewInt(3600) // 1小时
+		address, tx, _, err = contracts.DeploySimpleAuction(auth, client, biddingTime, beneficiary)
 	case "ArrayDemo":
-		address, txHash, _, err = contracts.DeployArrayDemo(client)
+		address, tx, _, err = contracts.DeployArrayDemo(auth, client)
 	default:
 		c.JSON(http.StatusBadRequest, ErrorResponse{Code: http.StatusBadRequest, Message: "不支持的合约名称: " + req.ContractName})
 		return
@@ -75,7 +109,7 @@ func DeployContracts(c *gin.Context) {
 
 	c.JSON(http.StatusOK, types.ContractResponse{
 		Address: address.Hex(),
-		TxHash:  txHash.Hex(),
+		TxHash:  tx.Hash().Hex(),
 	})
 }
 
@@ -96,6 +130,34 @@ func DeployAllContracts(c *gin.Context) {
 		return
 	}
 
+	// 获取网络配置
+	network := utils.GetCurrentNetwork()
+	if network == nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse{Code: http.StatusInternalServerError, Message: "未找到网络配置"})
+		return
+	}
+
+	// 获取默认账户
+	defaultAccount, ok := network.Accounts["default"]
+	if !ok {
+		c.JSON(http.StatusInternalServerError, ErrorResponse{Code: http.StatusInternalServerError, Message: "未找到默认账户"})
+		return
+	}
+
+	// 获取私钥
+	privateKey, err := crypto.HexToECDSA(defaultAccount.PrivateKey[2:]) // 移除 "0x" 前缀
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse{Code: http.StatusInternalServerError, Message: "解析私钥失败: " + err.Error()})
+		return
+	}
+
+	// 创建交易选项
+	auth, err := bind.NewKeyedTransactorWithChainID(privateKey, big.NewInt(network.ChainID))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse{Code: http.StatusInternalServerError, Message: "创建交易选项失败: " + err.Error()})
+		return
+	}
+
 	// 定义要部署的合约列表
 	contractList := []string{
 		"SimpleStorage",
@@ -112,20 +174,22 @@ func DeployAllContracts(c *gin.Context) {
 	// 遍历部署所有合约
 	for _, contractName := range contractList {
 		var address common.Address
-		var txHash common.Hash
-		var err error
+		var tx *ethTypes.Transaction
 
 		switch contractName {
 		case "SimpleStorage":
-			address, txHash, _, err = contracts.DeploySimpleStorage(client)
+			address, tx, _, err = contracts.DeploySimpleStorage(auth, client)
 		case "Lock":
-			address, txHash, _, err = contracts.DeployLock(client)
+			unlockTime := time.Now().Add(24 * time.Hour).Unix()
+			address, tx, _, err = contracts.DeployLock(auth, client, big.NewInt(unlockTime))
 		case "Shipping":
-			address, txHash, _, err = contracts.DeployShipping(client)
+			address, tx, _, err = contracts.DeployShipping(auth, client)
 		case "SimpleAuction":
-			address, txHash, _, err = contracts.DeploySimpleAuction(client)
+			beneficiary := common.HexToAddress(defaultAccount.Address)
+			biddingTime := big.NewInt(3600) // 1小时
+			address, tx, _, err = contracts.DeploySimpleAuction(auth, client, biddingTime, beneficiary)
 		case "ArrayDemo":
-			address, txHash, _, err = contracts.DeployArrayDemo(client)
+			address, tx, _, err = contracts.DeployArrayDemo(auth, client)
 		}
 
 		if err != nil {
@@ -140,7 +204,7 @@ func DeployAllContracts(c *gin.Context) {
 		// 记录部署结果
 		results[contractName] = types.ContractResponse{
 			Address: address.Hex(),
-			TxHash:  txHash.Hex(),
+			TxHash:  tx.Hash().Hex(),
 		}
 	}
 
@@ -197,7 +261,7 @@ func GetContractBytecode(c *gin.Context) {
 	}
 
 	// 获取合约字节码
-	bytecode, err := contracts.GetContractBytecode(client, req.Address)
+	bytecode, err := client.CodeAt(c.Request.Context(), common.HexToAddress(req.Address), nil)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),

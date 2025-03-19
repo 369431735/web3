@@ -10,23 +10,36 @@ import (
 
 // GetContractAddresses 获取所有合约地址
 func GetContractAddresses(c *gin.Context) {
-	cfg := config.GetConfig()
-	c.JSON(http.StatusOK, gin.H{
-		"simpleStorage": cfg.Contracts.SimpleStorageAddress,
-		"lock":          cfg.Contracts.LockAddress,
-		"shipping":      cfg.Contracts.ShippingAddress,
-		"simpleAuction": cfg.Contracts.SimpleAuctionAddress,
-		"purchase":      cfg.Contracts.PurchaseAddress,
-	})
+	network := config.GetCurrentNetwork()
+	if network == nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "未找到网络配置",
+		})
+		return
+	}
+
+	contractAddresses := make(map[string]string)
+	for name, contract := range network.Contracts {
+		contractAddresses[name] = contract.Address
+	}
+
+	c.JSON(http.StatusOK, contractAddresses)
 }
 
 // GetNetworkInfo 获取网络信息
 func GetNetworkInfo(c *gin.Context) {
 	network := config.GetCurrentNetwork()
+	if network == nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "未找到网络配置",
+		})
+		return
+	}
+
 	c.JSON(http.StatusOK, gin.H{
 		"name":    network.NetworkName,
 		"chainId": network.ChainID,
-		"nodeUrl": network.NodeURL,
+		"nodeUrl": network.RPCURL,
 	})
 }
 

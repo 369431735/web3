@@ -1,4 +1,4 @@
-//启动本地网络 npx hardhat node --network local
+//启动本地网络 npx hardhat node
 
 require("@nomicfoundation/hardhat-toolbox");
 require("dotenv").config();

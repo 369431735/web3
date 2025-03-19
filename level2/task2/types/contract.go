@@ -13,27 +13,31 @@ func RegisterContract(name string, address common.Address) {
 }
 
 // GetDeployedContracts 获取所有已部署的合约地址
-func GetDeployedContracts() map[string]common.Address {
-	return DeployedContracts
+func GetDeployedContracts() map[string]string {
+	result := make(map[string]string)
+	for name, address := range DeployedContracts {
+		result[name] = address.Hex()
+	}
+	return result
 }
 
 // ContractDeployRequest 合约部署请求
 type ContractDeployRequest struct {
-	ContractName string `json:"contract_name" example:"SimpleStorage" binding:"required"`
+	ContractName string `json:"contract_name" binding:"required"`
 }
 
 // ContractResponse 合约部署响应
 type ContractResponse struct {
-	Address string `json:"address" example:"0x123..."`
-	TxHash  string `json:"tx_hash" example:"0x456..."`
+	Address string `json:"address"`
+	TxHash  string `json:"tx_hash"`
 }
 
 // ContractBytecodeRequest 获取合约字节码请求
 type ContractBytecodeRequest struct {
-	Address string `json:"address" binding:"required" example:"0x742d35Cc6634C0532925a3b844Bc454e4438f44e"`
+	Address string `json:"address" binding:"required"`
 }
 
 // ContractBytecodeResponse 获取合约字节码响应
 type ContractBytecodeResponse struct {
-	Bytecode string `json:"bytecode" example:"0x608060405234801561001057600080fd..."`
+	Bytecode string `json:"bytecode"`
 }

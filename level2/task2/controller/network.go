@@ -32,7 +32,7 @@ func GetNetworkInfo(c *gin.Context) {
 	info := NetworkInfo{
 		Name:    networkConfig.NetworkName,
 		ChainID: networkConfig.ChainID,
-		NodeURL: networkConfig.NodeURL,
+		NodeURL: networkConfig.RPCURL,
 	}
 	c.JSON(200, info)
 }

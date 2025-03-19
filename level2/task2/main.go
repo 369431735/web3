@@ -11,6 +11,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/gin-gonic/gin"
 )
 
 // @title           Web3 区块链接口服务
@@ -48,9 +49,25 @@ func setupClient() (*ethclient.Client, *bind.TransactOpts, error) {
 		return nil, nil, fmt.Errorf("连接到以太坊节点失败: %v", err)
 	}
 
-	// 使用测试账户私钥（Hardhat默认的第一个账户）
+	// 获取网络配置
 	network := config.GetCurrentNetwork()
-	privateKey, err := utils.GetPrivateKey(network.PrivateKey)
+	if network == nil {
+		return nil, nil, fmt.Errorf("未找到网络配置")
+	}
+
+	// 使用默认账户
+	defaultAccount, ok := network.Accounts["default"]
+	if !ok {
+		return nil, nil, fmt.Errorf("未找到默认账户")
+	}
+
+	// 解析私钥（处理可能的"0x"前缀）
+	privateKeyStr := defaultAccount.PrivateKey
+	if len(privateKeyStr) >= 2 && privateKeyStr[:2] == "0x" {
+		privateKeyStr = privateKeyStr[2:] // 移除"0x"前缀
+	}
+
+	privateKey, err := utils.GetPrivateKey(privateKeyStr)
 	if err != nil {
 		return nil, nil, fmt.Errorf("解析私钥失败: %v", err)
 	}
@@ -81,6 +98,12 @@ func main() {
 		}
 	}()
 
+	// 加载配置文件
+	if err := config.LoadConfig(); err != nil {
+		log.Fatalf("加载配置文件失败: %v", err)
+	}
+	log.Println("配置文件加载成功")
+
 	// 初始化路由
 	log.Println("\n1. 初始化路由和API服务")
 
@@ -95,12 +118,17 @@ func main() {
 	// 客户端可以通过HTTP请求触发订阅功能
 
 	// 获取服务器配置
-	serverConfig := config.GetServerConfig()
-	addr := fmt.Sprintf("%s:%d", serverConfig.Host, serverConfig.Port)
+	cfg := config.GetConfig()
+	addr := fmt.Sprintf(":%d", cfg.Server.Port)
+
+	// 设置 Gin 模式
+	if cfg.Server.Mode == "release" {
+		gin.SetMode(gin.ReleaseMode)
+	}
 
 	log.Printf("启动 HTTP 服务器在 %s", addr)
-	log.Printf("API 基础路径: %s", serverConfig.BasePath)
-	log.Printf("Swagger 文档地址: http://%s/swagger/index.html", addr)
+	log.Printf("服务器模式: %s", cfg.Server.Mode)
+	log.Printf("Swagger 文档地址: http://localhost%s/swagger/index.html", addr)
 
 	// 启动 HTTP 服务器
 	if err := router.Run(addr); err != nil {
