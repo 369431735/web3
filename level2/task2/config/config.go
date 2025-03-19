@@ -18,6 +18,7 @@ type Config struct {
 		ReadTimeout    int    `yaml:"read_timeout"`
 		WriteTimeout   int    `yaml:"write_timeout"`
 		MaxHeaderBytes int    `yaml:"max_header_bytes"`
+		BasePath       string `yaml:"base_path"`
 	} `yaml:"server"`
 	Ethereum struct {
 		Networks map[string]NetworkConfig `yaml:"networks"`

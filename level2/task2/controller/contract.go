@@ -202,9 +202,14 @@ func DeployAllContracts(c *gin.Context) {
 		hasSuccess = true
 
 		// 记录部署结果
+		txHash := "pending"
+		if tx != nil {
+			txHash = tx.Hash().Hex()
+		}
+
 		results[contractName] = types.ContractResponse{
 			Address: address.Hex(),
-			TxHash:  tx.Hash().Hex(),
+			TxHash:  txHash,
 		}
 	}
 

@@ -1,6 +1,7 @@
 package api
 
 import (
+	"task2/config"
 	"task2/controller"
 	"task2/docs"
 
@@ -61,20 +62,27 @@ type (
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
 
-	// 加载 Swagger 文档
-	docs.SwaggerInfo.BasePath = "/api/v1"
+	// 获取配置
+	cfg := config.GetConfig()
+	basePath := cfg.Server.BasePath
+
+	// 设置 Swagger 文档基础路径
+	docs.SwaggerInfo.BasePath = basePath
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	// 健康检查
-	r.GET("/health", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"status": "ok",
-		})
-	})
-
 	// API 路由组
-	v1 := r.Group("/api/v1")
+	v1 := r.Group(basePath)
 	{
+		// 健康检查
+		v1.GET("/health", func(c *gin.Context) {
+			c.JSON(200, gin.H{
+				"status": "ok",
+			})
+		})
+
+		// 网络相关路由
+		v1.GET("/network", controller.GetNetworkInfo)
+
 		// 账户相关路由
 		account := v1.Group("/account")
 		{
@@ -119,6 +127,13 @@ func SetupRouter() *gin.Engine {
 			events.POST("/subscribe", controller.SubscribeContractEvents)
 		}
 	}
+
+	// 保留一个根路径健康检查（用于负载均衡器/监控系统）
+	r.GET("/health", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"status": "ok",
+		})
+	})
 
 	return r
 }
