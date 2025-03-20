@@ -3,13 +3,21 @@ package main
 import (
 	"context"
 	"fmt"
+	"io"
 	"log"
+	"os"
+	"path/filepath"
+	"runtime"
+	"time"
 
 	"task2/api"
 	"task2/config"
+	"task2/storage"
+	"task2/types"
 	"task2/utils"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/gin-gonic/gin"
 )
@@ -43,8 +51,8 @@ block_subscribe.go - 区块订阅相关操作
 
 // 初始化以太坊客户端和账户
 func setupClient() (*ethclient.Client, *bind.TransactOpts, error) {
-	// 连接到本地节点
-	client, err := utils.InitClient()
+	// 连接到以太坊节点
+	client, err := utils.GetEthClientHTTP()
 	if err != nil {
 		return nil, nil, fmt.Errorf("连接到以太坊节点失败: %v", err)
 	}
@@ -86,39 +94,155 @@ func setupClient() (*ethclient.Client, *bind.TransactOpts, error) {
 	return client, auth, nil
 }
 
+// 初始化合约地址
+func initContractAddresses() {
+	// 获取合约存储实例
+	contractStorage := storage.GetInstance()
+	addresses := contractStorage.GetAllAddresses()
+
+	log.Printf("正在从存储加载合约地址...")
+
+	// 检查是否有任何合约地址存在
+	hasAnyAddress := addresses.SimpleStorage != "" ||
+		addresses.Lock != "" ||
+		addresses.Shipping != "" ||
+		addresses.SimpleAuction != "" ||
+		addresses.ArrayDemo != "" ||
+		addresses.Ballot != "" ||
+		addresses.Lottery != "" ||
+		addresses.Purchase != ""
+
+	if !hasAnyAddress {
+		log.Printf("警告: 没有找到任何存储的合约地址，请部署合约")
+	}
+
+	// 将存储中的合约地址加载到内存
+	if addresses.SimpleStorage != "" {
+		types.DeployedContracts["simplestorage"] = common.HexToAddress(addresses.SimpleStorage)
+		log.Printf("已加载SimpleStorage合约地址: %s", addresses.SimpleStorage)
+	}
+	if addresses.Lock != "" {
+		types.DeployedContracts["lock"] = common.HexToAddress(addresses.Lock)
+		log.Printf("已加载Lock合约地址: %s", addresses.Lock)
+	}
+	if addresses.Shipping != "" {
+		types.DeployedContracts["shipping"] = common.HexToAddress(addresses.Shipping)
+		log.Printf("已加载Shipping合约地址: %s", addresses.Shipping)
+	}
+	if addresses.SimpleAuction != "" {
+		types.DeployedContracts["simpleauction"] = common.HexToAddress(addresses.SimpleAuction)
+		log.Printf("已加载SimpleAuction合约地址: %s", addresses.SimpleAuction)
+	}
+	if addresses.ArrayDemo != "" {
+		types.DeployedContracts["arraydemo"] = common.HexToAddress(addresses.ArrayDemo)
+		log.Printf("已加载ArrayDemo合约地址: %s", addresses.ArrayDemo)
+	}
+	if addresses.Ballot != "" {
+		types.DeployedContracts["ballot"] = common.HexToAddress(addresses.Ballot)
+		log.Printf("已加载Ballot合约地址: %s", addresses.Ballot)
+	}
+	if addresses.Lottery != "" {
+		types.DeployedContracts["lottery"] = common.HexToAddress(addresses.Lottery)
+		log.Printf("已加载Lottery合约地址: %s", addresses.Lottery)
+	}
+	if addresses.Purchase != "" {
+		types.DeployedContracts["purchase"] = common.HexToAddress(addresses.Purchase)
+		log.Printf("已加载Purchase合约地址: %s", addresses.Purchase)
+	}
+}
+
 // 部署所有合约的函数已移动到abi包中
 // 请参考abi包中的相关实现
 
+// 捕获崩溃并记录到日志
+func recoverAndLog() {
+	if r := recover(); r != nil {
+		// 获取堆栈信息
+		buf := make([]byte, 8192)
+		n := runtime.Stack(buf, false)
+		stackInfo := string(buf[:n])
+
+		// 记录详细错误信息
+		log.Printf("程序发生致命错误: %v\n堆栈信息:\n%s", r, stackInfo)
+
+		// 尝试将错误信息同时写入到独立的崩溃日志文件
+		crashLogFile := "crash_" + time.Now().Format("20060102_150405") + ".log"
+		crashLog := fmt.Sprintf("时间: %s\n错误: %v\n堆栈信息:\n%s\n",
+			time.Now().Format("2006-01-02 15:04:05"), r, stackInfo)
+
+		// 忽略写入崩溃日志的错误，不能因为写入日志失败而导致程序无法处理其他错误
+		_ = os.WriteFile(crashLogFile, []byte(crashLog), 0644)
+
+		// 在控制台打印错误信息以便于调试
+		fmt.Printf("程序崩溃: %v\n请查看日志文件获取详细信息\n", r)
+	}
+}
+
 func main() {
-	log.SetFlags(log.LstdFlags | log.Lmicroseconds)
+	// 设置基本的日志格式
+	log.SetFlags(log.LstdFlags | log.Lmicroseconds | log.Lshortfile)
 	log.Println("=== 程序开始执行 ===")
-	defer func() {
-		if r := recover(); r != nil {
-			log.Printf("程序发生错误: %v", r)
-		}
-	}()
+
+	// 使用defer函数捕获所有panic并记录到日志
+	defer recoverAndLog()
 
 	// 加载配置文件
 	if err := config.LoadConfig(); err != nil {
-		log.Fatalf("加载配置文件失败: %v", err)
+		log.Printf("加载配置文件失败: %v", err)
+		os.Exit(1)
 	}
 	log.Println("配置文件加载成功")
 
+	// 获取日志配置
+	cfg := config.GetConfig()
+	if cfg == nil {
+		log.Printf("错误: 无法获取配置，配置对象为nil")
+		os.Exit(1)
+	}
+
+	// 设置日志输出到文件
+	if cfg.Log.Filename != "" {
+		log.Printf("正在配置日志文件: %s", cfg.Log.Filename)
+
+		// 确保日志目录存在
+		logDir := filepath.Dir(cfg.Log.Filename)
+		if logDir != "." {
+			if err := os.MkdirAll(logDir, 0755); err != nil {
+				log.Printf("创建日志目录失败: %v", err)
+			} else {
+				log.Printf("日志目录已创建/确认: %s", logDir)
+			}
+		}
+
+		// 打开日志文件
+		logFile, err := os.OpenFile(cfg.Log.Filename, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+		if err != nil {
+			log.Printf("打开日志文件失败: %v", err)
+		} else {
+			// 设置日志输出为多写入器，同时输出到控制台和文件
+			multiWriter := io.MultiWriter(os.Stdout, logFile)
+			log.SetOutput(multiWriter)
+			log.Printf("日志已成功重定向到文件和控制台: %s", cfg.Log.Filename)
+		}
+	} else {
+		log.Printf("警告: 未配置日志文件名，将使用标准输出")
+	}
+
+	// 初始化合约地址
+	initContractAddresses()
+	log.Println("合约地址已从存储中加载")
+
 	// 初始化路由
-	log.Println("\n1. 初始化路由和API服务")
+	log.Println("初始化路由和API服务")
 
 	// 创建路由实例
 	router := api.SetupRouter()
-
-	// 注意：区块订阅功能已移至路由中处理
-	// 在路由初始化过程中会创建区块订阅实例并注册相关处理程序
-	log.Println("路由初始化完成，区块订阅功能已集成")
-
-	// 注意：实际的订阅逻辑将在API处理程序中实现
-	// 客户端可以通过HTTP请求触发订阅功能
+	if router == nil {
+		log.Printf("错误: 路由初始化失败，router对象为nil")
+		return
+	}
 
 	// 获取服务器配置
-	cfg := config.GetConfig()
 	addr := fmt.Sprintf(":%d", cfg.Server.Port)
 
 	// 设置 Gin 模式

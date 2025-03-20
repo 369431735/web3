@@ -15,11 +15,11 @@ import (
 
 // CreateRawTransaction 创建原始交易
 func CreateRawTransaction() error {
-	client, err := InitClient()
+	client, err := GetEthClientHTTP()
 	if err != nil {
 		return err
 	}
-	defer client.Close()
+	// 使用的是单例客户端，不需要关闭
 
 	// 获取网络配置
 	network := config.GetCurrentNetwork()

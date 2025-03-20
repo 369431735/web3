@@ -1,17 +1,22 @@
 package controller
 
 import (
+	"context"
+	"fmt"
 	"math/big"
 	"net/http"
-	"task2/abi"
-	"task2/config"
+	"task2/storage"
 	"task2/types"
 	"task2/utils"
 
+	"github.com/ethereum/go-ethereum"
+
 	// 避免循环导入，使用其他方式获取事件订阅功能
+
 	"github.com/ethereum/go-ethereum/common"
 	ethTypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/gin-gonic/gin"
+	"github.com/gorilla/websocket"
 )
 
 // BlockInfo 区块信息
@@ -39,8 +44,8 @@ type TransactionRequest struct {
 // @Failure      500  {object}  ErrorResponse
 // @Router       /block/subscribe [post]
 func SubscribeBlock(c *gin.Context) {
-	// 初始化以太坊客户端
-	client, err := utils.InitClient()
+	// 初始化客户端
+	client, err := utils.GetEthClientHTTP()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "初始化以太坊客户端失败: " + err.Error(),
@@ -72,19 +77,20 @@ func SubscribeBlock(c *gin.Context) {
 func GetBlockInfo(c *gin.Context) {
 	number := c.Query("number")
 	if number == "" {
-		c.JSON(http.StatusBadRequest, types.ErrorResponse{Code: http.StatusBadRequest, Message: "区块号不能为空"})
+		c.JSON(http.StatusBadRequest, ErrorResponse{Code: http.StatusBadRequest, Message: "区块号不能为空"})
 		return
 	}
 
-	client, err := utils.InitClient()
+	// 初始化客户端
+	client, err := utils.GetEthClientHTTP()
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{Code: http.StatusInternalServerError, Message: "初始化以太坊客户端失败: " + err.Error()})
+		c.JSON(http.StatusInternalServerError, ErrorResponse{Code: http.StatusInternalServerError, Message: "初始化以太坊客户端失败: " + err.Error()})
 		return
 	}
 
 	block, err := client.BlockByNumber(c.Request.Context(), nil)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{Code: http.StatusInternalServerError, Message: "获取区块信息失败: " + err.Error()})
+		c.JSON(http.StatusInternalServerError, ErrorResponse{Code: http.StatusInternalServerError, Message: "获取区块信息失败: " + err.Error()})
 		return
 	}
 
@@ -107,15 +113,16 @@ func GetBlockInfo(c *gin.Context) {
 // @Failure      500  {object}  ErrorResponse
 // @Router       /block/latest [get]
 func GetLatestBlock(c *gin.Context) {
-	client, err := utils.InitClient()
+	// 初始化客户端
+	client, err := utils.GetEthClientHTTP()
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{Code: http.StatusInternalServerError, Message: "初始化以太坊客户端失败: " + err.Error()})
+		c.JSON(http.StatusInternalServerError, ErrorResponse{Code: http.StatusInternalServerError, Message: "初始化以太坊客户端失败: " + err.Error()})
 		return
 	}
 
 	block, err := client.BlockByNumber(c.Request.Context(), nil)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{Code: http.StatusInternalServerError, Message: "获取最新区块失败: " + err.Error()})
+		c.JSON(http.StatusInternalServerError, ErrorResponse{Code: http.StatusInternalServerError, Message: "获取最新区块失败: " + err.Error()})
 		return
 	}
 
@@ -138,9 +145,10 @@ func GetLatestBlock(c *gin.Context) {
 // @Failure      500  {object}  ErrorResponse
 // @Router       /block/subscribe [get]
 func SubscribeBlocks(c *gin.Context) {
-	client, err := utils.InitClient()
+	// 使用WebSocket客户端，因为区块订阅需要WebSocket连接
+	client, err := utils.GetEthClientWS()
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{Code: http.StatusInternalServerError, Message: "初始化以太坊客户端失败: " + err.Error()})
+		c.JSON(http.StatusInternalServerError, ErrorResponse{Code: http.StatusInternalServerError, Message: "初始化WebSocket客户端失败: " + err.Error()})
 		return
 	}
 
@@ -148,7 +156,7 @@ func SubscribeBlocks(c *gin.Context) {
 	headers := make(chan *ethTypes.Header)
 	sub, err := client.SubscribeNewHead(c.Request.Context(), headers)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{Code: http.StatusInternalServerError, Message: "订阅区块失败: " + err.Error()})
+		c.JSON(http.StatusInternalServerError, ErrorResponse{Code: http.StatusInternalServerError, Message: "订阅区块失败: " + err.Error()})
 		return
 	}
 
@@ -202,6 +210,15 @@ func CreateTransaction(c *gin.Context) {
 		return
 	}
 
+	// 初始化客户端获取只是为了验证连接是否可用
+	_, err := utils.GetEthClientHTTP()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
 	// 调用工具函数发送交易
 	txHash, err := utils.CreateAndSendTransaction(req.From, req.To, req.Amount)
 	if err != nil {
@@ -238,53 +255,79 @@ func CreateRawTransaction(c *gin.Context) {
 	})
 }
 
-// SubscribeContractEvents godoc
-// @Summary      订阅合约事件
-// @Description  订阅所有已部署合约的事件
-// @Tags         事件
-// @Accept       json
-// @Produce      json
-// @Success      200  {object}  map[string]string
-// @Failure      500  {object}  ErrorResponse
-// @Router       /events/subscribe [post]
+// SubscribeContractEvents 订阅合约事件
 func SubscribeContractEvents(c *gin.Context) {
-	client, err := utils.InitClient()
+	// Check if WebSocket connection is requested
+	if !websocket.IsWebSocketUpgrade(c.Request) {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "WebSocket connection required"})
+		return
+	}
+
+	// Upgrade HTTP connection to WebSocket
+	wsConn, err := utils.Upgrader.Upgrade(c.Writer, c.Request, nil)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
-			Code:    http.StatusInternalServerError,
-			Message: "初始化以太坊客户端失败: " + err.Error(),
-		})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "WebSocket upgrade failed: " + err.Error()})
+		return
+	}
+	defer wsConn.Close()
+
+	// Initialize WebSocket client
+	client, err := utils.GetEthClientWS()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "WebSocket连接失败: " + err.Error()})
 		return
 	}
 
-	// 获取当前网络配置中的合约
-	network := config.GetCurrentNetwork()
-	if network == nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
-			Code:    http.StatusInternalServerError,
-			Message: "获取网络配置失败",
-		})
+	// 获取所有已部署合约的地址
+	contractAddresses := storage.GetAllContractAddresses()
+	if len(contractAddresses) == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "没有找到已部署的合约"})
 		return
 	}
 
-	// 准备合约地址映射
-	contracts := make(map[string]common.Address)
-	for name, contract := range network.Contracts {
-		contracts[name] = common.HexToAddress(contract.Address)
+	// 创建查询过滤器
+	query := ethereum.FilterQuery{
+		Addresses: make([]common.Address, 0, len(contractAddresses)),
 	}
 
-	// 调用abi包中的订阅所有合约事件方法
-	if err := abi.SubscribeAllContracts(client, contracts); err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
-			Code:    http.StatusInternalServerError,
-			Message: "订阅合约事件失败: " + err.Error(),
-		})
+	// 将字符串地址转换为common.Address
+	for _, addr := range contractAddresses {
+		address := common.HexToAddress(addr)
+		query.Addresses = append(query.Addresses, address)
+	}
+
+	// 创建日志通道
+	logs := make(chan ethTypes.Log)
+
+	// 订阅事件
+	sub, err := client.SubscribeFilterLogs(context.Background(), query, logs)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "订阅事件失败: " + err.Error()})
 		return
 	}
+	defer sub.Unsubscribe()
 
-	// 暂时返回成功消息
-	c.JSON(http.StatusOK, gin.H{
-		"message": "合约事件订阅已处理",
-		"count":   len(contracts),
-	})
+	// 发送初始连接成功消息
+	wsConn.WriteJSON(gin.H{"status": "已成功连接并开始监听合约事件"})
+
+	// 监听事件和错误
+	for {
+		select {
+		case err := <-sub.Err():
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "订阅出错: " + err.Error()})
+			return
+		case vLog := <-logs:
+			// 发送事件数据到WebSocket
+			err = wsConn.WriteJSON(gin.H{
+				"blockNumber": vLog.BlockNumber,
+				"txHash":      vLog.TxHash.Hex(),
+				"address":     vLog.Address.Hex(),
+				"data":        fmt.Sprintf("%x", vLog.Data),
+				"topics":      vLog.Topics,
+			})
+			if err != nil {
+				return
+			}
+		}
+	}
 }

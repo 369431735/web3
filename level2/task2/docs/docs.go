@@ -349,13 +349,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     }
                 }
@@ -385,13 +385,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     }
                 }
@@ -399,7 +399,7 @@ const docTemplate = `{
         },
         "/contract/bytecode": {
             "post": {
-                "description": "根据合约地址获取智能合约的字节码",
+                "description": "获取指定合约的字节码",
                 "consumes": [
                     "application/json"
                 ],
@@ -407,12 +407,12 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "合约"
+                    "contracts"
                 ],
-                "summary": "获取智能合约字节码",
+                "summary": "获取合约字节码",
                 "parameters": [
                     {
-                        "description": "合约地址",
+                        "description": "合约字节码请求参数",
                         "name": "request",
                         "in": "body",
                         "required": true,
@@ -430,12 +430,6 @@ const docTemplate = `{
                     },
                     "400": {
                         "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/controller.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
                         "schema": {
                             "$ref": "#/definitions/controller.ErrorResponse"
                         }
@@ -478,13 +472,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     }
                 }
@@ -525,13 +519,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     }
                 }
@@ -561,13 +555,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     }
                 }
@@ -608,13 +602,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     }
                 }
@@ -655,13 +649,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     }
                 }
@@ -690,13 +684,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     }
                 }
@@ -737,13 +731,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     }
                 }
@@ -752,24 +746,24 @@ const docTemplate = `{
         "/contracts": {
             "get": {
                 "description": "获取所有已部署合约的地址",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "合约"
+                    "contracts"
                 ],
                 "summary": "获取合约地址",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
+                            "$ref": "#/definitions/storage.ContractAddresses"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     }
                 }
@@ -777,7 +771,7 @@ const docTemplate = `{
         },
         "/contracts/deploy": {
             "post": {
-                "description": "部署智能合约",
+                "description": "部署指定的智能合约",
                 "consumes": [
                     "application/json"
                 ],
@@ -785,12 +779,12 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "合约"
+                    "contracts"
                 ],
-                "summary": "部署合约",
+                "summary": "部署单个合约",
                 "parameters": [
                     {
-                        "description": "合约部署参数",
+                        "description": "部署请求参数",
                         "name": "request",
                         "in": "body",
                         "required": true,
@@ -806,8 +800,8 @@ const docTemplate = `{
                             "$ref": "#/definitions/types.ContractResponse"
                         }
                     },
-                    "500": {
-                        "description": "Internal Server Error",
+                    "400": {
+                        "description": "Bad Request",
                         "schema": {
                             "$ref": "#/definitions/controller.ErrorResponse"
                         }
@@ -817,15 +811,12 @@ const docTemplate = `{
         },
         "/contracts/deploy-all": {
             "post": {
-                "description": "一次性部署所有支持的智能合约",
-                "consumes": [
-                    "application/json"
-                ],
+                "description": "部署所有支持的智能合约",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "合约"
+                    "contracts"
                 ],
                 "summary": "部署所有合约",
                 "responses": {
@@ -838,8 +829,8 @@ const docTemplate = `{
                             }
                         }
                     },
-                    "500": {
-                        "description": "Internal Server Error",
+                    "400": {
+                        "description": "Bad Request",
                         "schema": {
                             "$ref": "#/definitions/controller.ErrorResponse"
                         }
@@ -1147,33 +1138,64 @@ const docTemplate = `{
         "controller.TransactionRequest": {
             "type": "object"
         },
+        "storage.ContractAddresses": {
+            "type": "object",
+            "properties": {
+                "arrayDemo": {
+                    "type": "string"
+                },
+                "lock": {
+                    "type": "string"
+                },
+                "shipping": {
+                    "type": "string"
+                },
+                "simpleAuction": {
+                    "type": "string"
+                },
+                "simpleStorage": {
+                    "type": "string"
+                }
+            }
+        },
         "types.ContractBytecodeRequest": {
             "type": "object",
             "required": [
-                "address"
+                "contractType"
             ],
             "properties": {
-                "address": {
-                    "type": "string"
+                "contractType": {
+                    "type": "string",
+                    "example": "SimpleStorage"
                 }
             }
         },
         "types.ContractBytecodeResponse": {
             "type": "object",
             "properties": {
+                "address": {
+                    "type": "string",
+                    "example": "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
+                },
                 "bytecode": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "0x608060405234801561001057600080fd5b50..."
+                },
+                "contractType": {
+                    "type": "string",
+                    "example": "SimpleStorage"
                 }
             }
         },
         "types.ContractDeployRequest": {
             "type": "object",
             "required": [
-                "contract_name"
+                "contractType"
             ],
             "properties": {
-                "contract_name": {
-                    "type": "string"
+                "contractType": {
+                    "type": "string",
+                    "example": "SimpleStorage"
                 }
             }
         },
@@ -1181,21 +1203,20 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "address": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
                 },
-                "tx_hash": {
-                    "type": "string"
-                }
-            }
-        },
-        "types.ErrorResponse": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "integer"
+                "contractType": {
+                    "type": "string",
+                    "example": "SimpleStorage"
                 },
-                "message": {
-                    "type": "string"
+                "error": {
+                    "type": "string",
+                    "example": "部署失败: 交易确认超时"
+                },
+                "txHash": {
+                    "type": "string",
+                    "example": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"
                 }
             }
         }

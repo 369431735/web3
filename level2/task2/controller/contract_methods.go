@@ -5,12 +5,15 @@ import (
 	"fmt"
 	"math/big"
 	"net/http"
-	"task2/abi/bindings"
+	"strings"
 	"task2/config"
+	bindings2 "task2/contracts/bindings"
+	"task2/storage"
 	"task2/types"
 	"task2/utils"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/gin-gonic/gin"
 )
@@ -93,6 +96,40 @@ func getTransactOpts(client *ethclient.Client) (*bind.TransactOpts, error) {
 	return auth, nil
 }
 
+// 获取合约地址，优先从文件存储中获取
+func getContractAddress(contractType string) (common.Address, error) {
+	// 首先从文件存储中获取
+	contractStorage := storage.GetInstance()
+	addressStr, err := contractStorage.GetAddress(contractType)
+	if err == nil && addressStr != "" {
+		return common.HexToAddress(addressStr), nil
+	}
+
+	// 如果文件存储中没有，从内存中获取
+	var contractName string
+	switch contractType {
+	case "SimpleStorage":
+		contractName = "simplestorage"
+	case "Lock":
+		contractName = "lock"
+	case "Shipping":
+		contractName = "shipping"
+	case "SimpleAuction":
+		contractName = "simpleauction"
+	case "ArrayDemo":
+		contractName = "arraydemo"
+	default:
+		contractName = strings.ToLower(contractType)
+	}
+
+	address, exists := types.DeployedContracts[contractName]
+	if !exists {
+		return common.Address{}, fmt.Errorf("%s合约未部署", contractType)
+	}
+
+	return address, nil
+}
+
 // ----- SimpleStorage合约方法 -----
 
 // SimpleStorageSet godoc
@@ -103,13 +140,13 @@ func getTransactOpts(client *ethclient.Client) (*bind.TransactOpts, error) {
 // @Produce      json
 // @Param        request body SimpleStorageSetRequest true "设置请求参数"
 // @Success      200  {object}  map[string]interface{}
-// @Failure      400  {object}  types.ErrorResponse
-// @Failure      500  {object}  types.ErrorResponse
+// @Failure      400  {object}  ErrorResponse
+// @Failure      500  {object}  ErrorResponse
 // @Router       /contract/simplestorage/set [post]
 func SimpleStorageSet(c *gin.Context) {
 	var req SimpleStorageSetRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, types.ErrorResponse{
+		c.JSON(http.StatusBadRequest, ErrorResponse{
 			Code:    http.StatusBadRequest,
 			Message: "参数错误: " + err.Error(),
 		})
@@ -117,20 +154,19 @@ func SimpleStorageSet(c *gin.Context) {
 	}
 
 	// 初始化客户端
-	client, err := utils.InitClient()
+	client, err := utils.GetEthClientHTTP()
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "初始化以太坊客户端失败: " + err.Error(),
 		})
 		return
 	}
-	defer client.Close()
 
 	// 获取交易选项
 	auth, err := getTransactOpts(client)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "获取交易选项失败: " + err.Error(),
 		})
@@ -138,11 +174,11 @@ func SimpleStorageSet(c *gin.Context) {
 	}
 
 	// 从已部署合约中获取地址
-	contractAddress, exists := types.DeployedContracts["simplestorage"]
-	if !exists {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+	contractAddress, err := getContractAddress("SimpleStorage")
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
-			Message: "SimpleStorage合约未部署",
+			Message: "获取SimpleStorage合约地址失败: " + err.Error(),
 		})
 		return
 	}
@@ -152,9 +188,9 @@ func SimpleStorageSet(c *gin.Context) {
 	value.SetString(req.Value, 10)
 
 	// 创建合约实例
-	instance, err := bindings.NewSimpleStorage(contractAddress, client)
+	instance, err := bindings2.NewSimpleStorage(contractAddress, client)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "创建合约实例失败: " + err.Error(),
 		})
@@ -164,7 +200,7 @@ func SimpleStorageSet(c *gin.Context) {
 	// 调用set方法
 	tx, err := instance.Set(auth, value)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "调用set方法失败: " + err.Error(),
 		})
@@ -185,35 +221,34 @@ func SimpleStorageSet(c *gin.Context) {
 // @Accept       json
 // @Produce      json
 // @Success      200  {object}  SimpleStorageGetResponse
-// @Failure      400  {object}  types.ErrorResponse
-// @Failure      500  {object}  types.ErrorResponse
+// @Failure      400  {object}  ErrorResponse
+// @Failure      500  {object}  ErrorResponse
 // @Router       /contract/simplestorage/get [get]
 func SimpleStorageGet(c *gin.Context) {
 	// 初始化客户端
-	client, err := utils.InitClient()
+	client, err := utils.GetEthClientHTTP()
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "初始化以太坊客户端失败: " + err.Error(),
 		})
 		return
 	}
-	defer client.Close()
 
 	// 从已部署合约中获取地址
-	address, exists := types.DeployedContracts["simplestorage"]
-	if !exists {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+	contractAddress, err := getContractAddress("SimpleStorage")
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
-			Message: "SimpleStorage合约未部署",
+			Message: "获取SimpleStorage合约地址失败: " + err.Error(),
 		})
 		return
 	}
 
 	// 创建合约实例
-	instance, err := bindings.NewSimpleStorage(address, client)
+	instance, err := bindings2.NewSimpleStorage(contractAddress, client)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "创建合约实例失败: " + err.Error(),
 		})
@@ -223,7 +258,7 @@ func SimpleStorageGet(c *gin.Context) {
 	// 调用get方法
 	result, err := instance.Get(&bind.CallOpts{})
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "调用get方法失败: " + err.Error(),
 		})
@@ -245,25 +280,24 @@ func SimpleStorageGet(c *gin.Context) {
 // @Produce      json
 // @Param        request body LockWithdrawRequest true "提取请求参数"
 // @Success      200  {object}  map[string]interface{}
-// @Failure      400  {object}  types.ErrorResponse
-// @Failure      500  {object}  types.ErrorResponse
+// @Failure      400  {object}  ErrorResponse
+// @Failure      500  {object}  ErrorResponse
 // @Router       /contract/lock/withdraw [post]
 func LockWithdraw(c *gin.Context) {
 	// 初始化客户端
-	client, err := utils.InitClient()
+	client, err := utils.GetEthClientHTTP()
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "初始化以太坊客户端失败: " + err.Error(),
 		})
 		return
 	}
-	defer client.Close()
 
 	// 获取交易选项
 	auth, err := getTransactOpts(client)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "获取交易选项失败: " + err.Error(),
 		})
@@ -271,19 +305,19 @@ func LockWithdraw(c *gin.Context) {
 	}
 
 	// 从已部署合约中获取地址
-	contractAddress, exists := types.DeployedContracts["lock"]
-	if !exists {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+	contractAddress, err := getContractAddress("Lock")
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
-			Message: "Lock合约未部署",
+			Message: "获取Lock合约地址失败: " + err.Error(),
 		})
 		return
 	}
 
 	// 创建合约实例
-	instance, err := bindings.NewLock(contractAddress, client)
+	instance, err := bindings2.NewLock(contractAddress, client)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "创建合约实例失败: " + err.Error(),
 		})
@@ -293,7 +327,7 @@ func LockWithdraw(c *gin.Context) {
 	// 调用withdraw方法
 	tx, err := instance.Withdraw(auth)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "调用withdraw方法失败: " + err.Error(),
 		})
@@ -317,13 +351,13 @@ func LockWithdraw(c *gin.Context) {
 // @Produce      json
 // @Param        request body SimpleAuctionBidRequest true "出价请求参数"
 // @Success      200  {object}  map[string]interface{}
-// @Failure      400  {object}  types.ErrorResponse
-// @Failure      500  {object}  types.ErrorResponse
+// @Failure      400  {object}  ErrorResponse
+// @Failure      500  {object}  ErrorResponse
 // @Router       /contract/simpleauction/bid [post]
 func SimpleAuctionBid(c *gin.Context) {
 	var req SimpleAuctionBidRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, types.ErrorResponse{
+		c.JSON(http.StatusBadRequest, ErrorResponse{
 			Code:    http.StatusBadRequest,
 			Message: "参数错误: " + err.Error(),
 		})
@@ -331,20 +365,19 @@ func SimpleAuctionBid(c *gin.Context) {
 	}
 
 	// 初始化客户端
-	client, err := utils.InitClient()
+	client, err := utils.GetEthClientHTTP()
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "初始化以太坊客户端失败: " + err.Error(),
 		})
 		return
 	}
-	defer client.Close()
 
 	// 获取交易选项
 	auth, err := getTransactOpts(client)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "获取交易选项失败: " + err.Error(),
 		})
@@ -352,11 +385,11 @@ func SimpleAuctionBid(c *gin.Context) {
 	}
 
 	// 从已部署合约中获取地址
-	contractAddress, exists := types.DeployedContracts["simpleauction"]
-	if !exists {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+	contractAddress, err := getContractAddress("SimpleAuction")
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
-			Message: "SimpleAuction合约未部署",
+			Message: "获取SimpleAuction合约地址失败: " + err.Error(),
 		})
 		return
 	}
@@ -367,9 +400,9 @@ func SimpleAuctionBid(c *gin.Context) {
 	auth.Value = bidAmount
 
 	// 创建合约实例
-	instance, err := bindings.NewSimpleAuction(contractAddress, client)
+	instance, err := bindings2.NewSimpleAuction(contractAddress, client)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "创建合约实例失败: " + err.Error(),
 		})
@@ -379,7 +412,7 @@ func SimpleAuctionBid(c *gin.Context) {
 	// 调用bid方法
 	tx, err := instance.Bid(auth)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "调用bid方法失败: " + err.Error(),
 		})
@@ -402,25 +435,24 @@ func SimpleAuctionBid(c *gin.Context) {
 // @Produce      json
 // @Param        request body SimpleAuctionWithdrawRequest true "提取请求参数"
 // @Success      200  {object}  map[string]interface{}
-// @Failure      400  {object}  types.ErrorResponse
-// @Failure      500  {object}  types.ErrorResponse
+// @Failure      400  {object}  ErrorResponse
+// @Failure      500  {object}  ErrorResponse
 // @Router       /contract/simpleauction/withdraw [post]
 func SimpleAuctionWithdraw(c *gin.Context) {
 	// 初始化客户端
-	client, err := utils.InitClient()
+	client, err := utils.GetEthClientHTTP()
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "初始化以太坊客户端失败: " + err.Error(),
 		})
 		return
 	}
-	defer client.Close()
 
 	// 获取交易选项
 	auth, err := getTransactOpts(client)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "获取交易选项失败: " + err.Error(),
 		})
@@ -428,19 +460,19 @@ func SimpleAuctionWithdraw(c *gin.Context) {
 	}
 
 	// 从已部署合约中获取地址
-	contractAddress, exists := types.DeployedContracts["simpleauction"]
-	if !exists {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+	contractAddress, err := getContractAddress("SimpleAuction")
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
-			Message: "SimpleAuction合约未部署",
+			Message: "获取SimpleAuction合约地址失败: " + err.Error(),
 		})
 		return
 	}
 
 	// 创建合约实例
-	instance, err := bindings.NewSimpleAuction(contractAddress, client)
+	instance, err := bindings2.NewSimpleAuction(contractAddress, client)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "创建合约实例失败: " + err.Error(),
 		})
@@ -450,7 +482,7 @@ func SimpleAuctionWithdraw(c *gin.Context) {
 	// 调用withdraw方法
 	tx, err := instance.AuctionEnd(auth)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "调用withdraw方法失败: " + err.Error(),
 		})
@@ -474,13 +506,13 @@ func SimpleAuctionWithdraw(c *gin.Context) {
 // @Produce      json
 // @Param        request body ShippingAdvanceStateRequest true "请求参数"
 // @Success      200  {object}  map[string]interface{}
-// @Failure      400  {object}  types.ErrorResponse
-// @Failure      500  {object}  types.ErrorResponse
+// @Failure      400  {object}  ErrorResponse
+// @Failure      500  {object}  ErrorResponse
 // @Router       /contract/shipping/advance-state [post]
 func ShippingAdvanceState(c *gin.Context) {
 	var req ShippingAdvanceStateRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, types.ErrorResponse{
+		c.JSON(http.StatusBadRequest, ErrorResponse{
 			Code:    http.StatusBadRequest,
 			Message: "参数错误: " + err.Error(),
 		})
@@ -488,20 +520,19 @@ func ShippingAdvanceState(c *gin.Context) {
 	}
 
 	// 初始化客户端
-	client, err := utils.InitClient()
+	client, err := utils.GetEthClientHTTP()
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "初始化以太坊客户端失败: " + err.Error(),
 		})
 		return
 	}
-	defer client.Close()
 
 	// 获取交易选项
 	auth, err := getTransactOpts(client)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "获取交易选项失败: " + err.Error(),
 		})
@@ -509,19 +540,19 @@ func ShippingAdvanceState(c *gin.Context) {
 	}
 
 	// 从已部署合约中获取地址
-	contractAddress, exists := types.DeployedContracts["shipping"]
-	if !exists {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+	contractAddress, err := getContractAddress("Shipping")
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
-			Message: "Shipping合约未部署",
+			Message: "获取Shipping合约地址失败: " + err.Error(),
 		})
 		return
 	}
 
 	// 创建合约实例
-	instance, err := bindings.NewShipping(contractAddress, client)
+	instance, err := bindings2.NewShipping(contractAddress, client)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "创建合约实例失败: " + err.Error(),
 		})
@@ -531,7 +562,7 @@ func ShippingAdvanceState(c *gin.Context) {
 	// 调用Shipped方法
 	tx, err := instance.Shipped(auth)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "调用Shipped方法失败: " + err.Error(),
 		})
@@ -552,35 +583,34 @@ func ShippingAdvanceState(c *gin.Context) {
 // @Accept       json
 // @Produce      json
 // @Success      200  {object}  map[string]interface{}
-// @Failure      400  {object}  types.ErrorResponse
-// @Failure      500  {object}  types.ErrorResponse
+// @Failure      400  {object}  ErrorResponse
+// @Failure      500  {object}  ErrorResponse
 // @Router       /contract/shipping/get-state [get]
 func ShippingGetState(c *gin.Context) {
 	// 初始化客户端
-	client, err := utils.InitClient()
+	client, err := utils.GetEthClientHTTP()
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "初始化以太坊客户端失败: " + err.Error(),
 		})
 		return
 	}
-	defer client.Close()
 
 	// 从已部署合约中获取地址
-	contractAddress, exists := types.DeployedContracts["shipping"]
-	if !exists {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+	contractAddress, err := getContractAddress("Shipping")
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
-			Message: "Shipping合约未部署",
+			Message: "获取Shipping合约地址失败: " + err.Error(),
 		})
 		return
 	}
 
 	// 创建合约实例
-	instance, err := bindings.NewShipping(contractAddress, client)
+	instance, err := bindings2.NewShipping(contractAddress, client)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "创建合约实例失败: " + err.Error(),
 		})
@@ -590,7 +620,7 @@ func ShippingGetState(c *gin.Context) {
 	// 调用Status方法
 	status, err := instance.Status(&bind.CallOpts{})
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "调用Status方法失败: " + err.Error(),
 		})
@@ -613,13 +643,13 @@ func ShippingGetState(c *gin.Context) {
 // @Produce      json
 // @Param        request body ArrayDemoAddValueRequest true "请求参数"
 // @Success      200  {object}  map[string]interface{}
-// @Failure      400  {object}  types.ErrorResponse
-// @Failure      500  {object}  types.ErrorResponse
+// @Failure      400  {object}  ErrorResponse
+// @Failure      500  {object}  ErrorResponse
 // @Router       /contract/arraydemo/add-value [post]
 func ArrayDemoAddValue(c *gin.Context) {
 	var req ArrayDemoAddValueRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, types.ErrorResponse{
+		c.JSON(http.StatusBadRequest, ErrorResponse{
 			Code:    http.StatusBadRequest,
 			Message: "参数错误: " + err.Error(),
 		})
@@ -627,20 +657,19 @@ func ArrayDemoAddValue(c *gin.Context) {
 	}
 
 	// 初始化客户端
-	client, err := utils.InitClient()
+	client, err := utils.GetEthClientHTTP()
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "初始化以太坊客户端失败: " + err.Error(),
 		})
 		return
 	}
-	defer client.Close()
 
 	// 获取交易选项
 	auth, err := getTransactOpts(client)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "获取交易选项失败: " + err.Error(),
 		})
@@ -648,11 +677,11 @@ func ArrayDemoAddValue(c *gin.Context) {
 	}
 
 	// 从已部署合约中获取地址
-	contractAddress, exists := types.DeployedContracts["arraydemo"]
-	if !exists {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+	contractAddress, err := getContractAddress("ArrayDemo")
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
-			Message: "ArrayDemo合约未部署",
+			Message: "获取ArrayDemo合约地址失败: " + err.Error(),
 		})
 		return
 	}
@@ -661,7 +690,7 @@ func ArrayDemoAddValue(c *gin.Context) {
 	bigValue := new(big.Int)
 	_, ok := bigValue.SetString(req.Value, 10)
 	if !ok {
-		c.JSON(http.StatusBadRequest, types.ErrorResponse{
+		c.JSON(http.StatusBadRequest, ErrorResponse{
 			Code:    http.StatusBadRequest,
 			Message: "无效的数值",
 		})
@@ -669,9 +698,9 @@ func ArrayDemoAddValue(c *gin.Context) {
 	}
 
 	// 创建合约实例
-	instance, err := bindings.NewArrayDemo(contractAddress, client)
+	instance, err := bindings2.NewArrayDemo(contractAddress, client)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "创建合约实例失败: " + err.Error(),
 		})
@@ -681,7 +710,7 @@ func ArrayDemoAddValue(c *gin.Context) {
 	// 调用Put方法
 	tx, err := instance.Put(auth, bigValue)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "调用Put方法失败: " + err.Error(),
 		})
@@ -703,35 +732,34 @@ func ArrayDemoAddValue(c *gin.Context) {
 // @Accept       json
 // @Produce      json
 // @Success      200  {object}  map[string]interface{}
-// @Failure      400  {object}  types.ErrorResponse
-// @Failure      500  {object}  types.ErrorResponse
+// @Failure      400  {object}  ErrorResponse
+// @Failure      500  {object}  ErrorResponse
 // @Router       /contract/arraydemo/get-values [get]
 func ArrayDemoGetValues(c *gin.Context) {
 	// 初始化客户端
-	client, err := utils.InitClient()
+	client, err := utils.GetEthClientHTTP()
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "初始化以太坊客户端失败: " + err.Error(),
 		})
 		return
 	}
-	defer client.Close()
 
 	// 从已部署合约中获取地址
-	contractAddress, exists := types.DeployedContracts["arraydemo"]
-	if !exists {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+	contractAddress, err := getContractAddress("ArrayDemo")
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
-			Message: "ArrayDemo合约未部署",
+			Message: "获取ArrayDemo合约地址失败: " + err.Error(),
 		})
 		return
 	}
 
 	// 创建合约实例
-	instance, err := bindings.NewArrayDemo(contractAddress, client)
+	instance, err := bindings2.NewArrayDemo(contractAddress, client)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "创建合约实例失败: " + err.Error(),
 		})
@@ -741,7 +769,7 @@ func ArrayDemoGetValues(c *gin.Context) {
 	// 调用getArray方法
 	values, err := instance.GetArray(&bind.CallOpts{})
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, types.ErrorResponse{
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Code:    http.StatusInternalServerError,
 			Message: "调用getArray方法失败: " + err.Error(),
 		})

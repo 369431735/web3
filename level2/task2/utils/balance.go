@@ -12,11 +12,11 @@ import (
 
 // GetBalance 获取指定地址的余额
 func GetBalance(address string) (*big.Int, error) {
-	client, err := InitClient()
+	client, err := GetEthClientHTTP()
 	if err != nil {
 		return nil, fmt.Errorf("连接到以太坊节点失败: %v", err)
 	}
-	defer client.Close()
+	// 使用的是单例客户端，不需要关闭
 
 	// 将地址字符串转换为以太坊地址
 	ethAddress := common.HexToAddress(address)

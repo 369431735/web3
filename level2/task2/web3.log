@@ -1,0 +1,890 @@
+2025/03/19 15:22:35.668369 日志已成功重定向到文件: web3.log
+2025/03/19 15:22:35.668369 main.go:185: 日志配置完成
+2025/03/19 15:22:35.668369 main.go:100: 正在从存储加载合约地址...
+2025/03/19 15:22:35.668369 main.go:110: 警告: 没有找到任何存储的合约地址，请部署合约
+2025/03/19 15:22:35.668369 main.go:193: 合约地址已从存储中加载
+2025/03/19 15:22:35.668369 main.go:196: 
+1. 初始化路由和API服务
+2025/03/19 15:22:35.670366 main.go:203: 路由初始化完成，区块订阅功能已集成
+2025/03/19 15:22:35.670366 main.go:216: 启动 HTTP 服务器在 :8080
+2025/03/19 15:22:35.670366 main.go:217: 服务器模式: debug
+2025/03/19 15:22:35.670366 main.go:218: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/19 15:25:45.108755 main.go:197: 日志已成功重定向到文件和控制台: web3.log
+2025/03/19 15:25:45.108755 main.go:102: 正在从存储加载合约地址...
+2025/03/19 15:25:45.109262 main.go:112: 警告: 没有找到任何存储的合约地址，请部署合约
+2025/03/19 15:25:45.109262 main.go:205: 合约地址已从存储中加载
+2025/03/19 15:25:45.109262 main.go:208: 初始化路由和API服务
+2025/03/19 15:25:45.109768 main.go:218: 路由初始化完成，区块订阅功能已集成
+2025/03/19 15:25:45.109768 main.go:228: 启动 HTTP 服务器在 :8080
+2025/03/19 15:25:45.109768 main.go:229: 服务器模式: debug
+2025/03/19 15:25:45.109768 main.go:230: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/19 15:29:27.360456 main.go:197: 日志已成功重定向到文件和控制台: web3.log
+2025/03/19 15:29:27.360456 main.go:102: 正在从存储加载合约地址...
+2025/03/19 15:29:27.360456 main.go:112: 警告: 没有找到任何存储的合约地址，请部署合约
+2025/03/19 15:29:27.361347 main.go:205: 合约地址已从存储中加载
+2025/03/19 15:29:27.361347 main.go:208: 初始化路由和API服务
+2025/03/19 15:29:27.362347 main.go:218: 路由初始化完成，区块订阅功能已集成
+2025/03/19 15:29:27.362347 main.go:228: 启动 HTTP 服务器在 :8080
+2025/03/19 15:29:27.362347 main.go:229: 服务器模式: debug
+2025/03/19 15:29:27.362347 main.go:230: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/19 15:35:51.373608 main.go:197: 日志已成功重定向到文件和控制台: web3.log
+2025/03/19 15:35:51.374130 main.go:102: 正在从存储加载合约地址...
+2025/03/19 15:35:51.374130 main.go:112: 警告: 没有找到任何存储的合约地址，请部署合约
+2025/03/19 15:35:51.374130 main.go:205: 合约地址已从存储中加载
+2025/03/19 15:35:51.374130 main.go:208: 初始化路由和API服务
+2025/03/19 15:35:51.375673 main.go:218: 路由初始化完成，区块订阅功能已集成
+2025/03/19 15:35:51.375673 main.go:228: 启动 HTTP 服务器在 :8080
+2025/03/19 15:35:51.375673 main.go:229: 服务器模式: debug
+2025/03/19 15:35:51.375673 main.go:230: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/19 15:38:47.302908 main.go:197: 日志已成功重定向到文件和控制台: web3.log
+2025/03/19 15:38:47.302908 main.go:102: 正在从存储加载合约地址...
+2025/03/19 15:38:47.302908 main.go:112: 警告: 没有找到任何存储的合约地址，请部署合约
+2025/03/19 15:38:47.302908 main.go:205: 合约地址已从存储中加载
+2025/03/19 15:38:47.302908 main.go:208: 初始化路由和API服务
+2025/03/19 15:38:47.302908 main.go:218: 路由初始化完成，区块订阅功能已集成
+2025/03/19 15:38:47.302908 main.go:228: 启动 HTTP 服务器在 :8080
+2025/03/19 15:38:47.302908 main.go:229: 服务器模式: debug
+2025/03/19 15:38:47.302908 main.go:230: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/19 15:38:47.303920 main.go:234: 启动 HTTP 服务器失败: listen tcp :8080: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+2025/03/19 15:41:39.382214 main.go:197: 日志已成功重定向到文件和控制台: web3.log
+2025/03/19 15:41:39.382214 main.go:102: 正在从存储加载合约地址...
+2025/03/19 15:41:39.382214 main.go:112: 警告: 没有找到任何存储的合约地址，请部署合约
+2025/03/19 15:41:39.382214 main.go:205: 合约地址已从存储中加载
+2025/03/19 15:41:39.382214 main.go:208: 初始化路由和API服务
+2025/03/19 15:41:39.382724 main.go:218: 路由初始化完成，区块订阅功能已集成
+2025/03/19 15:41:39.382724 main.go:228: 启动 HTTP 服务器在 :8080
+2025/03/19 15:41:39.382724 main.go:229: 服务器模式: debug
+2025/03/19 15:41:39.382724 main.go:230: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/19 15:46:05.432572 main.go:212: 日志已成功重定向到文件和控制台: web3.log
+2025/03/19 15:46:05.432572 main.go:103: 正在从存储加载合约地址...
+2025/03/19 15:46:05.432572 main.go:113: 警告: 没有找到任何存储的合约地址，请部署合约
+2025/03/19 15:46:05.432572 main.go:220: 合约地址已从存储中加载
+2025/03/19 15:46:05.432572 main.go:223: 初始化路由和API服务
+2025/03/19 15:46:05.432572 main.go:233: 路由初始化完成，区块订阅功能已集成
+2025/03/19 15:46:05.432572 main.go:243: 启动 HTTP 服务器在 :8080
+2025/03/19 15:46:05.432572 main.go:244: 服务器模式: debug
+2025/03/19 15:46:05.432572 main.go:245: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/19 15:46:14.232179 contract.go:137: 开始部署所有合约...
+2025/03/19 15:46:20.452884 contract.go:148: 以太坊客户端初始化成功
+2025/03/19 15:46:22.673640 address.go:55: 处理私钥...
+2025/03/19 15:46:22.673640 address.go:59: 检测到0x前缀，将被移除
+2025/03/19 15:46:22.687933 address.go:82: 私钥处理成功
+2025/03/19 15:46:30.104468 contract.go:158: 交易选项获取成功
+2025/03/19 15:46:42.057529 contract.go:171: 准备部署 5 个合约
+2025/03/19 15:46:47.044530 contract.go:175: 开始部署合约: SimpleStorage
+2025/03/19 15:51:31.696174 main.go:212: 日志已成功重定向到文件和控制台: web3.log
+2025/03/19 15:51:31.696684 main.go:103: 正在从存储加载合约地址...
+2025/03/19 15:51:31.696684 main.go:113: 警告: 没有找到任何存储的合约地址，请部署合约
+2025/03/19 15:51:31.696684 main.go:220: 合约地址已从存储中加载
+2025/03/19 15:51:31.696684 main.go:223: 初始化路由和API服务
+2025/03/19 15:51:31.698243 main.go:233: 路由初始化完成，区块订阅功能已集成
+2025/03/19 15:51:31.698243 main.go:243: 启动 HTTP 服务器在 :8080
+2025/03/19 15:51:31.698243 main.go:244: 服务器模式: debug
+2025/03/19 15:51:31.698755 main.go:245: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/19 15:51:31.699801 main.go:249: 启动 HTTP 服务器失败: listen tcp :8080: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+2025/03/19 15:51:47.072889 contract.go:207: 合约 SimpleStorage 部署成功, 地址: 0x1234567890123456789012345678901234567890, 交易哈希: 0xaffd9e31577fcf9baf007bd4fc85af95dbf90224a071e77f86412e316c37f366
+2025/03/19 15:52:13.676030 main.go:212: 日志已成功重定向到文件和控制台: web3.log
+2025/03/19 15:52:13.676030 main.go:103: 正在从存储加载合约地址...
+2025/03/19 15:52:13.676030 main.go:113: 警告: 没有找到任何存储的合约地址，请部署合约
+2025/03/19 15:52:13.676030 main.go:220: 合约地址已从存储中加载
+2025/03/19 15:52:13.676030 main.go:223: 初始化路由和API服务
+2025/03/19 15:52:13.676030 main.go:233: 路由初始化完成，区块订阅功能已集成
+2025/03/19 15:52:13.676531 main.go:243: 启动 HTTP 服务器在 :8080
+2025/03/19 15:52:13.676541 main.go:244: 服务器模式: debug
+2025/03/19 15:52:13.676541 main.go:245: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/19 15:52:27.893432 contract.go:137: 开始部署所有合约...
+2025/03/19 15:52:32.042262 contract.go:148: 以太坊客户端初始化成功
+2025/03/19 15:52:32.375605 address.go:55: 处理私钥...
+2025/03/19 15:52:32.375605 address.go:59: 检测到0x前缀，将被移除
+2025/03/19 15:52:32.389371 address.go:82: 私钥处理成功
+2025/03/19 15:52:32.871945 contract.go:158: 交易选项获取成功
+2025/03/19 15:52:36.205233 contract.go:171: 准备部署 5 个合约
+2025/03/19 15:52:36.930963 contract.go:175: 开始部署合约: SimpleStorage
+2025/03/19 15:52:43.681492 contract.go:197: 合约 SimpleStorage 部署失败: Trying to send an incompatible EIP-155 transaction, signed for another chain.
+2025/03/19 15:52:46.064388 contract.go:175: 开始部署合约: Lock
+2025/03/19 15:52:48.261472 contract.go:197: 合约 Lock 部署失败: Trying to send an incompatible EIP-155 transaction, signed for another chain.
+2025/03/19 15:52:49.553137 contract.go:175: 开始部署合约: Shipping
+2025/03/19 15:52:49.558268 contract.go:197: 合约 Shipping 部署失败: Trying to send an incompatible EIP-155 transaction, signed for another chain.
+2025/03/19 15:52:49.558268 contract.go:175: 开始部署合约: SimpleAuction
+2025/03/19 15:52:49.564496 contract.go:197: 合约 SimpleAuction 部署失败: Trying to send an incompatible EIP-155 transaction, signed for another chain.
+2025/03/19 15:52:49.564496 contract.go:175: 开始部署合约: ArrayDemo
+2025/03/19 15:52:49.568990 contract.go:197: 合约 ArrayDemo 部署失败: Trying to send an incompatible EIP-155 transaction, signed for another chain.
+2025/03/19 15:52:49.568990 contract.go:228: 所有合约部署完成，共 5 个合约
+2025/03/19 16:22:45.816356 main.go:212: 日志已成功重定向到文件和控制台: web3.log
+2025/03/19 16:22:45.816356 main.go:103: 正在从存储加载合约地址...
+2025/03/19 16:22:45.816356 main.go:113: 警告: 没有找到任何存储的合约地址，请部署合约
+2025/03/19 16:22:45.816356 main.go:220: 合约地址已从存储中加载
+2025/03/19 16:22:45.816356 main.go:223: 初始化路由和API服务
+2025/03/19 16:22:45.816862 main.go:233: 路由初始化完成，区块订阅功能已集成
+2025/03/19 16:22:45.816862 main.go:243: 启动 HTTP 服务器在 :8080
+2025/03/19 16:22:45.816862 main.go:244: 服务器模式: debug
+2025/03/19 16:22:45.816862 main.go:245: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/19 16:22:50.874270 contract.go:137: 开始部署所有合约...
+2025/03/19 16:22:55.434832 contract.go:148: 以太坊客户端初始化成功
+2025/03/19 16:22:55.754232 address.go:55: 处理私钥...
+2025/03/19 16:22:55.754738 address.go:59: 检测到0x前缀，将被移除
+2025/03/19 16:22:55.770746 address.go:82: 私钥处理成功
+2025/03/19 16:22:56.573914 contract.go:158: 交易选项获取成功
+2025/03/19 16:23:00.591140 contract.go:171: 准备部署 5 个合约
+2025/03/19 16:23:02.838069 contract.go:175: 开始部署合约: SimpleStorage
+2025/03/19 16:23:32.084180 contract.go:197: 合约 SimpleStorage 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/19 16:23:32.084180 contract.go:175: 开始部署合约: Lock
+2025/03/19 16:23:32.092496 contract.go:197: 合约 Lock 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/19 16:23:32.092496 contract.go:175: 开始部署合约: Shipping
+2025/03/19 16:23:32.097158 contract.go:197: 合约 Shipping 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/19 16:23:32.097158 contract.go:175: 开始部署合约: SimpleAuction
+2025/03/19 16:23:32.100732 contract.go:197: 合约 SimpleAuction 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/19 16:23:32.101234 contract.go:175: 开始部署合约: ArrayDemo
+2025/03/19 16:23:32.105898 contract.go:197: 合约 ArrayDemo 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/19 16:23:32.105898 contract.go:228: 所有合约部署完成，共 5 个合约
+2025/03/19 16:43:22.208010 main.go:212: 日志已成功重定向到文件和控制台: web3.log
+2025/03/19 16:43:22.208010 main.go:103: 正在从存储加载合约地址...
+2025/03/19 16:43:22.208010 main.go:113: 警告: 没有找到任何存储的合约地址，请部署合约
+2025/03/19 16:43:22.208010 main.go:220: 合约地址已从存储中加载
+2025/03/19 16:43:22.208010 main.go:223: 初始化路由和API服务
+2025/03/19 16:43:22.208010 main.go:233: 路由初始化完成，区块订阅功能已集成
+2025/03/19 16:43:22.208010 main.go:243: 启动 HTTP 服务器在 :8080
+2025/03/19 16:43:22.208010 main.go:244: 服务器模式: debug
+2025/03/19 16:43:22.208010 main.go:245: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/19 16:43:34.788862 contract.go:137: 开始部署所有合约...
+2025/03/19 16:43:38.572880 contract.go:148: 以太坊客户端初始化成功
+2025/03/19 16:43:39.874410 address.go:55: 处理私钥...
+2025/03/19 16:43:39.874410 address.go:59: 检测到0x前缀，将被移除
+2025/03/19 16:43:39.896641 address.go:82: 私钥处理成功
+2025/03/19 16:43:41.210129 contract.go:158: 交易选项获取成功
+2025/03/19 16:43:45.585771 contract.go:171: 准备部署 5 个合约
+2025/03/19 16:43:46.959895 contract.go:175: 开始部署合约: SimpleStorage
+2025/03/19 16:43:54.469244 contract.go:207: 合约 SimpleStorage 部署成功, 地址: 0x21515C37970CbE667e53FE9fECd2358756b37c87, 交易哈希: 0xc0dae69d0452ed41e6f60b9ef3b9523e83949dcc4852cb608df7cc95e1e728bd
+2025/03/19 16:47:58.064892 main.go:212: 日志已成功重定向到文件和控制台: web3.log
+2025/03/19 16:47:58.065403 main.go:103: 正在从存储加载合约地址...
+2025/03/19 16:47:58.065403 main.go:113: 警告: 没有找到任何存储的合约地址，请部署合约
+2025/03/19 16:47:58.065403 main.go:220: 合约地址已从存储中加载
+2025/03/19 16:47:58.065403 main.go:223: 初始化路由和API服务
+2025/03/19 16:47:58.065912 main.go:233: 路由初始化完成，区块订阅功能已集成
+2025/03/19 16:47:58.065912 main.go:243: 启动 HTTP 服务器在 :8080
+2025/03/19 16:47:58.065912 main.go:244: 服务器模式: debug
+2025/03/19 16:47:58.065912 main.go:245: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/19 16:47:58.066930 main.go:249: 启动 HTTP 服务器失败: listen tcp :8080: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+2025/03/19 16:48:28.096033 main.go:212: 日志已成功重定向到文件和控制台: web3.log
+2025/03/19 16:48:28.096546 main.go:103: 正在从存储加载合约地址...
+2025/03/19 16:48:28.096546 main.go:113: 警告: 没有找到任何存储的合约地址，请部署合约
+2025/03/19 16:48:28.096546 main.go:220: 合约地址已从存储中加载
+2025/03/19 16:48:28.096546 main.go:223: 初始化路由和API服务
+2025/03/19 16:48:28.097057 main.go:233: 路由初始化完成，区块订阅功能已集成
+2025/03/19 16:48:28.097057 main.go:243: 启动 HTTP 服务器在 :8080
+2025/03/19 16:48:28.097057 main.go:244: 服务器模式: debug
+2025/03/19 16:48:28.097057 main.go:245: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/19 16:48:37.635136 contract.go:138: 开始部署所有合约...
+2025/03/19 16:48:37.635136 contract.go:149: 以太坊客户端初始化成功
+2025/03/19 16:48:37.635136 address.go:55: 处理私钥...
+2025/03/19 16:48:37.635136 address.go:59: 检测到0x前缀，将被移除
+2025/03/19 16:48:37.650148 address.go:82: 私钥处理成功
+2025/03/19 16:48:37.650148 contract.go:159: 交易选项获取成功
+2025/03/19 16:48:37.650148 contract.go:172: 准备部署 5 个合约
+2025/03/19 16:48:37.650148 contract.go:176: 开始部署合约: SimpleStorage
+2025/03/19 16:48:37.668082 contract.go:209: 等待交易确认: 0xb57a60b13378aeb40925ba14fa7d66a77660d47f75f52d7df8ae4ed3708e7335
+2025/03/19 16:48:37.675088 contract.go:235: 合约 SimpleStorage 部署成功, 地址: 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa, 交易哈希: 0xb57a60b13378aeb40925ba14fa7d66a77660d47f75f52d7df8ae4ed3708e7335
+2025/03/19 16:50:14.883638 contract.go:138: 开始部署所有合约...
+2025/03/19 16:50:14.883638 contract.go:149: 以太坊客户端初始化成功
+2025/03/19 16:50:14.883638 address.go:55: 处理私钥...
+2025/03/19 16:50:14.883638 address.go:59: 检测到0x前缀，将被移除
+2025/03/19 16:50:14.883638 address.go:82: 私钥处理成功
+2025/03/19 16:50:14.883638 contract.go:159: 交易选项获取成功
+2025/03/19 16:50:14.883638 contract.go:172: 准备部署 5 个合约
+2025/03/19 16:50:14.883638 contract.go:176: 开始部署合约: SimpleStorage
+2025/03/19 16:50:14.896097 contract.go:209: 等待交易确认: 0x4adcc63202b8f093df9366827e641bf2f4995d99b3782ea9c9aaa8756d8d03d6
+2025/03/19 16:50:14.899760 contract.go:235: 合约 SimpleStorage 部署成功, 地址: 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A, 交易哈希: 0x4adcc63202b8f093df9366827e641bf2f4995d99b3782ea9c9aaa8756d8d03d6
+2025/03/19 16:50:50.544943 contract.go:138: 开始部署所有合约...
+2025/03/19 16:50:50.545190 contract.go:149: 以太坊客户端初始化成功
+2025/03/19 16:50:50.545190 address.go:55: 处理私钥...
+2025/03/19 16:50:50.545190 address.go:59: 检测到0x前缀，将被移除
+2025/03/19 16:50:50.545190 address.go:82: 私钥处理成功
+2025/03/19 16:50:50.545190 contract.go:159: 交易选项获取成功
+2025/03/19 16:50:50.545190 contract.go:172: 准备部署 5 个合约
+2025/03/19 16:50:50.545190 contract.go:176: 开始部署合约: SimpleStorage
+2025/03/19 16:50:50.557432 contract.go:209: 等待交易确认: 0x412d502733670e5a49b0b989525ab44960144670f89375c13f377538afdd8ce6
+2025/03/19 16:50:50.561650 contract.go:235: 合约 SimpleStorage 部署成功, 地址: 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E, 交易哈希: 0x412d502733670e5a49b0b989525ab44960144670f89375c13f377538afdd8ce6
+2025/03/19 16:52:05.642316 main.go:212: 日志已成功重定向到文件和控制台: web3.log
+2025/03/19 16:52:05.642316 main.go:103: 正在从存储加载合约地址...
+2025/03/19 16:52:05.642316 main.go:113: 警告: 没有找到任何存储的合约地址，请部署合约
+2025/03/19 16:52:05.642316 main.go:220: 合约地址已从存储中加载
+2025/03/19 16:52:05.642316 main.go:223: 初始化路由和API服务
+2025/03/19 16:52:05.642824 main.go:233: 路由初始化完成，区块订阅功能已集成
+2025/03/19 16:52:05.642824 main.go:243: 启动 HTTP 服务器在 :8080
+2025/03/19 16:52:05.642824 main.go:244: 服务器模式: debug
+2025/03/19 16:52:05.642824 main.go:245: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/19 16:52:30.679909 contract.go:138: 开始部署所有合约...
+2025/03/19 16:52:30.679909 contract.go:149: 以太坊客户端初始化成功
+2025/03/19 16:52:30.679909 address.go:55: 处理私钥...
+2025/03/19 16:52:30.679909 address.go:59: 检测到0x前缀，将被移除
+2025/03/19 16:52:30.695597 address.go:82: 私钥处理成功
+2025/03/19 16:52:30.695597 contract.go:159: 交易选项获取成功
+2025/03/19 16:52:30.695597 contract.go:172: 准备部署 5 个合约
+2025/03/19 16:52:30.695597 contract.go:176: 开始部署合约: SimpleStorage
+2025/03/19 16:52:30.709305 contract.go:209: 等待交易确认: 0xda1805efd9b8c455ff5cb3325fc32e2c4bad3c5b4bd5365be03ec19b2eb404d6
+2025/03/19 16:52:30.711562 contract.go:235: 合约 SimpleStorage 部署成功, 地址: 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204, 交易哈希: 0xda1805efd9b8c455ff5cb3325fc32e2c4bad3c5b4bd5365be03ec19b2eb404d6
+2025/03/19 16:57:04.329734 main.go:212: 日志已成功重定向到文件和控制台: web3.log
+2025/03/19 16:57:04.329734 main.go:103: 正在从存储加载合约地址...
+2025/03/19 16:57:04.329734 main.go:113: 警告: 没有找到任何存储的合约地址，请部署合约
+2025/03/19 16:57:04.329734 main.go:220: 合约地址已从存储中加载
+2025/03/19 16:57:04.329734 main.go:223: 初始化路由和API服务
+2025/03/19 16:57:04.330242 main.go:233: 路由初始化完成，区块订阅功能已集成
+2025/03/19 16:57:04.330242 main.go:243: 启动 HTTP 服务器在 :8080
+2025/03/19 16:57:04.330242 main.go:244: 服务器模式: debug
+2025/03/19 16:57:04.330242 main.go:245: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/19 16:57:12.639315 contract.go:138: 开始部署所有合约...
+2025/03/19 16:57:12.639315 contract.go:149: 以太坊客户端初始化成功
+2025/03/19 16:57:12.639315 address.go:55: 处理私钥...
+2025/03/19 16:57:12.639315 address.go:59: 检测到0x前缀，将被移除
+2025/03/19 16:57:12.663020 address.go:82: 私钥处理成功
+2025/03/19 16:57:12.663527 contract.go:159: 交易选项获取成功
+2025/03/19 16:57:12.663527 contract.go:172: 准备部署 5 个合约
+2025/03/19 16:57:12.663527 contract.go:176: 开始部署合约: SimpleStorage
+2025/03/19 16:57:12.734535 contract.go:209: 等待交易确认: 0xde81cd02d8a962dae09addefd1a00d53fe5fb4203944eecde673aca2ec78669d
+2025/03/19 16:57:12.745059 contract.go:235: 合约 SimpleStorage 部署成功, 地址: 0xd32F443bd6bFe76FfE1998d52b1aEc6753745bE2, 交易哈希: 0xde81cd02d8a962dae09addefd1a00d53fe5fb4203944eecde673aca2ec78669d
+2025/03/19 16:57:28.210149 contract.go:249: 合约地址已保存到文件: SimpleStorage => 0xd32F443bd6bFe76FfE1998d52b1aEc6753745bE2
+2025/03/19 16:57:28.210149 contract.go:254: 更新内存中的合约地址映射: simplestorage => 0xd32F443bd6bFe76FfE1998d52b1aEc6753745bE2
+2025/03/19 16:57:28.210149 contract.go:176: 开始部署合约: Lock
+2025/03/19 16:57:28.223184 contract.go:209: 等待交易确认: 0xebfdfe2f3b8f2fe7cd0a5969cd70ce0b919ea28b412470a44fd4196920a2f185
+2025/03/19 16:57:28.225861 contract.go:235: 合约 Lock 部署成功, 地址: 0x57FE0f87D96DAf4aD9228A130424120acBEF3Cfb, 交易哈希: 0xebfdfe2f3b8f2fe7cd0a5969cd70ce0b919ea28b412470a44fd4196920a2f185
+2025/03/19 16:57:30.525133 contract.go:249: 合约地址已保存到文件: Lock => 0x57FE0f87D96DAf4aD9228A130424120acBEF3Cfb
+2025/03/19 16:57:30.525133 contract.go:254: 更新内存中的合约地址映射: lock => 0x57FE0f87D96DAf4aD9228A130424120acBEF3Cfb
+2025/03/19 16:57:30.525133 contract.go:176: 开始部署合约: Shipping
+2025/03/19 16:57:30.531334 contract.go:209: 等待交易确认: 0xb4b2072726b8020f38b1bc8b7368be6e34ea959eb7b1fad0b3169cf345d6e38a
+2025/03/19 16:57:30.532916 contract.go:235: 合约 Shipping 部署成功, 地址: 0x82EdbE421099367367F6Bdc06608725D6241381a, 交易哈希: 0xb4b2072726b8020f38b1bc8b7368be6e34ea959eb7b1fad0b3169cf345d6e38a
+2025/03/19 16:57:31.855171 contract.go:249: 合约地址已保存到文件: Shipping => 0x82EdbE421099367367F6Bdc06608725D6241381a
+2025/03/19 16:57:31.855171 contract.go:254: 更新内存中的合约地址映射: shipping => 0x82EdbE421099367367F6Bdc06608725D6241381a
+2025/03/19 16:57:31.855171 contract.go:176: 开始部署合约: SimpleAuction
+2025/03/19 16:57:31.869811 contract.go:209: 等待交易确认: 0x913864152619b45d48658dcb05be5ec8f311c8024a0b34b243dbac299a2bc614
+2025/03/19 16:57:31.871417 contract.go:235: 合约 SimpleAuction 部署成功, 地址: 0x556407ef4d722CeA441b549fC12be474bcE84433, 交易哈希: 0x913864152619b45d48658dcb05be5ec8f311c8024a0b34b243dbac299a2bc614
+2025/03/19 16:57:32.717974 contract.go:249: 合约地址已保存到文件: SimpleAuction => 0x556407ef4d722CeA441b549fC12be474bcE84433
+2025/03/19 16:57:32.717974 contract.go:254: 更新内存中的合约地址映射: simpleauction => 0x556407ef4d722CeA441b549fC12be474bcE84433
+2025/03/19 16:57:32.717974 contract.go:176: 开始部署合约: ArrayDemo
+2025/03/19 16:57:32.724278 contract.go:209: 等待交易确认: 0xd513837e9c821680c38bccbc1daa506747ccbde49b3983f02aec828ca0e86efb
+2025/03/19 16:57:32.725811 contract.go:235: 合约 ArrayDemo 部署成功, 地址: 0x86130B7863fDF3BEbC0F887A1204797E6328b8B7, 交易哈希: 0xd513837e9c821680c38bccbc1daa506747ccbde49b3983f02aec828ca0e86efb
+2025/03/19 16:57:33.525254 contract.go:249: 合约地址已保存到文件: ArrayDemo => 0x86130B7863fDF3BEbC0F887A1204797E6328b8B7
+2025/03/19 16:57:33.525254 contract.go:254: 更新内存中的合约地址映射: arraydemo => 0x86130B7863fDF3BEbC0F887A1204797E6328b8B7
+2025/03/19 16:57:33.525254 contract.go:263: 所有合约部署完成，共 5 个合约
+2025/03/19 16:57:44.798888 contract.go:138: 开始部署所有合约...
+2025/03/19 16:57:44.799395 contract.go:149: 以太坊客户端初始化成功
+2025/03/19 16:57:44.799395 address.go:55: 处理私钥...
+2025/03/19 16:57:44.799395 address.go:59: 检测到0x前缀，将被移除
+2025/03/19 16:57:44.799395 address.go:82: 私钥处理成功
+2025/03/19 16:57:44.799395 contract.go:159: 交易选项获取成功
+2025/03/19 16:57:44.799395 contract.go:172: 准备部署 5 个合约
+2025/03/19 16:57:44.799395 contract.go:176: 开始部署合约: SimpleStorage
+2025/03/19 16:57:44.807033 contract.go:209: 等待交易确认: 0x5a61bf395339c9724595517fd9c7f01b618f50a702d28cfec8b19b7eccd758e7
+2025/03/19 16:57:44.808349 contract.go:235: 合约 SimpleStorage 部署成功, 地址: 0xe1f96F7c4f9a817e2Bf3258abD58384284871d29, 交易哈希: 0x5a61bf395339c9724595517fd9c7f01b618f50a702d28cfec8b19b7eccd758e7
+2025/03/19 16:58:27.094594 contract.go:249: 合约地址已保存到文件: SimpleStorage => 0xe1f96F7c4f9a817e2Bf3258abD58384284871d29
+2025/03/19 16:58:27.094594 contract.go:254: 更新内存中的合约地址映射: simplestorage => 0xe1f96F7c4f9a817e2Bf3258abD58384284871d29
+2025/03/19 16:58:27.098577 contract.go:176: 开始部署合约: Lock
+2025/03/19 16:58:27.107480 contract.go:209: 等待交易确认: 0x5aed409d3bde2ecbcea8aa86c39c3d7ecc84101e924ffccce9f44d799d74abb6
+2025/03/19 16:58:27.109992 contract.go:235: 合约 Lock 部署成功, 地址: 0xE65d2B1eF910901fB21Be4419F1b53C9F360b9EF, 交易哈希: 0x5aed409d3bde2ecbcea8aa86c39c3d7ecc84101e924ffccce9f44d799d74abb6
+2025/03/19 16:58:28.546486 contract.go:249: 合约地址已保存到文件: Lock => 0xE65d2B1eF910901fB21Be4419F1b53C9F360b9EF
+2025/03/19 16:58:28.546486 contract.go:254: 更新内存中的合约地址映射: lock => 0xE65d2B1eF910901fB21Be4419F1b53C9F360b9EF
+2025/03/19 16:58:28.546988 contract.go:176: 开始部署合约: Shipping
+2025/03/19 16:58:28.555574 contract.go:209: 等待交易确认: 0x64f2bf7508418a842edde196cb15471125b002756d932cc9dac354bdf8158a5e
+2025/03/19 16:58:28.556597 contract.go:235: 合约 Shipping 部署成功, 地址: 0x4D19c8Bc1cbffe18c68E8566e6BCf82eCD9Df289, 交易哈希: 0x64f2bf7508418a842edde196cb15471125b002756d932cc9dac354bdf8158a5e
+2025/03/19 16:58:29.163456 contract.go:249: 合约地址已保存到文件: Shipping => 0x4D19c8Bc1cbffe18c68E8566e6BCf82eCD9Df289
+2025/03/19 16:58:29.166716 contract.go:254: 更新内存中的合约地址映射: shipping => 0x4D19c8Bc1cbffe18c68E8566e6BCf82eCD9Df289
+2025/03/19 16:58:29.166716 contract.go:176: 开始部署合约: SimpleAuction
+2025/03/19 16:58:29.172978 contract.go:209: 等待交易确认: 0xb85b410d07bad4726ff2caab3a4affdbd82fd647a3d989f77fab2cdd16570699
+2025/03/19 16:58:29.174157 contract.go:235: 合约 SimpleAuction 部署成功, 地址: 0xf718443130738F401Cd3688c1932234e5712195F, 交易哈希: 0xb85b410d07bad4726ff2caab3a4affdbd82fd647a3d989f77fab2cdd16570699
+2025/03/19 16:58:29.724950 contract.go:249: 合约地址已保存到文件: SimpleAuction => 0xf718443130738F401Cd3688c1932234e5712195F
+2025/03/19 16:58:29.724950 contract.go:254: 更新内存中的合约地址映射: simpleauction => 0xf718443130738F401Cd3688c1932234e5712195F
+2025/03/19 16:58:29.724950 contract.go:176: 开始部署合约: ArrayDemo
+2025/03/19 16:58:29.730060 contract.go:209: 等待交易确认: 0x7f3e196eac03f0d2625d2779a3b9086491f544bfc1d11cfbe77706dea4f03480
+2025/03/19 16:58:29.733202 contract.go:235: 合约 ArrayDemo 部署成功, 地址: 0x5786d296D4D6d7e3c7C561cCB90817Cb78221ABB, 交易哈希: 0x7f3e196eac03f0d2625d2779a3b9086491f544bfc1d11cfbe77706dea4f03480
+2025/03/19 16:58:30.239935 contract.go:249: 合约地址已保存到文件: ArrayDemo => 0x5786d296D4D6d7e3c7C561cCB90817Cb78221ABB
+2025/03/19 16:58:30.239935 contract.go:254: 更新内存中的合约地址映射: arraydemo => 0x5786d296D4D6d7e3c7C561cCB90817Cb78221ABB
+2025/03/19 16:58:30.239935 contract.go:263: 所有合约部署完成，共 5 个合约
+2025/03/19 17:00:42.326958 subscribe.go:136: 警告: 未知合约类型 simple_auction，跳过订阅
+2025/03/19 17:00:42.332057 subscribe.go:136: 警告: 未知合约类型 array_demo，跳过订阅
+2025/03/19 17:00:42.332561 subscribe.go:136: 警告: 未知合约类型 simple_storage，跳过订阅
+2025/03/19 17:01:22.050016 contract.go:138: 开始部署所有合约...
+2025/03/19 17:01:22.050016 contract.go:149: 以太坊客户端初始化成功
+2025/03/19 17:01:22.050016 address.go:55: 处理私钥...
+2025/03/19 17:01:22.050016 address.go:59: 检测到0x前缀，将被移除
+2025/03/19 17:01:22.050016 address.go:82: 私钥处理成功
+2025/03/19 17:01:22.050518 contract.go:159: 交易选项获取成功
+2025/03/19 17:01:22.050525 contract.go:172: 准备部署 5 个合约
+2025/03/19 17:01:22.050525 contract.go:176: 开始部署合约: SimpleStorage
+2025/03/19 17:01:22.058538 contract.go:209: 等待交易确认: 0x1f7ea4a414d528a3f6d1d2dfd831b092d30a5b859ff7632e99c337ceaccf2edc
+2025/03/19 17:01:22.059772 contract.go:235: 合约 SimpleStorage 部署成功, 地址: 0x050b378505EBa9aa97B51aBAD534013288c65A59, 交易哈希: 0x1f7ea4a414d528a3f6d1d2dfd831b092d30a5b859ff7632e99c337ceaccf2edc
+2025/03/19 17:01:30.483209 contract.go:249: 合约地址已保存到文件: SimpleStorage => 0x050b378505EBa9aa97B51aBAD534013288c65A59
+2025/03/19 17:01:30.483209 contract.go:254: 更新内存中的合约地址映射: simplestorage => 0x050b378505EBa9aa97B51aBAD534013288c65A59
+2025/03/19 17:01:30.483209 contract.go:176: 开始部署合约: Lock
+2025/03/19 17:01:30.503191 contract.go:209: 等待交易确认: 0xbe10edd10aefe99262b4a012f5c394523ba8455c0bf8526617ce61c820979b31
+2025/03/19 17:01:30.506821 contract.go:235: 合约 Lock 部署成功, 地址: 0x4F298dFa3f69ea042Beae21C271A10A47E3896d8, 交易哈希: 0xbe10edd10aefe99262b4a012f5c394523ba8455c0bf8526617ce61c820979b31
+2025/03/19 17:01:31.218950 contract.go:249: 合约地址已保存到文件: Lock => 0x4F298dFa3f69ea042Beae21C271A10A47E3896d8
+2025/03/19 17:01:31.218950 contract.go:254: 更新内存中的合约地址映射: lock => 0x4F298dFa3f69ea042Beae21C271A10A47E3896d8
+2025/03/19 17:01:31.218950 contract.go:176: 开始部署合约: Shipping
+2025/03/19 17:01:31.227526 contract.go:209: 等待交易确认: 0x71dc97f5ef2c621ae9ff1a642e83b45b428571733d52a5330225959f76d608d7
+2025/03/19 17:01:31.229529 contract.go:235: 合约 Shipping 部署成功, 地址: 0xCC1Ce6b2892D2cB1DB7Cd03Aeff207F9190c39f3, 交易哈希: 0x71dc97f5ef2c621ae9ff1a642e83b45b428571733d52a5330225959f76d608d7
+2025/03/19 17:01:32.712611 contract.go:249: 合约地址已保存到文件: Shipping => 0xCC1Ce6b2892D2cB1DB7Cd03Aeff207F9190c39f3
+2025/03/19 17:01:32.712611 contract.go:254: 更新内存中的合约地址映射: shipping => 0xCC1Ce6b2892D2cB1DB7Cd03Aeff207F9190c39f3
+2025/03/19 17:01:32.712611 contract.go:176: 开始部署合约: SimpleAuction
+2025/03/19 17:01:32.737371 contract.go:209: 等待交易确认: 0xa245d2064743910ae7d3203fe6c8ef7501e1f030e79d188dad017f62a670df1a
+2025/03/19 17:01:32.738394 contract.go:235: 合约 SimpleAuction 部署成功, 地址: 0x1F22532B6d71B92E9AD37fA18306F3f09e8751f1, 交易哈希: 0xa245d2064743910ae7d3203fe6c8ef7501e1f030e79d188dad017f62a670df1a
+2025/03/19 17:01:32.739055 contract.go:249: 合约地址已保存到文件: SimpleAuction => 0x1F22532B6d71B92E9AD37fA18306F3f09e8751f1
+2025/03/19 17:01:32.739055 contract.go:254: 更新内存中的合约地址映射: simpleauction => 0x1F22532B6d71B92E9AD37fA18306F3f09e8751f1
+2025/03/19 17:01:32.739055 contract.go:176: 开始部署合约: ArrayDemo
+2025/03/19 17:01:32.743634 contract.go:209: 等待交易确认: 0xf09c74fb87b4f309b869f49860cd26638cc7cc062236b1c8b49895e20e5b09e2
+2025/03/19 17:01:32.750693 contract.go:235: 合约 ArrayDemo 部署成功, 地址: 0x91E554E788cD4835a5994A4D76e320274203D503, 交易哈希: 0xf09c74fb87b4f309b869f49860cd26638cc7cc062236b1c8b49895e20e5b09e2
+2025/03/19 17:01:32.750693 contract.go:249: 合约地址已保存到文件: ArrayDemo => 0x91E554E788cD4835a5994A4D76e320274203D503
+2025/03/19 17:01:32.751195 contract.go:254: 更新内存中的合约地址映射: arraydemo => 0x91E554E788cD4835a5994A4D76e320274203D503
+2025/03/19 17:01:32.751277 contract.go:263: 所有合约部署完成，共 5 个合约
+2025/03/19 17:28:13.781802 main.go:212: 日志已成功重定向到文件和控制台: web3.log
+2025/03/19 17:28:13.782316 main.go:103: 正在从存储加载合约地址...
+2025/03/19 17:28:13.782316 main.go:119: 已加载SimpleStorage合约地址: 0x050b378505EBa9aa97B51aBAD534013288c65A59
+2025/03/19 17:28:13.782316 main.go:123: 已加载Lock合约地址: 0x4F298dFa3f69ea042Beae21C271A10A47E3896d8
+2025/03/19 17:28:13.782316 main.go:127: 已加载Shipping合约地址: 0xCC1Ce6b2892D2cB1DB7Cd03Aeff207F9190c39f3
+2025/03/19 17:28:13.782316 main.go:131: 已加载SimpleAuction合约地址: 0x1F22532B6d71B92E9AD37fA18306F3f09e8751f1
+2025/03/19 17:28:13.782316 main.go:135: 已加载ArrayDemo合约地址: 0x91E554E788cD4835a5994A4D76e320274203D503
+2025/03/19 17:28:13.782316 main.go:220: 合约地址已从存储中加载
+2025/03/19 17:28:13.782316 main.go:223: 初始化路由和API服务
+2025/03/19 17:28:13.782831 main.go:233: 路由初始化完成，区块订阅功能已集成
+2025/03/19 17:28:13.782831 main.go:243: 启动 HTTP 服务器在 :8080
+2025/03/19 17:28:13.782831 main.go:244: 服务器模式: debug
+2025/03/19 17:28:13.782831 main.go:245: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/19 17:28:28.229851 contract.go:138: 开始部署所有合约...
+2025/03/19 17:28:28.229851 contract.go:149: 以太坊客户端初始化成功
+2025/03/19 17:28:28.229851 address.go:55: 处理私钥...
+2025/03/19 17:28:28.229851 address.go:59: 检测到0x前缀，将被移除
+2025/03/19 17:28:28.254064 address.go:82: 私钥处理成功
+2025/03/19 17:28:28.254064 contract.go:159: 交易选项获取成功
+2025/03/19 17:28:28.254064 contract.go:172: 准备部署 5 个合约
+2025/03/19 17:28:28.254064 contract.go:176: 开始部署合约: SimpleStorage
+2025/03/19 17:28:28.296624 contract.go:209: 等待交易确认: 0xc0dae69d0452ed41e6f60b9ef3b9523e83949dcc4852cb608df7cc95e1e728bd
+2025/03/19 17:28:28.299920 contract.go:235: 合约 SimpleStorage 部署成功, 地址: 0x21515C37970CbE667e53FE9fECd2358756b37c87, 交易哈希: 0xc0dae69d0452ed41e6f60b9ef3b9523e83949dcc4852cb608df7cc95e1e728bd
+2025/03/19 17:28:38.385251 contract.go:249: 合约地址已保存到文件: SimpleStorage => 0x21515C37970CbE667e53FE9fECd2358756b37c87
+2025/03/19 17:28:38.385420 contract.go:254: 更新内存中的合约地址映射: simplestorage => 0x21515C37970CbE667e53FE9fECd2358756b37c87
+2025/03/19 17:28:38.385420 contract.go:176: 开始部署合约: Lock
+2025/03/19 17:28:38.398818 contract.go:209: 等待交易确认: 0x758c75136deb14f114f223526ae1ddc13fab54c8596f7d2dc6fe8b1dc695509b
+2025/03/19 17:28:38.400121 contract.go:235: 合约 Lock 部署成功, 地址: 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa, 交易哈希: 0x758c75136deb14f114f223526ae1ddc13fab54c8596f7d2dc6fe8b1dc695509b
+2025/03/19 17:28:38.400637 contract.go:249: 合约地址已保存到文件: Lock => 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa
+2025/03/19 17:28:38.400637 contract.go:254: 更新内存中的合约地址映射: lock => 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa
+2025/03/19 17:28:38.400637 contract.go:176: 开始部署合约: Shipping
+2025/03/19 17:28:38.409494 contract.go:209: 等待交易确认: 0x237dd0649f84d30edb858c21dcc0e379f6128346323beb333cde88ffb3d26744
+2025/03/19 17:28:38.410982 contract.go:235: 合约 Shipping 部署成功, 地址: 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A, 交易哈希: 0x237dd0649f84d30edb858c21dcc0e379f6128346323beb333cde88ffb3d26744
+2025/03/19 17:28:38.410982 contract.go:249: 合约地址已保存到文件: Shipping => 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A
+2025/03/19 17:28:38.411500 contract.go:254: 更新内存中的合约地址映射: shipping => 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A
+2025/03/19 17:28:38.411500 contract.go:176: 开始部署合约: SimpleAuction
+2025/03/19 17:28:38.419507 contract.go:209: 等待交易确认: 0x145b02e8d12516b13d6ff5d0380649dc702229a8902f7483d5b33973d0edff8e
+2025/03/19 17:28:38.420519 contract.go:235: 合约 SimpleAuction 部署成功, 地址: 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E, 交易哈希: 0x145b02e8d12516b13d6ff5d0380649dc702229a8902f7483d5b33973d0edff8e
+2025/03/19 17:28:38.420519 contract.go:249: 合约地址已保存到文件: SimpleAuction => 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E
+2025/03/19 17:28:38.420519 contract.go:254: 更新内存中的合约地址映射: simpleauction => 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E
+2025/03/19 17:28:38.421037 contract.go:176: 开始部署合约: ArrayDemo
+2025/03/19 17:28:38.427558 contract.go:209: 等待交易确认: 0x48ab4fc134ac66ef052833187ad6e24edac9c2b3a0d6de4dea7505af650743de
+2025/03/19 17:28:38.428550 contract.go:235: 合约 ArrayDemo 部署成功, 地址: 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204, 交易哈希: 0x48ab4fc134ac66ef052833187ad6e24edac9c2b3a0d6de4dea7505af650743de
+2025/03/19 17:28:38.428550 contract.go:249: 合约地址已保存到文件: ArrayDemo => 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204
+2025/03/19 17:28:38.428550 contract.go:254: 更新内存中的合约地址映射: arraydemo => 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204
+2025/03/19 17:28:38.428550 contract.go:263: 所有合约部署完成，共 5 个合约
+2025/03/19 17:28:57.368918 subscribe.go:136: 警告: 未知合约类型 simple_storage，跳过订阅
+2025/03/20 09:37:53.074445 main.go:212: 日志已成功重定向到文件和控制台: web3.log
+2025/03/20 09:37:53.075479 main.go:103: 正在从存储加载合约地址...
+2025/03/20 09:37:53.075479 main.go:119: 已加载SimpleStorage合约地址: 0x21515C37970CbE667e53FE9fECd2358756b37c87
+2025/03/20 09:37:53.075479 main.go:123: 已加载Lock合约地址: 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa
+2025/03/20 09:37:53.075479 main.go:127: 已加载Shipping合约地址: 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A
+2025/03/20 09:37:53.075479 main.go:131: 已加载SimpleAuction合约地址: 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E
+2025/03/20 09:37:53.075479 main.go:135: 已加载ArrayDemo合约地址: 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204
+2025/03/20 09:37:53.075479 main.go:220: 合约地址已从存储中加载
+2025/03/20 09:37:53.075479 main.go:223: 初始化路由和API服务
+2025/03/20 09:37:53.075991 main.go:233: 路由初始化完成，区块订阅功能已集成
+2025/03/20 09:37:53.075991 main.go:243: 启动 HTTP 服务器在 :8080
+2025/03/20 09:37:53.075991 main.go:244: 服务器模式: debug
+2025/03/20 09:37:53.075991 main.go:245: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/20 09:41:21.690215 contract.go:138: 开始部署所有合约...
+2025/03/20 09:41:21.690722 contract.go:149: 以太坊客户端初始化成功
+2025/03/20 09:41:21.690952 address.go:55: 处理私钥...
+2025/03/20 09:41:21.690952 address.go:59: 检测到0x前缀，将被移除
+2025/03/20 09:41:21.714048 address.go:82: 私钥处理成功
+2025/03/20 09:41:21.714048 contract.go:159: 交易选项获取成功
+2025/03/20 09:41:21.714048 contract.go:172: 准备部署 5 个合约
+2025/03/20 09:41:21.714048 contract.go:176: 开始部署合约: SimpleStorage
+2025/03/20 09:41:21.723380 contract.go:198: 合约 SimpleStorage 部署失败: Post "http://localhost:8545": dial tcp [::1]:8545: connectex: No connection could be made because the target machine actively refused it.
+2025/03/20 09:41:21.723380 contract.go:176: 开始部署合约: Lock
+2025/03/20 09:41:21.725373 contract.go:198: 合约 Lock 部署失败: Post "http://localhost:8545": dial tcp [::1]:8545: connectex: No connection could be made because the target machine actively refused it.
+2025/03/20 09:41:21.725373 contract.go:176: 开始部署合约: Shipping
+2025/03/20 09:41:21.726374 contract.go:198: 合约 Shipping 部署失败: Post "http://localhost:8545": dial tcp [::1]:8545: connectex: No connection could be made because the target machine actively refused it.
+2025/03/20 09:41:21.726374 contract.go:176: 开始部署合约: SimpleAuction
+2025/03/20 09:41:21.727373 contract.go:198: 合约 SimpleAuction 部署失败: Post "http://localhost:8545": dial tcp [::1]:8545: connectex: No connection could be made because the target machine actively refused it.
+2025/03/20 09:41:21.727373 contract.go:176: 开始部署合约: ArrayDemo
+2025/03/20 09:41:21.728373 contract.go:198: 合约 ArrayDemo 部署失败: Post "http://localhost:8545": dial tcp [::1]:8545: connectex: No connection could be made because the target machine actively refused it.
+2025/03/20 09:41:21.728373 contract.go:263: 所有合约部署完成，共 5 个合约
+2025/03/20 09:46:26.116686 contract.go:138: 开始部署所有合约...
+2025/03/20 09:46:26.116686 contract.go:149: 以太坊客户端初始化成功
+2025/03/20 09:46:26.116686 address.go:55: 处理私钥...
+2025/03/20 09:46:26.116686 address.go:59: 检测到0x前缀，将被移除
+2025/03/20 09:46:26.116686 address.go:82: 私钥处理成功
+2025/03/20 09:46:26.117203 contract.go:159: 交易选项获取成功
+2025/03/20 09:46:26.117203 contract.go:172: 准备部署 5 个合约
+2025/03/20 09:46:26.117203 contract.go:176: 开始部署合约: SimpleStorage
+2025/03/20 09:46:26.135073 contract.go:209: 等待交易确认: 0xc0dae69d0452ed41e6f60b9ef3b9523e83949dcc4852cb608df7cc95e1e728bd
+2025/03/20 09:46:26.136808 contract.go:235: 合约 SimpleStorage 部署成功, 地址: 0x21515C37970CbE667e53FE9fECd2358756b37c87, 交易哈希: 0xc0dae69d0452ed41e6f60b9ef3b9523e83949dcc4852cb608df7cc95e1e728bd
+2025/03/20 09:46:37.832753 contract.go:249: 合约地址已保存到文件: SimpleStorage => 0x21515C37970CbE667e53FE9fECd2358756b37c87
+2025/03/20 09:46:37.839425 contract.go:254: 更新内存中的合约地址映射: simplestorage => 0x21515C37970CbE667e53FE9fECd2358756b37c87
+2025/03/20 09:46:37.839425 contract.go:176: 开始部署合约: Lock
+2025/03/20 09:46:37.846169 contract.go:209: 等待交易确认: 0xe1ede9501c8a611409d0681a16b4fb81507f635386098e362ff75fd1c389e608
+2025/03/20 09:46:37.847329 contract.go:235: 合约 Lock 部署成功, 地址: 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa, 交易哈希: 0xe1ede9501c8a611409d0681a16b4fb81507f635386098e362ff75fd1c389e608
+2025/03/20 09:46:37.847835 contract.go:249: 合约地址已保存到文件: Lock => 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa
+2025/03/20 09:46:37.847835 contract.go:254: 更新内存中的合约地址映射: lock => 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa
+2025/03/20 09:46:37.847835 contract.go:176: 开始部署合约: Shipping
+2025/03/20 09:46:37.851633 contract.go:209: 等待交易确认: 0x237dd0649f84d30edb858c21dcc0e379f6128346323beb333cde88ffb3d26744
+2025/03/20 09:46:37.852795 contract.go:235: 合约 Shipping 部署成功, 地址: 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A, 交易哈希: 0x237dd0649f84d30edb858c21dcc0e379f6128346323beb333cde88ffb3d26744
+2025/03/20 09:46:37.853311 contract.go:249: 合约地址已保存到文件: Shipping => 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A
+2025/03/20 09:46:37.853311 contract.go:254: 更新内存中的合约地址映射: shipping => 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A
+2025/03/20 09:46:37.853311 contract.go:176: 开始部署合约: SimpleAuction
+2025/03/20 09:46:37.857266 contract.go:209: 等待交易确认: 0x145b02e8d12516b13d6ff5d0380649dc702229a8902f7483d5b33973d0edff8e
+2025/03/20 09:46:37.858571 contract.go:235: 合约 SimpleAuction 部署成功, 地址: 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E, 交易哈希: 0x145b02e8d12516b13d6ff5d0380649dc702229a8902f7483d5b33973d0edff8e
+2025/03/20 09:46:37.859090 contract.go:249: 合约地址已保存到文件: SimpleAuction => 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E
+2025/03/20 09:46:37.859090 contract.go:254: 更新内存中的合约地址映射: simpleauction => 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E
+2025/03/20 09:46:37.859090 contract.go:176: 开始部署合约: ArrayDemo
+2025/03/20 09:46:37.862622 contract.go:209: 等待交易确认: 0x48ab4fc134ac66ef052833187ad6e24edac9c2b3a0d6de4dea7505af650743de
+2025/03/20 09:46:37.863559 contract.go:235: 合约 ArrayDemo 部署成功, 地址: 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204, 交易哈希: 0x48ab4fc134ac66ef052833187ad6e24edac9c2b3a0d6de4dea7505af650743de
+2025/03/20 09:46:37.863559 contract.go:249: 合约地址已保存到文件: ArrayDemo => 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204
+2025/03/20 09:46:37.863559 contract.go:254: 更新内存中的合约地址映射: arraydemo => 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204
+2025/03/20 09:46:37.863559 contract.go:263: 所有合约部署完成，共 5 个合约
+2025/03/20 09:47:02.151655 subscribe.go:136: 警告: 未知合约类型 simple_auction，跳过订阅
+2025/03/20 09:47:02.152171 subscribe.go:136: 警告: 未知合约类型 array_demo，跳过订阅
+2025/03/20 09:47:02.152171 subscribe.go:136: 警告: 未知合约类型 simple_storage，跳过订阅
+2025/03/20 11:08:20.187395 main.go:210: 日志已成功重定向到文件和控制台: web3.log
+2025/03/20 11:08:20.187901 main.go:103: 正在从存储加载合约地址...
+2025/03/20 11:08:20.188105 main.go:119: 已加载SimpleStorage合约地址: 0x21515C37970CbE667e53FE9fECd2358756b37c87
+2025/03/20 11:08:20.188105 main.go:123: 已加载Lock合约地址: 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa
+2025/03/20 11:08:20.188105 main.go:127: 已加载Shipping合约地址: 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A
+2025/03/20 11:08:20.188105 main.go:131: 已加载SimpleAuction合约地址: 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E
+2025/03/20 11:08:20.188622 main.go:135: 已加载ArrayDemo合约地址: 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204
+2025/03/20 11:08:20.188622 main.go:218: 合约地址已从存储中加载
+2025/03/20 11:08:20.188622 main.go:221: 初始化路由和API服务
+2025/03/20 11:08:20.189679 main.go:238: 启动 HTTP 服务器在 :8080
+2025/03/20 11:08:20.189679 main.go:239: 服务器模式: debug
+2025/03/20 11:08:20.189679 main.go:240: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/20 11:13:38.233647 main.go:210: 日志已成功重定向到文件和控制台: web3.log
+2025/03/20 11:13:38.233647 main.go:103: 正在从存储加载合约地址...
+2025/03/20 11:13:38.233647 main.go:119: 已加载SimpleStorage合约地址: 0x21515C37970CbE667e53FE9fECd2358756b37c87
+2025/03/20 11:13:38.234152 main.go:123: 已加载Lock合约地址: 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa
+2025/03/20 11:13:38.234182 main.go:127: 已加载Shipping合约地址: 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A
+2025/03/20 11:13:38.234182 main.go:131: 已加载SimpleAuction合约地址: 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E
+2025/03/20 11:13:38.234182 main.go:135: 已加载ArrayDemo合约地址: 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204
+2025/03/20 11:13:38.234182 main.go:218: 合约地址已从存储中加载
+2025/03/20 11:13:38.234182 main.go:221: 初始化路由和API服务
+2025/03/20 11:13:38.235208 main.go:238: 启动 HTTP 服务器在 :8080
+2025/03/20 11:13:38.235208 main.go:239: 服务器模式: debug
+2025/03/20 11:13:38.235721 main.go:240: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/20 11:18:16.956499 main.go:210: 日志已成功重定向到文件和控制台: web3.log
+2025/03/20 11:18:16.957013 main.go:103: 正在从存储加载合约地址...
+2025/03/20 11:18:16.957013 main.go:119: 已加载SimpleStorage合约地址: 0x21515C37970CbE667e53FE9fECd2358756b37c87
+2025/03/20 11:18:16.957013 main.go:123: 已加载Lock合约地址: 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa
+2025/03/20 11:18:16.957013 main.go:127: 已加载Shipping合约地址: 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A
+2025/03/20 11:18:16.957013 main.go:131: 已加载SimpleAuction合约地址: 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E
+2025/03/20 11:18:16.957013 main.go:135: 已加载ArrayDemo合约地址: 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204
+2025/03/20 11:18:16.957013 main.go:218: 合约地址已从存储中加载
+2025/03/20 11:18:16.957013 main.go:221: 初始化路由和API服务
+2025/03/20 11:18:16.957013 main.go:238: 启动 HTTP 服务器在 :8080
+2025/03/20 11:18:16.957013 main.go:239: 服务器模式: debug
+2025/03/20 11:18:16.957013 main.go:240: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/20 11:18:34.161727 contract.go:131: 开始部署所有合约...
+2025/03/20 11:18:34.162409 contract.go:142: 以太坊客户端初始化成功
+2025/03/20 11:18:34.162409 address.go:55: 处理私钥...
+2025/03/20 11:18:34.162409 address.go:59: 检测到0x前缀，将被移除
+2025/03/20 11:18:34.188957 address.go:82: 私钥处理成功
+2025/03/20 11:18:34.188957 contract.go:152: 交易选项获取成功
+2025/03/20 11:18:34.188957 contract.go:162: 准备部署 2 个合约
+2025/03/20 11:18:34.188957 contract.go:166: 开始部署合约: SimpleStorage
+2025/03/20 11:18:34.388076 contract.go:180: 合约 SimpleStorage 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:18:34.388076 contract.go:166: 开始部署合约: Lock
+2025/03/20 11:18:34.398162 contract.go:180: 合约 Lock 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:18:34.398669 contract.go:245: 所有合约部署完成，共 2 个合约
+2025/03/20 11:29:25.946421 main.go:225: 日志已成功重定向到文件和控制台: web3.log
+2025/03/20 11:29:25.946608 main.go:103: 正在从存储加载合约地址...
+2025/03/20 11:29:25.946608 main.go:122: 已加载SimpleStorage合约地址: 0x21515C37970CbE667e53FE9fECd2358756b37c87
+2025/03/20 11:29:25.946608 main.go:126: 已加载Lock合约地址: 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa
+2025/03/20 11:29:25.947113 main.go:130: 已加载Shipping合约地址: 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A
+2025/03/20 11:29:25.947113 main.go:134: 已加载SimpleAuction合约地址: 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E
+2025/03/20 11:29:25.947113 main.go:138: 已加载ArrayDemo合约地址: 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204
+2025/03/20 11:29:25.947113 main.go:233: 合约地址已从存储中加载
+2025/03/20 11:29:25.947113 main.go:236: 初始化路由和API服务
+2025/03/20 11:29:25.947186 main.go:253: 启动 HTTP 服务器在 :8080
+2025/03/20 11:29:25.947186 main.go:254: 服务器模式: debug
+2025/03/20 11:29:25.947186 main.go:255: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/20 11:29:31.764382 contract.go:132: 开始部署所有合约...
+2025/03/20 11:29:31.764904 contract.go:143: 以太坊客户端初始化成功
+2025/03/20 11:29:31.764904 address.go:55: 处理私钥...
+2025/03/20 11:29:31.764904 address.go:59: 检测到0x前缀，将被移除
+2025/03/20 11:29:31.781135 address.go:82: 私钥处理成功
+2025/03/20 11:29:31.781135 contract.go:153: 交易选项获取成功
+2025/03/20 11:29:31.781135 contract.go:171: 准备部署 8 个合约
+2025/03/20 11:29:31.781135 contract.go:175: 开始部署合约: SimpleStorage
+2025/03/20 11:29:31.835258 contract.go:182: 合约 SimpleStorage 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:31.835258 contract.go:175: 开始部署合约: Lock
+2025/03/20 11:29:31.840563 contract.go:182: 合约 Lock 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:31.840563 contract.go:175: 开始部署合约: Shipping
+2025/03/20 11:29:31.845921 contract.go:182: 合约 Shipping 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:31.845921 contract.go:175: 开始部署合约: SimpleAuction
+2025/03/20 11:29:31.849520 contract.go:182: 合约 SimpleAuction 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:31.849520 contract.go:175: 开始部署合约: ArrayDemo
+2025/03/20 11:29:31.853244 contract.go:182: 合约 ArrayDemo 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:31.853244 contract.go:175: 开始部署合约: Ballot
+2025/03/20 11:29:31.858375 contract.go:182: 合约 Ballot 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:31.858375 contract.go:175: 开始部署合约: Lottery
+2025/03/20 11:29:31.862302 contract.go:182: 合约 Lottery 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:31.862302 contract.go:175: 开始部署合约: Purchase
+2025/03/20 11:29:31.866234 contract.go:182: 合约 Purchase 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 1060000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:31.866234 contract.go:247: 所有合约部署完成，共 8 个合约
+2025/03/20 11:29:42.304612 contract.go:132: 开始部署所有合约...
+2025/03/20 11:29:42.304612 contract.go:143: 以太坊客户端初始化成功
+2025/03/20 11:29:42.304612 address.go:55: 处理私钥...
+2025/03/20 11:29:42.305119 address.go:59: 检测到0x前缀，将被移除
+2025/03/20 11:29:42.305119 address.go:82: 私钥处理成功
+2025/03/20 11:29:42.305119 contract.go:153: 交易选项获取成功
+2025/03/20 11:29:42.305119 contract.go:171: 准备部署 8 个合约
+2025/03/20 11:29:42.305119 contract.go:175: 开始部署合约: Purchase
+2025/03/20 11:29:42.313493 contract.go:182: 合约 Purchase 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 1060000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:42.313493 contract.go:175: 开始部署合约: SimpleStorage
+2025/03/20 11:29:42.317253 contract.go:182: 合约 SimpleStorage 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:42.317253 contract.go:175: 开始部署合约: Lock
+2025/03/20 11:29:42.321060 contract.go:182: 合约 Lock 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:42.321060 contract.go:175: 开始部署合约: Shipping
+2025/03/20 11:29:42.324116 contract.go:182: 合约 Shipping 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:42.324116 contract.go:175: 开始部署合约: SimpleAuction
+2025/03/20 11:29:42.327376 contract.go:182: 合约 SimpleAuction 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:42.327376 contract.go:175: 开始部署合约: ArrayDemo
+2025/03/20 11:29:42.329808 contract.go:182: 合约 ArrayDemo 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:42.330281 contract.go:175: 开始部署合约: Ballot
+2025/03/20 11:29:42.333795 contract.go:182: 合约 Ballot 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:42.333980 contract.go:175: 开始部署合约: Lottery
+2025/03/20 11:29:42.339011 contract.go:182: 合约 Lottery 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:42.339011 contract.go:247: 所有合约部署完成，共 8 个合约
+2025/03/20 11:29:43.059474 contract.go:132: 开始部署所有合约...
+2025/03/20 11:29:43.059474 contract.go:143: 以太坊客户端初始化成功
+2025/03/20 11:29:43.059474 address.go:55: 处理私钥...
+2025/03/20 11:29:43.059474 address.go:59: 检测到0x前缀，将被移除
+2025/03/20 11:29:43.059474 address.go:82: 私钥处理成功
+2025/03/20 11:29:43.059474 contract.go:153: 交易选项获取成功
+2025/03/20 11:29:43.059474 contract.go:171: 准备部署 8 个合约
+2025/03/20 11:29:43.059474 contract.go:175: 开始部署合约: Shipping
+2025/03/20 11:29:43.064898 contract.go:182: 合约 Shipping 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:43.067898 contract.go:175: 开始部署合约: SimpleAuction
+2025/03/20 11:29:43.076541 contract.go:182: 合约 SimpleAuction 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:43.076541 contract.go:175: 开始部署合约: ArrayDemo
+2025/03/20 11:29:43.079114 contract.go:182: 合约 ArrayDemo 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:43.079114 contract.go:175: 开始部署合约: Ballot
+2025/03/20 11:29:43.081765 contract.go:182: 合约 Ballot 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:43.081765 contract.go:175: 开始部署合约: Lottery
+2025/03/20 11:29:43.084238 contract.go:182: 合约 Lottery 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:43.084238 contract.go:175: 开始部署合约: Purchase
+2025/03/20 11:29:43.088803 contract.go:182: 合约 Purchase 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 1060000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:43.088803 contract.go:175: 开始部署合约: SimpleStorage
+2025/03/20 11:29:43.091214 contract.go:182: 合约 SimpleStorage 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:43.091214 contract.go:175: 开始部署合约: Lock
+2025/03/20 11:29:43.093568 contract.go:182: 合约 Lock 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:43.093568 contract.go:247: 所有合约部署完成，共 8 个合约
+2025/03/20 11:29:43.704286 contract.go:132: 开始部署所有合约...
+2025/03/20 11:29:43.704286 contract.go:143: 以太坊客户端初始化成功
+2025/03/20 11:29:43.704286 address.go:55: 处理私钥...
+2025/03/20 11:29:43.704286 address.go:59: 检测到0x前缀，将被移除
+2025/03/20 11:29:43.704286 address.go:82: 私钥处理成功
+2025/03/20 11:29:43.704972 contract.go:153: 交易选项获取成功
+2025/03/20 11:29:43.704972 contract.go:171: 准备部署 8 个合约
+2025/03/20 11:29:43.704972 contract.go:175: 开始部署合约: Purchase
+2025/03/20 11:29:43.708414 contract.go:182: 合约 Purchase 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 1060000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:43.708414 contract.go:175: 开始部署合约: SimpleStorage
+2025/03/20 11:29:43.712034 contract.go:182: 合约 SimpleStorage 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:43.712034 contract.go:175: 开始部署合约: Lock
+2025/03/20 11:29:43.716147 contract.go:182: 合约 Lock 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:43.716147 contract.go:175: 开始部署合约: Shipping
+2025/03/20 11:29:43.718737 contract.go:182: 合约 Shipping 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:43.718737 contract.go:175: 开始部署合约: SimpleAuction
+2025/03/20 11:29:43.721961 contract.go:182: 合约 SimpleAuction 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:43.721961 contract.go:175: 开始部署合约: ArrayDemo
+2025/03/20 11:29:43.724542 contract.go:182: 合约 ArrayDemo 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:43.724542 contract.go:175: 开始部署合约: Ballot
+2025/03/20 11:29:43.727165 contract.go:182: 合约 Ballot 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:43.727165 contract.go:175: 开始部署合约: Lottery
+2025/03/20 11:29:43.732688 contract.go:182: 合约 Lottery 部署失败: Sender doesn't have enough funds to send tx. The max upfront cost is: 60000000000000000 and the sender's balance is: 0.
+2025/03/20 11:29:43.732688 contract.go:247: 所有合约部署完成，共 8 个合约
+2025/03/20 11:39:33.042717 main.go:225: 日志已成功重定向到文件和控制台: web3.log
+2025/03/20 11:39:33.042717 main.go:103: 正在从存储加载合约地址...
+2025/03/20 11:39:33.042717 main.go:122: 已加载SimpleStorage合约地址: 0x21515C37970CbE667e53FE9fECd2358756b37c87
+2025/03/20 11:39:33.042717 main.go:126: 已加载Lock合约地址: 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa
+2025/03/20 11:39:33.042717 main.go:130: 已加载Shipping合约地址: 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A
+2025/03/20 11:39:33.042717 main.go:134: 已加载SimpleAuction合约地址: 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E
+2025/03/20 11:39:33.042717 main.go:138: 已加载ArrayDemo合约地址: 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204
+2025/03/20 11:39:33.042717 main.go:233: 合约地址已从存储中加载
+2025/03/20 11:39:33.042717 main.go:236: 初始化路由和API服务
+2025/03/20 11:39:33.043228 main.go:253: 启动 HTTP 服务器在 :8080
+2025/03/20 11:39:33.043228 main.go:254: 服务器模式: debug
+2025/03/20 11:39:33.043228 main.go:255: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/20 11:42:21.269482 contract.go:132: 开始部署所有合约...
+2025/03/20 11:42:21.270007 contract.go:143: 以太坊客户端初始化成功
+2025/03/20 11:42:21.270007 address.go:55: 处理私钥...
+2025/03/20 11:42:21.270007 address.go:59: 检测到0x前缀，将被移除
+2025/03/20 11:42:21.296755 address.go:82: 私钥处理成功
+2025/03/20 11:42:21.296755 contract.go:153: 交易选项获取成功
+2025/03/20 11:42:21.296755 contract.go:171: 准备部署 8 个合约
+2025/03/20 11:42:21.296755 contract.go:175: 开始部署合约: SimpleStorage
+2025/03/20 11:44:25.161904 contract.go:193: 等待交易确认: 0xc0dae69d0452ed41e6f60b9ef3b9523e83949dcc4852cb608df7cc95e1e728bd
+2025/03/20 11:44:25.164577 contract.go:219: 合约 SimpleStorage 部署成功, 地址: 0x21515C37970CbE667e53FE9fECd2358756b37c87, 交易哈希: 0xc0dae69d0452ed41e6f60b9ef3b9523e83949dcc4852cb608df7cc95e1e728bd
+2025/03/20 11:44:25.164577 contract.go:233: 合约地址已保存到文件: SimpleStorage => 0x21515C37970CbE667e53FE9fECd2358756b37c87
+2025/03/20 11:44:25.164577 contract.go:238: 更新内存中的合约地址映射: simplestorage => 0x21515C37970CbE667e53FE9fECd2358756b37c87
+2025/03/20 11:44:25.165092 contract.go:175: 开始部署合约: Lock
+2025/03/20 11:44:25.174921 contract.go:193: 等待交易确认: 0xb86cda235c89bef5889c458246aa8d6a2cd9b888bd8d09119f7158e45141ec62
+2025/03/20 11:44:25.176147 contract.go:219: 合约 Lock 部署成功, 地址: 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa, 交易哈希: 0xb86cda235c89bef5889c458246aa8d6a2cd9b888bd8d09119f7158e45141ec62
+2025/03/20 11:44:25.176652 contract.go:233: 合约地址已保存到文件: Lock => 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa
+2025/03/20 11:44:25.176665 contract.go:238: 更新内存中的合约地址映射: lock => 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa
+2025/03/20 11:44:25.176665 contract.go:175: 开始部署合约: Shipping
+2025/03/20 11:44:25.184233 contract.go:193: 等待交易确认: 0x237dd0649f84d30edb858c21dcc0e379f6128346323beb333cde88ffb3d26744
+2025/03/20 11:44:25.185711 contract.go:219: 合约 Shipping 部署成功, 地址: 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A, 交易哈希: 0x237dd0649f84d30edb858c21dcc0e379f6128346323beb333cde88ffb3d26744
+2025/03/20 11:44:25.186226 contract.go:233: 合约地址已保存到文件: Shipping => 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A
+2025/03/20 11:44:25.186226 contract.go:238: 更新内存中的合约地址映射: shipping => 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A
+2025/03/20 11:44:25.186226 contract.go:175: 开始部署合约: SimpleAuction
+2025/03/20 11:44:25.191878 contract.go:193: 等待交易确认: 0xc5de4d103740d2bca10c8efa6f47e77ee97ce5b8440b1068520d42cf0464f654
+2025/03/20 11:44:25.192676 contract.go:219: 合约 SimpleAuction 部署成功, 地址: 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E, 交易哈希: 0xc5de4d103740d2bca10c8efa6f47e77ee97ce5b8440b1068520d42cf0464f654
+2025/03/20 11:44:25.192676 contract.go:233: 合约地址已保存到文件: SimpleAuction => 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E
+2025/03/20 11:44:25.192676 contract.go:238: 更新内存中的合约地址映射: simpleauction => 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E
+2025/03/20 11:44:25.192676 contract.go:175: 开始部署合约: ArrayDemo
+2025/03/20 11:44:25.198227 contract.go:193: 等待交易确认: 0x48ab4fc134ac66ef052833187ad6e24edac9c2b3a0d6de4dea7505af650743de
+2025/03/20 11:44:25.198975 contract.go:219: 合约 ArrayDemo 部署成功, 地址: 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204, 交易哈希: 0x48ab4fc134ac66ef052833187ad6e24edac9c2b3a0d6de4dea7505af650743de
+2025/03/20 11:44:25.198975 contract.go:233: 合约地址已保存到文件: ArrayDemo => 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204
+2025/03/20 11:44:25.198975 contract.go:238: 更新内存中的合约地址映射: arraydemo => 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204
+2025/03/20 11:44:25.198975 contract.go:175: 开始部署合约: Ballot
+2025/03/20 11:44:25.206856 contract.go:193: 等待交易确认: 0x09529086140612edadf1987f9e09b9cb978cd2427956566edff8851392d37cc3
+2025/03/20 11:44:25.207560 contract.go:219: 合约 Ballot 部署成功, 地址: 0xd32F443bd6bFe76FfE1998d52b1aEc6753745bE2, 交易哈希: 0x09529086140612edadf1987f9e09b9cb978cd2427956566edff8851392d37cc3
+2025/03/20 11:44:25.207560 contract.go:233: 合约地址已保存到文件: Ballot => 0xd32F443bd6bFe76FfE1998d52b1aEc6753745bE2
+2025/03/20 11:44:25.207560 contract.go:238: 更新内存中的合约地址映射: ballot => 0xd32F443bd6bFe76FfE1998d52b1aEc6753745bE2
+2025/03/20 11:44:25.207560 contract.go:175: 开始部署合约: Lottery
+2025/03/20 11:44:25.213457 contract.go:193: 等待交易确认: 0x92eb409316bf5fa496b81d7f330df872a54d3f12db62a30ca15832ae318a2093
+2025/03/20 11:44:25.214495 contract.go:219: 合约 Lottery 部署成功, 地址: 0x57FE0f87D96DAf4aD9228A130424120acBEF3Cfb, 交易哈希: 0x92eb409316bf5fa496b81d7f330df872a54d3f12db62a30ca15832ae318a2093
+2025/03/20 11:44:25.214495 contract.go:233: 合约地址已保存到文件: Lottery => 0x57FE0f87D96DAf4aD9228A130424120acBEF3Cfb
+2025/03/20 11:44:25.214495 contract.go:238: 更新内存中的合约地址映射: lottery => 0x57FE0f87D96DAf4aD9228A130424120acBEF3Cfb
+2025/03/20 11:44:25.214495 contract.go:175: 开始部署合约: Purchase
+2025/03/20 11:44:25.221924 contract.go:193: 等待交易确认: 0xe7032e5e29a392b6e7d3430d703359e47926edf1da43ae661fdc767fd05e6108
+2025/03/20 11:44:25.222637 contract.go:219: 合约 Purchase 部署成功, 地址: 0x82EdbE421099367367F6Bdc06608725D6241381a, 交易哈希: 0xe7032e5e29a392b6e7d3430d703359e47926edf1da43ae661fdc767fd05e6108
+2025/03/20 11:44:25.222637 contract.go:233: 合约地址已保存到文件: Purchase => 0x82EdbE421099367367F6Bdc06608725D6241381a
+2025/03/20 11:44:25.222637 contract.go:238: 更新内存中的合约地址映射: purchase => 0x82EdbE421099367367F6Bdc06608725D6241381a
+2025/03/20 11:44:25.222637 contract.go:247: 所有合约部署完成，共 8 个合约
+2025/03/20 11:44:48.057154 main.go:225: 日志已成功重定向到文件和控制台: web3.log
+2025/03/20 11:44:48.057666 main.go:103: 正在从存储加载合约地址...
+2025/03/20 11:44:48.057666 main.go:122: 已加载SimpleStorage合约地址: 0x21515C37970CbE667e53FE9fECd2358756b37c87
+2025/03/20 11:44:48.057666 main.go:126: 已加载Lock合约地址: 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa
+2025/03/20 11:44:48.057666 main.go:130: 已加载Shipping合约地址: 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A
+2025/03/20 11:44:48.057666 main.go:134: 已加载SimpleAuction合约地址: 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E
+2025/03/20 11:44:48.057666 main.go:138: 已加载ArrayDemo合约地址: 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204
+2025/03/20 11:44:48.057666 main.go:142: 已加载Ballot合约地址: 0xd32F443bd6bFe76FfE1998d52b1aEc6753745bE2
+2025/03/20 11:44:48.057666 main.go:146: 已加载Lottery合约地址: 0x57FE0f87D96DAf4aD9228A130424120acBEF3Cfb
+2025/03/20 11:44:48.057666 main.go:150: 已加载Purchase合约地址: 0x82EdbE421099367367F6Bdc06608725D6241381a
+2025/03/20 11:44:48.057666 main.go:233: 合约地址已从存储中加载
+2025/03/20 11:44:48.057666 main.go:236: 初始化路由和API服务
+2025/03/20 11:44:48.057666 main.go:253: 启动 HTTP 服务器在 :8080
+2025/03/20 11:44:48.057666 main.go:254: 服务器模式: debug
+2025/03/20 11:44:48.057666 main.go:255: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/20 11:45:58.142554 contract.go:132: 开始部署所有合约...
+2025/03/20 11:45:58.142554 contract.go:143: 以太坊客户端初始化成功
+2025/03/20 11:45:58.142554 address.go:55: 处理私钥...
+2025/03/20 11:45:58.142554 address.go:59: 检测到0x前缀，将被移除
+2025/03/20 11:45:58.166638 address.go:82: 私钥处理成功
+2025/03/20 11:45:58.167166 contract.go:153: 交易选项获取成功
+2025/03/20 11:45:58.167166 contract.go:171: 准备部署 8 个合约
+2025/03/20 11:45:58.167166 contract.go:175: 开始部署合约: Purchase
+2025/03/20 11:45:58.191056 contract.go:193: 等待交易确认: 0xb195fc65817f1a688ef43d40dd6286e23beb984f6b82477c32511abd448eb715
+2025/03/20 11:45:58.193180 contract.go:219: 合约 Purchase 部署成功, 地址: 0x21515C37970CbE667e53FE9fECd2358756b37c87, 交易哈希: 0xb195fc65817f1a688ef43d40dd6286e23beb984f6b82477c32511abd448eb715
+2025/03/20 11:45:58.194986 contract.go:233: 合约地址已保存到文件: Purchase => 0x21515C37970CbE667e53FE9fECd2358756b37c87
+2025/03/20 11:45:58.195049 contract.go:238: 更新内存中的合约地址映射: purchase => 0x21515C37970CbE667e53FE9fECd2358756b37c87
+2025/03/20 11:45:58.195049 contract.go:175: 开始部署合约: SimpleStorage
+2025/03/20 11:45:58.199900 contract.go:193: 等待交易确认: 0xb57a60b13378aeb40925ba14fa7d66a77660d47f75f52d7df8ae4ed3708e7335
+2025/03/20 11:45:58.200406 contract.go:219: 合约 SimpleStorage 部署成功, 地址: 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa, 交易哈希: 0xb57a60b13378aeb40925ba14fa7d66a77660d47f75f52d7df8ae4ed3708e7335
+2025/03/20 11:45:58.202425 contract.go:233: 合约地址已保存到文件: SimpleStorage => 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa
+2025/03/20 11:45:58.202425 contract.go:238: 更新内存中的合约地址映射: simplestorage => 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa
+2025/03/20 11:45:58.202425 contract.go:175: 开始部署合约: Lock
+2025/03/20 11:45:58.207333 contract.go:193: 等待交易确认: 0x723b2d704ff193867e150819c10fe4ba15c5055784c6114cad5bacb62f3f6780
+2025/03/20 11:45:58.208697 contract.go:219: 合约 Lock 部署成功, 地址: 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A, 交易哈希: 0x723b2d704ff193867e150819c10fe4ba15c5055784c6114cad5bacb62f3f6780
+2025/03/20 11:45:58.209239 contract.go:233: 合约地址已保存到文件: Lock => 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A
+2025/03/20 11:45:58.209239 contract.go:238: 更新内存中的合约地址映射: lock => 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A
+2025/03/20 11:45:58.209239 contract.go:175: 开始部署合约: Shipping
+2025/03/20 11:45:58.213310 contract.go:193: 等待交易确认: 0x2a396fffd456a068593b392357757124f72233ed83660e1f98e16dc06b3b1eb1
+2025/03/20 11:45:58.214579 contract.go:219: 合约 Shipping 部署成功, 地址: 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E, 交易哈希: 0x2a396fffd456a068593b392357757124f72233ed83660e1f98e16dc06b3b1eb1
+2025/03/20 11:45:58.215798 contract.go:233: 合约地址已保存到文件: Shipping => 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E
+2025/03/20 11:45:58.215798 contract.go:238: 更新内存中的合约地址映射: shipping => 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E
+2025/03/20 11:45:58.215798 contract.go:175: 开始部署合约: SimpleAuction
+2025/03/20 11:45:58.220670 contract.go:193: 等待交易确认: 0x237c91441d2aaaae817d61d6c82ef622dc535ac0655a5204aab59b840aec5da6
+2025/03/20 11:45:58.221702 contract.go:219: 合约 SimpleAuction 部署成功, 地址: 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204, 交易哈希: 0x237c91441d2aaaae817d61d6c82ef622dc535ac0655a5204aab59b840aec5da6
+2025/03/20 11:45:58.222258 contract.go:233: 合约地址已保存到文件: SimpleAuction => 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204
+2025/03/20 11:45:58.222258 contract.go:238: 更新内存中的合约地址映射: simpleauction => 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204
+2025/03/20 11:45:58.222258 contract.go:175: 开始部署合约: ArrayDemo
+2025/03/20 11:45:58.226416 contract.go:193: 等待交易确认: 0xf1b7d113662e0baf9fbd32cd990853cce6a707593c9533fcc8e911ce7888a490
+2025/03/20 11:45:58.227524 contract.go:219: 合约 ArrayDemo 部署成功, 地址: 0xd32F443bd6bFe76FfE1998d52b1aEc6753745bE2, 交易哈希: 0xf1b7d113662e0baf9fbd32cd990853cce6a707593c9533fcc8e911ce7888a490
+2025/03/20 11:45:58.228055 contract.go:233: 合约地址已保存到文件: ArrayDemo => 0xd32F443bd6bFe76FfE1998d52b1aEc6753745bE2
+2025/03/20 11:45:58.228055 contract.go:238: 更新内存中的合约地址映射: arraydemo => 0xd32F443bd6bFe76FfE1998d52b1aEc6753745bE2
+2025/03/20 11:45:58.228055 contract.go:175: 开始部署合约: Ballot
+2025/03/20 11:45:58.232799 contract.go:193: 等待交易确认: 0xecbb7efc299900f9f8a24f8b5dbc5a0fd94353fddee72a2ae46d765df58c6d86
+2025/03/20 11:45:58.233869 contract.go:219: 合约 Ballot 部署成功, 地址: 0x57FE0f87D96DAf4aD9228A130424120acBEF3Cfb, 交易哈希: 0xecbb7efc299900f9f8a24f8b5dbc5a0fd94353fddee72a2ae46d765df58c6d86
+2025/03/20 11:45:58.234391 contract.go:233: 合约地址已保存到文件: Ballot => 0x57FE0f87D96DAf4aD9228A130424120acBEF3Cfb
+2025/03/20 11:45:58.234391 contract.go:238: 更新内存中的合约地址映射: ballot => 0x57FE0f87D96DAf4aD9228A130424120acBEF3Cfb
+2025/03/20 11:45:58.234391 contract.go:175: 开始部署合约: Lottery
+2025/03/20 11:45:58.238735 contract.go:193: 等待交易确认: 0xbbdcc07c5816de3914857a951e5b0f490ca47c2ca7c51a79d4526b78f05b7e7d
+2025/03/20 11:45:58.239532 contract.go:219: 合约 Lottery 部署成功, 地址: 0x82EdbE421099367367F6Bdc06608725D6241381a, 交易哈希: 0xbbdcc07c5816de3914857a951e5b0f490ca47c2ca7c51a79d4526b78f05b7e7d
+2025/03/20 11:45:58.240051 contract.go:233: 合约地址已保存到文件: Lottery => 0x82EdbE421099367367F6Bdc06608725D6241381a
+2025/03/20 11:45:58.240051 contract.go:238: 更新内存中的合约地址映射: lottery => 0x82EdbE421099367367F6Bdc06608725D6241381a
+2025/03/20 11:45:58.240051 contract.go:247: 所有合约部署完成，共 8 个合约
+2025/03/20 11:46:36.933637 address.go:55: 处理私钥...
+2025/03/20 11:46:36.933637 address.go:59: 检测到0x前缀，将被移除
+2025/03/20 11:46:36.933637 address.go:82: 私钥处理成功
+2025/03/20 11:50:06.000844 main.go:225: 日志已成功重定向到文件和控制台: web3.log
+2025/03/20 11:50:06.000844 main.go:103: 正在从存储加载合约地址...
+2025/03/20 11:50:06.000844 main.go:122: 已加载SimpleStorage合约地址: 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa
+2025/03/20 11:50:06.000844 main.go:126: 已加载Lock合约地址: 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A
+2025/03/20 11:50:06.000844 main.go:130: 已加载Shipping合约地址: 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E
+2025/03/20 11:50:06.000844 main.go:134: 已加载SimpleAuction合约地址: 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204
+2025/03/20 11:50:06.000844 main.go:138: 已加载ArrayDemo合约地址: 0xd32F443bd6bFe76FfE1998d52b1aEc6753745bE2
+2025/03/20 11:50:06.000844 main.go:142: 已加载Ballot合约地址: 0x57FE0f87D96DAf4aD9228A130424120acBEF3Cfb
+2025/03/20 11:50:06.001361 main.go:146: 已加载Lottery合约地址: 0x82EdbE421099367367F6Bdc06608725D6241381a
+2025/03/20 11:50:06.001361 main.go:150: 已加载Purchase合约地址: 0x21515C37970CbE667e53FE9fECd2358756b37c87
+2025/03/20 11:50:06.001361 main.go:233: 合约地址已从存储中加载
+2025/03/20 11:50:06.001361 main.go:236: 初始化路由和API服务
+2025/03/20 11:50:06.001361 main.go:253: 启动 HTTP 服务器在 :8080
+2025/03/20 11:50:06.001361 main.go:254: 服务器模式: debug
+2025/03/20 11:50:06.001361 main.go:255: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/20 11:50:14.732535 client.go:59: 成功使用WebSocket连接以太坊网络: ws://localhost:8545
+2025/03/20 11:50:26.750206 address.go:55: 处理私钥...
+2025/03/20 11:50:26.750206 address.go:59: 检测到0x前缀，将被移除
+2025/03/20 11:50:26.769725 address.go:82: 私钥处理成功
+2025/03/20 11:53:04.370065 main.go:225: 日志已成功重定向到文件和控制台: web3.log
+2025/03/20 11:53:04.370065 main.go:103: 正在从存储加载合约地址...
+2025/03/20 11:53:04.370065 main.go:122: 已加载SimpleStorage合约地址: 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa
+2025/03/20 11:53:04.370065 main.go:126: 已加载Lock合约地址: 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A
+2025/03/20 11:53:04.370065 main.go:130: 已加载Shipping合约地址: 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E
+2025/03/20 11:53:04.370065 main.go:134: 已加载SimpleAuction合约地址: 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204
+2025/03/20 11:53:04.370065 main.go:138: 已加载ArrayDemo合约地址: 0xd32F443bd6bFe76FfE1998d52b1aEc6753745bE2
+2025/03/20 11:53:04.370065 main.go:142: 已加载Ballot合约地址: 0x57FE0f87D96DAf4aD9228A130424120acBEF3Cfb
+2025/03/20 11:53:04.370065 main.go:146: 已加载Lottery合约地址: 0x82EdbE421099367367F6Bdc06608725D6241381a
+2025/03/20 11:53:04.370065 main.go:150: 已加载Purchase合约地址: 0x21515C37970CbE667e53FE9fECd2358756b37c87
+2025/03/20 11:53:04.370065 main.go:233: 合约地址已从存储中加载
+2025/03/20 11:53:04.370065 main.go:236: 初始化路由和API服务
+2025/03/20 11:53:04.370578 main.go:253: 启动 HTTP 服务器在 :8080
+2025/03/20 11:53:04.370578 main.go:254: 服务器模式: debug
+2025/03/20 11:53:04.370578 main.go:255: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/20 12:05:42.317739 main.go:225: 日志已成功重定向到文件和控制台: web3.log
+2025/03/20 12:05:42.318254 main.go:103: 正在从存储加载合约地址...
+2025/03/20 12:05:42.318254 main.go:122: 已加载SimpleStorage合约地址: 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa
+2025/03/20 12:05:42.318254 main.go:126: 已加载Lock合约地址: 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A
+2025/03/20 12:05:42.318254 main.go:130: 已加载Shipping合约地址: 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E
+2025/03/20 12:05:42.318254 main.go:134: 已加载SimpleAuction合约地址: 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204
+2025/03/20 12:05:42.318254 main.go:138: 已加载ArrayDemo合约地址: 0xd32F443bd6bFe76FfE1998d52b1aEc6753745bE2
+2025/03/20 12:05:42.318254 main.go:142: 已加载Ballot合约地址: 0x57FE0f87D96DAf4aD9228A130424120acBEF3Cfb
+2025/03/20 12:05:42.318254 main.go:146: 已加载Lottery合约地址: 0x82EdbE421099367367F6Bdc06608725D6241381a
+2025/03/20 12:05:42.318254 main.go:150: 已加载Purchase合约地址: 0x21515C37970CbE667e53FE9fECd2358756b37c87
+2025/03/20 12:05:42.318254 main.go:233: 合约地址已从存储中加载
+2025/03/20 12:05:42.318254 main.go:236: 初始化路由和API服务
+2025/03/20 12:05:42.318254 main.go:253: 启动 HTTP 服务器在 :8080
+2025/03/20 12:05:42.318254 main.go:254: 服务器模式: debug
+2025/03/20 12:05:42.318254 main.go:255: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/20 13:50:03.972820 main.go:225: 日志已成功重定向到文件和控制台: web3.log
+2025/03/20 13:50:03.972820 main.go:103: 正在从存储加载合约地址...
+2025/03/20 13:50:03.972820 main.go:122: 已加载SimpleStorage合约地址: 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa
+2025/03/20 13:50:03.972820 main.go:126: 已加载Lock合约地址: 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A
+2025/03/20 13:50:03.973331 main.go:130: 已加载Shipping合约地址: 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E
+2025/03/20 13:50:03.973331 main.go:134: 已加载SimpleAuction合约地址: 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204
+2025/03/20 13:50:03.973331 main.go:138: 已加载ArrayDemo合约地址: 0xd32F443bd6bFe76FfE1998d52b1aEc6753745bE2
+2025/03/20 13:50:03.973331 main.go:142: 已加载Ballot合约地址: 0x57FE0f87D96DAf4aD9228A130424120acBEF3Cfb
+2025/03/20 13:50:03.973331 main.go:146: 已加载Lottery合约地址: 0x82EdbE421099367367F6Bdc06608725D6241381a
+2025/03/20 13:50:03.973331 main.go:150: 已加载Purchase合约地址: 0x21515C37970CbE667e53FE9fECd2358756b37c87
+2025/03/20 13:50:03.973878 main.go:233: 合约地址已从存储中加载
+2025/03/20 13:50:03.973878 main.go:236: 初始化路由和API服务
+2025/03/20 13:50:03.976975 main.go:253: 启动 HTTP 服务器在 :8080
+2025/03/20 13:50:03.976975 main.go:254: 服务器模式: debug
+2025/03/20 13:50:03.976975 main.go:255: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/20 13:55:02.579652 main.go:225: 日志已成功重定向到文件和控制台: web3.log
+2025/03/20 13:55:02.580691 main.go:103: 正在从存储加载合约地址...
+2025/03/20 13:55:02.580691 main.go:122: 已加载SimpleStorage合约地址: 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa
+2025/03/20 13:55:02.581209 main.go:126: 已加载Lock合约地址: 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A
+2025/03/20 13:55:02.581209 main.go:130: 已加载Shipping合约地址: 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E
+2025/03/20 13:55:02.581209 main.go:134: 已加载SimpleAuction合约地址: 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204
+2025/03/20 13:55:02.581209 main.go:138: 已加载ArrayDemo合约地址: 0xd32F443bd6bFe76FfE1998d52b1aEc6753745bE2
+2025/03/20 13:55:02.581209 main.go:142: 已加载Ballot合约地址: 0x57FE0f87D96DAf4aD9228A130424120acBEF3Cfb
+2025/03/20 13:55:02.581209 main.go:146: 已加载Lottery合约地址: 0x82EdbE421099367367F6Bdc06608725D6241381a
+2025/03/20 13:55:02.581209 main.go:150: 已加载Purchase合约地址: 0x21515C37970CbE667e53FE9fECd2358756b37c87
+2025/03/20 13:55:02.581209 main.go:233: 合约地址已从存储中加载
+2025/03/20 13:55:02.581209 main.go:236: 初始化路由和API服务
+2025/03/20 13:55:02.609766 main.go:253: 启动 HTTP 服务器在 :8080
+2025/03/20 13:55:02.609766 main.go:254: 服务器模式: debug
+2025/03/20 13:55:02.609766 main.go:255: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/20 13:56:00.282190 contract.go:132: 开始部署所有合约...
+2025/03/20 13:56:00.304790 client.go:108: 成功使用WebSocket连接以太坊网络: ws://localhost:8545
+2025/03/20 13:56:00.304790 contract.go:143: 以太坊客户端初始化成功
+2025/03/20 13:56:00.305305 address.go:55: 处理私钥...
+2025/03/20 13:56:00.305305 address.go:59: 检测到0x前缀，将被移除
+2025/03/20 13:56:00.332261 address.go:82: 私钥处理成功
+2025/03/20 13:56:00.333465 contract.go:153: 交易选项获取成功
+2025/03/20 13:56:00.333465 contract.go:171: 准备部署 8 个合约
+2025/03/20 13:56:00.333465 contract.go:175: 开始部署合约: SimpleStorage
+2025/03/20 13:56:00.358778 contract.go:193: 等待交易确认: 0xc0dae69d0452ed41e6f60b9ef3b9523e83949dcc4852cb608df7cc95e1e728bd
+2025/03/20 13:56:00.361204 contract.go:219: 合约 SimpleStorage 部署成功, 地址: 0x21515C37970CbE667e53FE9fECd2358756b37c87, 交易哈希: 0xc0dae69d0452ed41e6f60b9ef3b9523e83949dcc4852cb608df7cc95e1e728bd
+2025/03/20 13:56:00.361718 contract.go:233: 合约地址已保存到文件: SimpleStorage => 0x21515C37970CbE667e53FE9fECd2358756b37c87
+2025/03/20 13:56:00.361718 contract.go:238: 更新内存中的合约地址映射: simplestorage => 0x21515C37970CbE667e53FE9fECd2358756b37c87
+2025/03/20 13:56:00.361718 contract.go:175: 开始部署合约: Lock
+2025/03/20 13:56:00.365584 contract.go:193: 等待交易确认: 0x513851c42a56a0ee3caac35aa8e3c4c1fb636c420f5033dbef6b4045bfe87415
+2025/03/20 13:56:00.366172 contract.go:219: 合约 Lock 部署成功, 地址: 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa, 交易哈希: 0x513851c42a56a0ee3caac35aa8e3c4c1fb636c420f5033dbef6b4045bfe87415
+2025/03/20 13:56:00.366690 contract.go:233: 合约地址已保存到文件: Lock => 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa
+2025/03/20 13:56:00.366690 contract.go:238: 更新内存中的合约地址映射: lock => 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa
+2025/03/20 13:56:00.366690 contract.go:175: 开始部署合约: Shipping
+2025/03/20 13:56:00.369187 contract.go:193: 等待交易确认: 0x237dd0649f84d30edb858c21dcc0e379f6128346323beb333cde88ffb3d26744
+2025/03/20 13:56:00.370355 contract.go:219: 合约 Shipping 部署成功, 地址: 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A, 交易哈希: 0x237dd0649f84d30edb858c21dcc0e379f6128346323beb333cde88ffb3d26744
+2025/03/20 13:56:00.370883 contract.go:233: 合约地址已保存到文件: Shipping => 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A
+2025/03/20 13:56:00.370883 contract.go:238: 更新内存中的合约地址映射: shipping => 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A
+2025/03/20 13:56:00.370883 contract.go:175: 开始部署合约: SimpleAuction
+2025/03/20 13:56:00.375310 contract.go:193: 等待交易确认: 0xc5de4d103740d2bca10c8efa6f47e77ee97ce5b8440b1068520d42cf0464f654
+2025/03/20 13:56:00.375948 contract.go:219: 合约 SimpleAuction 部署成功, 地址: 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E, 交易哈希: 0xc5de4d103740d2bca10c8efa6f47e77ee97ce5b8440b1068520d42cf0464f654
+2025/03/20 13:56:00.375948 contract.go:233: 合约地址已保存到文件: SimpleAuction => 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E
+2025/03/20 13:56:00.376456 contract.go:238: 更新内存中的合约地址映射: simpleauction => 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E
+2025/03/20 13:56:00.376490 contract.go:175: 开始部署合约: ArrayDemo
+2025/03/20 13:56:00.378846 contract.go:193: 等待交易确认: 0x48ab4fc134ac66ef052833187ad6e24edac9c2b3a0d6de4dea7505af650743de
+2025/03/20 13:56:00.379487 contract.go:219: 合约 ArrayDemo 部署成功, 地址: 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204, 交易哈希: 0x48ab4fc134ac66ef052833187ad6e24edac9c2b3a0d6de4dea7505af650743de
+2025/03/20 13:56:00.380005 contract.go:233: 合约地址已保存到文件: ArrayDemo => 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204
+2025/03/20 13:56:00.380005 contract.go:238: 更新内存中的合约地址映射: arraydemo => 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204
+2025/03/20 13:56:00.380005 contract.go:175: 开始部署合约: Ballot
+2025/03/20 13:56:00.383500 contract.go:193: 等待交易确认: 0x09529086140612edadf1987f9e09b9cb978cd2427956566edff8851392d37cc3
+2025/03/20 13:56:00.384055 contract.go:219: 合约 Ballot 部署成功, 地址: 0xd32F443bd6bFe76FfE1998d52b1aEc6753745bE2, 交易哈希: 0x09529086140612edadf1987f9e09b9cb978cd2427956566edff8851392d37cc3
+2025/03/20 13:56:00.384055 contract.go:233: 合约地址已保存到文件: Ballot => 0xd32F443bd6bFe76FfE1998d52b1aEc6753745bE2
+2025/03/20 13:56:00.384570 contract.go:238: 更新内存中的合约地址映射: ballot => 0xd32F443bd6bFe76FfE1998d52b1aEc6753745bE2
+2025/03/20 13:56:00.384570 contract.go:175: 开始部署合约: Lottery
+2025/03/20 13:56:00.388006 contract.go:193: 等待交易确认: 0x92eb409316bf5fa496b81d7f330df872a54d3f12db62a30ca15832ae318a2093
+2025/03/20 13:56:00.388834 contract.go:219: 合约 Lottery 部署成功, 地址: 0x57FE0f87D96DAf4aD9228A130424120acBEF3Cfb, 交易哈希: 0x92eb409316bf5fa496b81d7f330df872a54d3f12db62a30ca15832ae318a2093
+2025/03/20 13:56:00.389351 contract.go:233: 合约地址已保存到文件: Lottery => 0x57FE0f87D96DAf4aD9228A130424120acBEF3Cfb
+2025/03/20 13:56:00.389351 contract.go:238: 更新内存中的合约地址映射: lottery => 0x57FE0f87D96DAf4aD9228A130424120acBEF3Cfb
+2025/03/20 13:56:00.389351 contract.go:175: 开始部署合约: Purchase
+2025/03/20 13:56:00.392333 contract.go:193: 等待交易确认: 0xe7032e5e29a392b6e7d3430d703359e47926edf1da43ae661fdc767fd05e6108
+2025/03/20 13:56:00.392851 contract.go:219: 合约 Purchase 部署成功, 地址: 0x82EdbE421099367367F6Bdc06608725D6241381a, 交易哈希: 0xe7032e5e29a392b6e7d3430d703359e47926edf1da43ae661fdc767fd05e6108
+2025/03/20 13:56:00.392851 contract.go:233: 合约地址已保存到文件: Purchase => 0x82EdbE421099367367F6Bdc06608725D6241381a
+2025/03/20 13:56:00.393365 contract.go:238: 更新内存中的合约地址映射: purchase => 0x82EdbE421099367367F6Bdc06608725D6241381a
+2025/03/20 13:56:00.393365 contract.go:247: 所有合约部署完成，共 8 个合约
+2025/03/20 14:06:03.167188 main.go:225: 日志已成功重定向到文件和控制台: web3.log
+2025/03/20 14:06:03.167188 main.go:103: 正在从存储加载合约地址...
+2025/03/20 14:06:03.167188 main.go:122: 已加载SimpleStorage合约地址: 0x21515C37970CbE667e53FE9fECd2358756b37c87
+2025/03/20 14:06:03.167188 main.go:126: 已加载Lock合约地址: 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa
+2025/03/20 14:06:03.167188 main.go:130: 已加载Shipping合约地址: 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A
+2025/03/20 14:06:03.167188 main.go:134: 已加载SimpleAuction合约地址: 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E
+2025/03/20 14:06:03.167188 main.go:138: 已加载ArrayDemo合约地址: 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204
+2025/03/20 14:06:03.167188 main.go:142: 已加载Ballot合约地址: 0xd32F443bd6bFe76FfE1998d52b1aEc6753745bE2
+2025/03/20 14:06:03.167694 main.go:146: 已加载Lottery合约地址: 0x57FE0f87D96DAf4aD9228A130424120acBEF3Cfb
+2025/03/20 14:06:03.167694 main.go:150: 已加载Purchase合约地址: 0x82EdbE421099367367F6Bdc06608725D6241381a
+2025/03/20 14:06:03.167705 main.go:233: 合约地址已从存储中加载
+2025/03/20 14:06:03.167705 main.go:236: 初始化路由和API服务
+2025/03/20 14:06:03.167705 main.go:253: 启动 HTTP 服务器在 :8080
+2025/03/20 14:06:03.167705 main.go:254: 服务器模式: debug
+2025/03/20 14:06:03.167705 main.go:255: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/20 14:24:50.223408 main.go:225: 日志已成功重定向到文件和控制台: web3.log
+2025/03/20 14:24:50.223916 main.go:103: 正在从存储加载合约地址...
+2025/03/20 14:24:50.223916 main.go:122: 已加载SimpleStorage合约地址: 0x21515C37970CbE667e53FE9fECd2358756b37c87
+2025/03/20 14:24:50.223916 main.go:126: 已加载Lock合约地址: 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa
+2025/03/20 14:24:50.223916 main.go:130: 已加载Shipping合约地址: 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A
+2025/03/20 14:24:50.223916 main.go:134: 已加载SimpleAuction合约地址: 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E
+2025/03/20 14:24:50.223916 main.go:138: 已加载ArrayDemo合约地址: 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204
+2025/03/20 14:24:50.223916 main.go:142: 已加载Ballot合约地址: 0xd32F443bd6bFe76FfE1998d52b1aEc6753745bE2
+2025/03/20 14:24:50.223916 main.go:146: 已加载Lottery合约地址: 0x57FE0f87D96DAf4aD9228A130424120acBEF3Cfb
+2025/03/20 14:24:50.223916 main.go:150: 已加载Purchase合约地址: 0x82EdbE421099367367F6Bdc06608725D6241381a
+2025/03/20 14:24:50.223916 main.go:233: 合约地址已从存储中加载
+2025/03/20 14:24:50.223916 main.go:236: 初始化路由和API服务
+2025/03/20 14:24:50.223916 main.go:253: 启动 HTTP 服务器在 :8080
+2025/03/20 14:24:50.223916 main.go:254: 服务器模式: debug
+2025/03/20 14:24:50.223916 main.go:255: Swagger 文档地址: http://localhost:8080/swagger/index.html

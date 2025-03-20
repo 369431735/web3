@@ -68,35 +68,6 @@ func DeployContracts() error {
 	log.Printf("Lock 合约已部署到: %s", lockAddr.Hex())
 	SaveContractAddress("lock", lockAddr)
 
-	// 部署 Shipping 合约
-	log.Println("正在部署 Shipping 合约...")
-	shippingAddr, _, _, err := contracts.DeployShipping(auth, client)
-	if err != nil {
-		return fmt.Errorf("部署 Shipping 合约失败: %v", err)
-	}
-	log.Printf("Shipping 合约已部署到: %s", shippingAddr.Hex())
-	SaveContractAddress("shipping", shippingAddr)
-
-	// 部署 SimpleAuction 合约
-	log.Println("正在部署 SimpleAuction 合约...")
-	beneficiary := common.HexToAddress(account.Address)
-	biddingTime := big.NewInt(3600) // 1小时
-	simpleAuctionAddr, _, _, err := contracts.DeploySimpleAuction(auth, client, biddingTime, beneficiary)
-	if err != nil {
-		return fmt.Errorf("部署 SimpleAuction 合约失败: %v", err)
-	}
-	log.Printf("SimpleAuction 合约已部署到: %s", simpleAuctionAddr.Hex())
-	SaveContractAddress("simple_auction", simpleAuctionAddr)
-
-	// 部署 ArrayDemo 合约
-	log.Println("正在部署 ArrayDemo 合约...")
-	arrayDemoAddr, _, _, err := contracts.DeployArrayDemo(auth, client)
-	if err != nil {
-		return fmt.Errorf("部署 ArrayDemo 合约失败: %v", err)
-	}
-	log.Printf("ArrayDemo 合约已部署到: %s", arrayDemoAddr.Hex())
-	SaveContractAddress("array_demo", arrayDemoAddr)
-
 	log.Println("=== 所有合约部署完成 ===")
 	return nil
 }

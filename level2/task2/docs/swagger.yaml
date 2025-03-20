@@ -95,37 +95,60 @@ definitions:
     type: object
   controller.TransactionRequest:
     type: object
+  storage.ContractAddresses:
+    properties:
+      arrayDemo:
+        type: string
+      lock:
+        type: string
+      shipping:
+        type: string
+      simpleAuction:
+        type: string
+      simpleStorage:
+        type: string
+    type: object
   types.ContractBytecodeRequest:
     properties:
-      address:
+      contractType:
+        example: SimpleStorage
         type: string
     required:
-    - address
+    - contractType
     type: object
   types.ContractBytecodeResponse:
     properties:
+      address:
+        example: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
+        type: string
       bytecode:
+        example: 0x608060405234801561001057600080fd5b50...
+        type: string
+      contractType:
+        example: SimpleStorage
         type: string
     type: object
   types.ContractDeployRequest:
     properties:
-      contract_name:
+      contractType:
+        example: SimpleStorage
         type: string
     required:
-    - contract_name
+    - contractType
     type: object
   types.ContractResponse:
     properties:
       address:
+        example: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
         type: string
-      tx_hash:
+      contractType:
+        example: SimpleStorage
         type: string
-    type: object
-  types.ErrorResponse:
-    properties:
-      code:
-        type: integer
-      message:
+      error:
+        example: '部署失败: 交易确认超时'
+        type: string
+      txHash:
+        example: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
         type: string
     type: object
 host: localhost:8080
@@ -355,11 +378,11 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
       summary: 调用ArrayDemo合约的put方法
       tags:
       - 合约方法
@@ -379,11 +402,11 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
       summary: 调用ArrayDemo合约的getArray方法
       tags:
       - 合约方法
@@ -391,9 +414,9 @@ paths:
     post:
       consumes:
       - application/json
-      description: 根据合约地址获取智能合约的字节码
+      description: 获取指定合约的字节码
       parameters:
-      - description: 合约地址
+      - description: 合约字节码请求参数
         in: body
         name: request
         required: true
@@ -410,13 +433,9 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/controller.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/controller.ErrorResponse'
-      summary: 获取智能合约字节码
+      summary: 获取合约字节码
       tags:
-      - 合约
+      - contracts
   /contract/lock/withdraw:
     post:
       consumes:
@@ -440,11 +459,11 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
       summary: 调用Lock合约的withdraw方法
       tags:
       - 合约方法
@@ -471,11 +490,11 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
       summary: 调用Shipping合约的Shipped方法
       tags:
       - 合约方法
@@ -495,11 +514,11 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
       summary: 调用Shipping合约的Status方法
       tags:
       - 合约方法
@@ -526,11 +545,11 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
       summary: 调用SimpleAuction合约的bid方法
       tags:
       - 合约方法
@@ -557,11 +576,11 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
       summary: 调用SimpleAuction合约的withdraw方法
       tags:
       - 合约方法
@@ -580,11 +599,11 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
       summary: 调用SimpleStorage合约的get方法
       tags:
       - 合约方法
@@ -611,18 +630,16 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
       summary: 调用SimpleStorage合约的set方法
       tags:
       - 合约方法
   /contracts:
     get:
-      consumes:
-      - application/json
       description: 获取所有已部署合约的地址
       produces:
       - application/json
@@ -630,19 +647,21 @@ paths:
         "200":
           description: OK
           schema:
-            additionalProperties:
-              type: string
-            type: object
+            $ref: '#/definitions/storage.ContractAddresses'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
       summary: 获取合约地址
       tags:
-      - 合约
+      - contracts
   /contracts/deploy:
     post:
       consumes:
       - application/json
-      description: 部署智能合约
+      description: 部署指定的智能合约
       parameters:
-      - description: 合约部署参数
+      - description: 部署请求参数
         in: body
         name: request
         required: true
@@ -655,18 +674,16 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/types.ContractResponse'
-        "500":
-          description: Internal Server Error
+        "400":
+          description: Bad Request
           schema:
             $ref: '#/definitions/controller.ErrorResponse'
-      summary: 部署合约
+      summary: 部署单个合约
       tags:
-      - 合约
+      - contracts
   /contracts/deploy-all:
     post:
-      consumes:
-      - application/json
-      description: 一次性部署所有支持的智能合约
+      description: 部署所有支持的智能合约
       produces:
       - application/json
       responses:
@@ -676,13 +693,13 @@ paths:
             additionalProperties:
               $ref: '#/definitions/types.ContractResponse'
             type: object
-        "500":
-          description: Internal Server Error
+        "400":
+          description: Bad Request
           schema:
             $ref: '#/definitions/controller.ErrorResponse'
       summary: 部署所有合约
       tags:
-      - 合约
+      - contracts
   /events/subscribe:
     post:
       consumes:

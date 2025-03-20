@@ -8,6 +8,7 @@ import (
 	"math"
 	"math/big"
 	"regexp"
+	"strings"
 	"task2/config"
 
 	"github.com/ethereum/go-ethereum/common"
@@ -51,7 +52,35 @@ func AddressCul() error {
 
 // GetPrivateKey 从十六进制字符串获取私钥
 func GetPrivateKey(privateKeyHex string) (*ecdsa.PrivateKey, error) {
-	return crypto.HexToECDSA(privateKeyHex)
+	log.Printf("处理私钥...")
+
+	// 检查私钥格式并移除0x前缀
+	if strings.HasPrefix(privateKeyHex, "0x") {
+		log.Printf("检测到0x前缀，将被移除")
+		privateKeyHex = privateKeyHex[2:]
+	}
+
+	// 检查私钥长度
+	if len(privateKeyHex) != 64 {
+		return nil, fmt.Errorf("私钥长度不正确: %d (应为64个字符)", len(privateKeyHex))
+	}
+
+	// 验证是否为有效的十六进制字符串
+	for _, c := range privateKeyHex {
+		if !((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F')) {
+			return nil, fmt.Errorf("私钥包含无效字符: %c", c)
+		}
+	}
+
+	// 转换为ECDSA私钥
+	privateKey, err := crypto.HexToECDSA(privateKeyHex)
+	if err != nil {
+		log.Printf("私钥转换失败: %v", err)
+		return nil, fmt.Errorf("解析私钥失败: %v", err)
+	}
+
+	log.Printf("私钥处理成功")
+	return privateKey, nil
 }
 
 // 地址转换演示
@@ -75,7 +104,7 @@ func Balance() error {
 	log.Println("=== 余额查询演示 ===")
 
 	// 连接到本地以太坊网络
-	client, err := InitClient()
+	client, err := GetEthClientHTTP()
 	if err != nil {
 		return fmt.Errorf("连接失败: %v", err)
 	}
@@ -138,7 +167,7 @@ func AddressCheck() error {
 	log.Printf("格式是否有效: %v", re.MatchString(invalidAddr))
 
 	// 连接到以太坊网络
-	client, err := InitClient()
+	client, err := GetEthClientHTTP()
 	if err != nil {
 		return fmt.Errorf("连接以太坊网络失败: %v", err)
 	}

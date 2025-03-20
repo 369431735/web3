@@ -15,11 +15,11 @@ import (
 
 // CreateAndSendTransaction 创建并发送交易
 func CreateAndSendTransaction(from, to string, amount *big.Int) (string, error) {
-	client, err := InitClient()
+	client, err := GetEthClientHTTP()
 	if err != nil {
 		return "", err
 	}
-	defer client.Close()
+	// 使用的是单例客户端，不需要关闭
 
 	// 获取网络配置
 	network := config.GetCurrentNetwork()
@@ -81,11 +81,11 @@ func CreateAndSendTransaction(from, to string, amount *big.Int) (string, error) 
 
 // GetTransactionReceipt 获取交易收据
 func GetTransactionReceipt(txHash string) (*types.Receipt, error) {
-	client, err := InitClient()
+	client, err := GetEthClientHTTP()
 	if err != nil {
 		return nil, err
 	}
-	defer client.Close()
+	// 使用的是单例客户端，不需要关闭
 
 	hash := common.HexToHash(txHash)
 	receipt, err := client.TransactionReceipt(context.Background(), hash)
@@ -98,11 +98,11 @@ func GetTransactionReceipt(txHash string) (*types.Receipt, error) {
 
 // GetTransactionByHash 获取交易信息
 func GetTransactionByHash(txHash string) (*types.Transaction, error) {
-	client, err := InitClient()
+	client, err := GetEthClientHTTP()
 	if err != nil {
 		return nil, err
 	}
-	defer client.Close()
+	// 使用的是单例客户端，不需要关闭
 
 	hash := common.HexToHash(txHash)
 	tx, isPending, err := client.TransactionByHash(context.Background(), hash)

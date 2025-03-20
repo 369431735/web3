@@ -1,28 +1,28 @@
 server:
     port: 8080
     mode: debug  # debug or release
-    read_timeout: 10
-    write_timeout: 10
+    read_timeout: 60
+    write_timeout: 60
     max_header_bytes: 1048576  # 1MB
-    base_path: "/api/v1"
+    base_path: "/api"
 
 ethereum:
     networks:
         local:
             network_name: local
             rpc_url: http://localhost:8545
-            ws_url: ws://localhost:8546
+            ws_url: ws://localhost:8545
             chain_id: 1337
             accounts:
                 default:
-                    private_key: "0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a"
-                    address: "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1"
+                    private_key: "0x9c5c5385611ea8b477fd47f610879f75c95b0b59d38ff53607fa9da75c04959b"
+                    address: "0x3353DA979dB07573819F3f9bc6fb5F6D9A057ED2"
                 alice:
-                    private_key: "0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d"
-                    address: "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+                    private_key: "0xdb75c2aa35d47eb92b7ccb781001587ddb74565b3bf2f09ca0c9ecf3b3368e52"
+                    address: "0x4696a1cD276559aF0A2237012AfE35257d3760c3"
                 bob:
                     private_key: "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890"
-                    address: "0xabcdef123456789012345678901234567890abcdef"
+                    address: "0x35E386579964B3b62158D7A97a750e484a7D97Be"
             contracts:
                 simple_storage:
                     address: ""

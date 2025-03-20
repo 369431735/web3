@@ -30,7 +30,7 @@ func GetAccountBalance(c *gin.Context) {
 		return
 	}
 
-	client, err := utils.InitClient()
+	client, err := utils.GetEthClientHTTP()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, ErrorResponse{Code: http.StatusInternalServerError, Message: "初始化以太坊客户端失败: " + err.Error()})
 		return
@@ -66,7 +66,7 @@ func SetAccountBalance(c *gin.Context) {
 		return
 	}
 
-	client, err := utils.InitClient()
+	client, err := utils.GetEthClientHTTP()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, ErrorResponse{Code: http.StatusInternalServerError, Message: "初始化以太坊客户端失败: " + err.Error()})
 		return

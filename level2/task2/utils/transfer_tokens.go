@@ -13,29 +13,30 @@ import (
 )
 
 // TransferTokens 转账代币
-func TransferTokens(from, to string, amount *big.Int) (string, error) {
-	client, err := InitClient()
+func TransferTokens(from, to string, amount *big.Int) (*types.Transaction, error) {
+	// 初始化客户端
+	client, err := GetEthClientHTTP()
 	if err != nil {
-		return "", err
+		return nil, err
 	}
-	defer client.Close()
+	// 使用的是单例客户端，不需要关闭
 
 	// 获取网络配置
 	network := config.GetCurrentNetwork()
 	if network == nil {
-		return "", fmt.Errorf("未找到网络配置")
+		return nil, fmt.Errorf("未找到网络配置")
 	}
 
 	// 获取发送方账户
 	account, ok := network.Accounts[from]
 	if !ok {
-		return "", fmt.Errorf("未找到账户: %s", from)
+		return nil, fmt.Errorf("未找到账户: %s", from)
 	}
 
 	// 获取私钥
 	privateKey, err := crypto.HexToECDSA(account.PrivateKey[2:]) // 移除 "0x" 前缀
 	if err != nil {
-		return "", fmt.Errorf("私钥解析失败: %v", err)
+		return nil, fmt.Errorf("私钥解析失败: %v", err)
 	}
 
 	// 获取发送方地址
@@ -44,13 +45,13 @@ func TransferTokens(from, to string, amount *big.Int) (string, error) {
 	// 获取 nonce
 	nonce, err := client.PendingNonceAt(context.Background(), fromAddress)
 	if err != nil {
-		return "", fmt.Errorf("获取 nonce 失败: %v", err)
+		return nil, fmt.Errorf("获取 nonce 失败: %v", err)
 	}
 
 	// 获取 gas 价格
 	gasPrice, err := client.SuggestGasPrice(context.Background())
 	if err != nil {
-		return "", fmt.Errorf("获取 gas 价格失败: %v", err)
+		return nil, fmt.Errorf("获取 gas 价格失败: %v", err)
 	}
 
 	// 创建交易
@@ -66,25 +67,25 @@ func TransferTokens(from, to string, amount *big.Int) (string, error) {
 	// 签名交易
 	signedTx, err := types.SignTx(tx, types.NewLondonSigner(big.NewInt(network.ChainID)), privateKey)
 	if err != nil {
-		return "", fmt.Errorf("签名交易失败: %v", err)
+		return nil, fmt.Errorf("签名交易失败: %v", err)
 	}
 
 	// 发送交易
 	err = client.SendTransaction(context.Background(), signedTx)
 	if err != nil {
-		return "", fmt.Errorf("发送交易失败: %v", err)
+		return nil, fmt.Errorf("发送交易失败: %v", err)
 	}
 
-	return signedTx.Hash().Hex(), nil
+	return signedTx, nil
 }
 
 // GetTokenBalance 获取代币余额
 func GetTokenBalance(address string) (*big.Int, error) {
-	client, err := InitClient()
+	client, err := GetEthClientHTTP()
 	if err != nil {
 		return nil, err
 	}
-	defer client.Close()
+	// 使用的是单例客户端，不需要关闭
 
 	// 获取账户余额
 	accountAddress := common.HexToAddress(address)
@@ -94,4 +95,73 @@ func GetTokenBalance(address string) (*big.Int, error) {
 	}
 
 	return balance, nil
+}
+
+// TransferEth 转账ETH
+func TransferEth(from, to string, amount *big.Int) (*types.Transaction, error) {
+	// 初始化客户端
+	client, err := GetEthClientHTTP()
+	if err != nil {
+		return nil, err
+	}
+	// 使用的是单例客户端，不需要关闭
+
+	// 余下代码保持不变...
+
+	// 获取网络配置
+	network := config.GetCurrentNetwork()
+	if network == nil {
+		return nil, fmt.Errorf("未找到网络配置")
+	}
+
+	// 获取发送方账户
+	account, ok := network.Accounts[from]
+	if !ok {
+		return nil, fmt.Errorf("未找到账户: %s", from)
+	}
+
+	// 获取私钥
+	privateKey, err := crypto.HexToECDSA(account.PrivateKey[2:]) // 移除 "0x" 前缀
+	if err != nil {
+		return nil, fmt.Errorf("私钥解析失败: %v", err)
+	}
+
+	// 获取发送方地址
+	fromAddress := crypto.PubkeyToAddress(privateKey.PublicKey)
+
+	// 获取 nonce
+	nonce, err := client.PendingNonceAt(context.Background(), fromAddress)
+	if err != nil {
+		return nil, fmt.Errorf("获取 nonce 失败: %v", err)
+	}
+
+	// 获取 gas 价格
+	gasPrice, err := client.SuggestGasPrice(context.Background())
+	if err != nil {
+		return nil, fmt.Errorf("获取 gas 价格失败: %v", err)
+	}
+
+	// 创建交易
+	tx := types.NewTransaction(
+		nonce,
+		common.HexToAddress(to),
+		amount,
+		uint64(21000),
+		gasPrice,
+		nil,
+	)
+
+	// 签名交易
+	signedTx, err := types.SignTx(tx, types.NewLondonSigner(big.NewInt(network.ChainID)), privateKey)
+	if err != nil {
+		return nil, fmt.Errorf("签名交易失败: %v", err)
+	}
+
+	// 发送交易
+	err = client.SendTransaction(context.Background(), signedTx)
+	if err != nil {
+		return nil, fmt.Errorf("发送交易失败: %v", err)
+	}
+
+	return signedTx, nil
 }
