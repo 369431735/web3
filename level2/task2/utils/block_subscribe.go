@@ -23,7 +23,7 @@ type BlockSubscription struct {
 
 // NewBlockSubscription 创建新的区块订阅实例
 func NewBlockSubscription() (*BlockSubscription, error) {
-	client, err := InitClient()
+	client, err := GetEthClientHTTP()
 	if err != nil {
 		return nil, fmt.Errorf("连接以太坊网络失败: %v", err)
 	}

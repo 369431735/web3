@@ -27,7 +27,7 @@ func BlockInfo() error {
 	log.Println("=== 区块信息查询演示 ===")
 
 	// 连接到以太坊网络
-	client, err := InitClient()
+	client, err := GetEthClientHTTP()
 	if err != nil {
 		return fmt.Errorf("连接以太坊网络失败: %v", err)
 	}
