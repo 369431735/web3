@@ -5,11 +5,9 @@ import (
 	"fmt"
 	"math/big"
 	"net/http"
-	"strings"
 	"task2/config"
 	bindings2 "task2/contracts/bindings"
 	"task2/storage"
-	"task2/types"
 	"task2/utils"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
@@ -35,24 +33,9 @@ type SimpleStorageGetResponse struct {
 	Value string `json:"value" example:"42"`
 }
 
-// Lock合约的withdraw方法请求
-type LockWithdrawRequest struct {
-	// 不需要合约地址参数
-}
-
 // SimpleAuction合约的bid方法请求
 type SimpleAuctionBidRequest struct {
 	BidAmount string `json:"bid_amount" binding:"required" example:"1000000000000000000"`
-}
-
-// SimpleAuction合约的withdraw方法请求
-type SimpleAuctionWithdrawRequest struct {
-	// 不需要合约地址参数
-}
-
-// Shipping合约的Shipped方法请求
-type ShippingAdvanceStateRequest struct {
-	// 不需要参数，但保留结构体以符合RESTful API设计
 }
 
 // ArrayDemo合约的添加值方法请求
@@ -101,33 +84,11 @@ func getContractAddress(contractType string) (common.Address, error) {
 	// 首先从文件存储中获取
 	contractStorage := storage.GetInstance()
 	addressStr, err := contractStorage.GetAddress(contractType)
-	if err == nil && addressStr != "" {
+	if err == nil {
 		return common.HexToAddress(addressStr), nil
 	}
+	return common.Address{}, fmt.Errorf("地址格式无效: %v", err)
 
-	// 如果文件存储中没有，从内存中获取
-	var contractName string
-	switch contractType {
-	case "SimpleStorage":
-		contractName = "simplestorage"
-	case "Lock":
-		contractName = "lock"
-	case "Shipping":
-		contractName = "shipping"
-	case "SimpleAuction":
-		contractName = "simpleauction"
-	case "ArrayDemo":
-		contractName = "arraydemo"
-	default:
-		contractName = strings.ToLower(contractType)
-	}
-
-	address, exists := types.DeployedContracts[contractName]
-	if !exists {
-		return common.Address{}, fmt.Errorf("%s合约未部署", contractType)
-	}
-
-	return address, nil
 }
 
 // ----- SimpleStorage合约方法 -----
@@ -433,7 +394,6 @@ func SimpleAuctionBid(c *gin.Context) {
 // @Tags         合约方法
 // @Accept       json
 // @Produce      json
-// @Param        request body SimpleAuctionWithdrawRequest true "提取请求参数"
 // @Success      200  {object}  map[string]interface{}
 // @Failure      400  {object}  ErrorResponse
 // @Failure      500  {object}  ErrorResponse
@@ -504,21 +464,11 @@ func SimpleAuctionWithdraw(c *gin.Context) {
 // @Tags         合约方法
 // @Accept       json
 // @Produce      json
-// @Param        request body ShippingAdvanceStateRequest true "请求参数"
 // @Success      200  {object}  map[string]interface{}
 // @Failure      400  {object}  ErrorResponse
 // @Failure      500  {object}  ErrorResponse
 // @Router       /contract/shipping/advance-state [post]
 func ShippingAdvanceState(c *gin.Context) {
-	var req ShippingAdvanceStateRequest
-	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, ErrorResponse{
-			Code:    http.StatusBadRequest,
-			Message: "参数错误: " + err.Error(),
-		})
-		return
-	}
-
 	// 初始化客户端
 	client, err := utils.GetEthClientHTTP()
 	if err != nil {

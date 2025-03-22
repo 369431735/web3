@@ -743,7 +743,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/contracts": {
+        "/contracts/allAddresses": {
             "get": {
                 "description": "获取所有已部署合约的地址",
                 "produces": [
@@ -757,47 +757,10 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/storage.ContractAddresses"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/controller.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/contracts/deploy": {
-            "post": {
-                "description": "部署指定的智能合约",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "contracts"
-                ],
-                "summary": "部署单个合约",
-                "parameters": [
-                    {
-                        "description": "部署请求参数",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/types.ContractDeployRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/types.ContractResponse"
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     },
                     "400": {
@@ -840,7 +803,7 @@ const docTemplate = `{
         },
         "/events/subscribe": {
             "post": {
-                "description": "订阅所有已部署合约的事件",
+                "description": "开始监听和处理合约事件",
                 "consumes": [
                     "application/json"
                 ],
@@ -859,6 +822,12 @@ const docTemplate = `{
                             "additionalProperties": {
                                 "type": "string"
                             }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     },
                     "500": {
@@ -1138,26 +1107,6 @@ const docTemplate = `{
         "controller.TransactionRequest": {
             "type": "object"
         },
-        "storage.ContractAddresses": {
-            "type": "object",
-            "properties": {
-                "arrayDemo": {
-                    "type": "string"
-                },
-                "lock": {
-                    "type": "string"
-                },
-                "shipping": {
-                    "type": "string"
-                },
-                "simpleAuction": {
-                    "type": "string"
-                },
-                "simpleStorage": {
-                    "type": "string"
-                }
-            }
-        },
         "types.ContractBytecodeRequest": {
             "type": "object",
             "required": [
@@ -1181,18 +1130,6 @@ const docTemplate = `{
                     "type": "string",
                     "example": "0x608060405234801561001057600080fd5b50..."
                 },
-                "contractType": {
-                    "type": "string",
-                    "example": "SimpleStorage"
-                }
-            }
-        },
-        "types.ContractDeployRequest": {
-            "type": "object",
-            "required": [
-                "contractType"
-            ],
-            "properties": {
                 "contractType": {
                     "type": "string",
                     "example": "SimpleStorage"

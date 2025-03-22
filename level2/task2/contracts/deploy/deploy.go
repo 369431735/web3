@@ -1,15 +1,14 @@
-package contracts
+package deploy
 
 import (
 	"math/big"
+	"task2/contracts/bindings"
 	"time"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/ethclient"
-
-	"task2/contracts/bindings"
 )
 
 // 部署SimpleStorage合约

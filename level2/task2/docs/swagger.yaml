@@ -95,19 +95,6 @@ definitions:
     type: object
   controller.TransactionRequest:
     type: object
-  storage.ContractAddresses:
-    properties:
-      arrayDemo:
-        type: string
-      lock:
-        type: string
-      shipping:
-        type: string
-      simpleAuction:
-        type: string
-      simpleStorage:
-        type: string
-    type: object
   types.ContractBytecodeRequest:
     properties:
       contractType:
@@ -127,14 +114,6 @@ definitions:
       contractType:
         example: SimpleStorage
         type: string
-    type: object
-  types.ContractDeployRequest:
-    properties:
-      contractType:
-        example: SimpleStorage
-        type: string
-    required:
-    - contractType
     type: object
   types.ContractResponse:
     properties:
@@ -638,7 +617,7 @@ paths:
       summary: 调用SimpleStorage合约的set方法
       tags:
       - 合约方法
-  /contracts:
+  /contracts/allAddresses:
     get:
       description: 获取所有已部署合约的地址
       produces:
@@ -647,38 +626,14 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/storage.ContractAddresses'
+            additionalProperties:
+              type: string
+            type: object
         "400":
           description: Bad Request
           schema:
             $ref: '#/definitions/controller.ErrorResponse'
       summary: 获取合约地址
-      tags:
-      - contracts
-  /contracts/deploy:
-    post:
-      consumes:
-      - application/json
-      description: 部署指定的智能合约
-      parameters:
-      - description: 部署请求参数
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/types.ContractDeployRequest'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/types.ContractResponse'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/controller.ErrorResponse'
-      summary: 部署单个合约
       tags:
       - contracts
   /contracts/deploy-all:
@@ -704,7 +659,7 @@ paths:
     post:
       consumes:
       - application/json
-      description: 订阅所有已部署合约的事件
+      description: 开始监听和处理合约事件
       produces:
       - application/json
       responses:
@@ -714,6 +669,10 @@ paths:
             additionalProperties:
               type: string
             type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
         "500":
           description: Internal Server Error
           schema:

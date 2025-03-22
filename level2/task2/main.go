@@ -8,16 +8,15 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
+	"task2/events"
 	"time"
 
 	"task2/api"
 	"task2/config"
 	"task2/storage"
-	"task2/types"
 	"task2/utils"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/gin-gonic/gin"
 )
@@ -92,63 +91,6 @@ func setupClient() (*ethclient.Client, *bind.TransactOpts, error) {
 	}
 
 	return client, auth, nil
-}
-
-// 初始化合约地址
-func initContractAddresses() {
-	// 获取合约存储实例
-	contractStorage := storage.GetInstance()
-	addresses := contractStorage.GetAllAddresses()
-
-	log.Printf("正在从存储加载合约地址...")
-
-	// 检查是否有任何合约地址存在
-	hasAnyAddress := addresses.SimpleStorage != "" ||
-		addresses.Lock != "" ||
-		addresses.Shipping != "" ||
-		addresses.SimpleAuction != "" ||
-		addresses.ArrayDemo != "" ||
-		addresses.Ballot != "" ||
-		addresses.Lottery != "" ||
-		addresses.Purchase != ""
-
-	if !hasAnyAddress {
-		log.Printf("警告: 没有找到任何存储的合约地址，请部署合约")
-	}
-
-	// 将存储中的合约地址加载到内存
-	if addresses.SimpleStorage != "" {
-		types.DeployedContracts["simplestorage"] = common.HexToAddress(addresses.SimpleStorage)
-		log.Printf("已加载SimpleStorage合约地址: %s", addresses.SimpleStorage)
-	}
-	if addresses.Lock != "" {
-		types.DeployedContracts["lock"] = common.HexToAddress(addresses.Lock)
-		log.Printf("已加载Lock合约地址: %s", addresses.Lock)
-	}
-	if addresses.Shipping != "" {
-		types.DeployedContracts["shipping"] = common.HexToAddress(addresses.Shipping)
-		log.Printf("已加载Shipping合约地址: %s", addresses.Shipping)
-	}
-	if addresses.SimpleAuction != "" {
-		types.DeployedContracts["simpleauction"] = common.HexToAddress(addresses.SimpleAuction)
-		log.Printf("已加载SimpleAuction合约地址: %s", addresses.SimpleAuction)
-	}
-	if addresses.ArrayDemo != "" {
-		types.DeployedContracts["arraydemo"] = common.HexToAddress(addresses.ArrayDemo)
-		log.Printf("已加载ArrayDemo合约地址: %s", addresses.ArrayDemo)
-	}
-	if addresses.Ballot != "" {
-		types.DeployedContracts["ballot"] = common.HexToAddress(addresses.Ballot)
-		log.Printf("已加载Ballot合约地址: %s", addresses.Ballot)
-	}
-	if addresses.Lottery != "" {
-		types.DeployedContracts["lottery"] = common.HexToAddress(addresses.Lottery)
-		log.Printf("已加载Lottery合约地址: %s", addresses.Lottery)
-	}
-	if addresses.Purchase != "" {
-		types.DeployedContracts["purchase"] = common.HexToAddress(addresses.Purchase)
-		log.Printf("已加载Purchase合约地址: %s", addresses.Purchase)
-	}
 }
 
 // 部署所有合约的函数已移动到abi包中
@@ -229,8 +171,12 @@ func main() {
 	}
 
 	// 初始化合约地址
-	initContractAddresses()
+	contractStorage := storage.GetInstance()
 	log.Println("合约地址已从存储中加载")
+	for key, value := range contractStorage.GetAllAddresses() {
+		events.InitializeEventHandlersByAdress(key, value)
+	}
+	// 初始化事件处理器
 
 	// 初始化路由
 	log.Println("初始化路由和API服务")

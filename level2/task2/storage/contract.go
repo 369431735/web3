@@ -8,18 +8,6 @@ import (
 	"sync"
 )
 
-// ContractAddresses 存储合约地址的结构
-type ContractAddresses struct {
-	SimpleStorage string `json:"simpleStorage"`
-	Lock          string `json:"lock"`
-	Shipping      string `json:"shipping"`
-	SimpleAuction string `json:"simpleAuction"`
-	ArrayDemo     string `json:"arrayDemo"`
-	Ballot        string `json:"ballot"`
-	Lottery       string `json:"lottery"`
-	Purchase      string `json:"purchase"`
-}
-
 var (
 	instance *ContractStorage
 	once     sync.Once
@@ -28,7 +16,7 @@ var (
 // ContractStorage 合约存储结构
 type ContractStorage struct {
 	filePath  string
-	addresses *ContractAddresses
+	addresses map[string]string
 	mu        sync.RWMutex
 }
 
@@ -37,7 +25,7 @@ func GetInstance() *ContractStorage {
 	once.Do(func() {
 		instance = &ContractStorage{
 			filePath:  "data/contracts.json",
-			addresses: &ContractAddresses{},
+			addresses: make(map[string]string),
 		}
 		// 确保数据目录存在
 		if err := os.MkdirAll(filepath.Dir(instance.filePath), 0755); err != nil {
@@ -64,7 +52,7 @@ func (s *ContractStorage) load() error {
 		return fmt.Errorf("读取合约地址文件失败: %v", err)
 	}
 
-	if err := json.Unmarshal(data, s.addresses); err != nil {
+	if err := json.Unmarshal(data, &s.addresses); err != nil {
 		return fmt.Errorf("解析合约地址数据失败: %v", err)
 	}
 
@@ -73,9 +61,6 @@ func (s *ContractStorage) load() error {
 
 // save 保存合约地址到文件
 func (s *ContractStorage) save() error {
-	s.mu.Lock()
-	defer s.mu.Unlock()
-
 	// 确保目录存在
 	dirPath := filepath.Dir(s.filePath)
 	if err := os.MkdirAll(dirPath, 0755); err != nil {
@@ -102,70 +87,22 @@ func (s *ContractStorage) save() error {
 
 // SetAddress 设置合约地址
 func (s *ContractStorage) SetAddress(contractType string, address string) error {
-
-	switch contractType {
-	case "SimpleStorage":
-		s.addresses.SimpleStorage = address
-	case "Lock":
-		s.addresses.Lock = address
-	case "Shipping":
-		s.addresses.Shipping = address
-	case "SimpleAuction":
-		s.addresses.SimpleAuction = address
-	case "ArrayDemo":
-		s.addresses.ArrayDemo = address
-	case "Ballot":
-		s.addresses.Ballot = address
-	case "Lottery":
-		s.addresses.Lottery = address
-	case "Purchase":
-		s.addresses.Purchase = address
-	default:
-		return fmt.Errorf("未知的合约类型: %s", contractType)
-	}
-
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	s.addresses[contractType] = address
 	return s.save()
 }
 
 // GetAddress 获取合约地址
 func (s *ContractStorage) GetAddress(contractType string) (string, error) {
-	s.mu.RLock()
-	defer s.mu.RUnlock()
-
-	switch contractType {
-	case "SimpleStorage":
-		return s.addresses.SimpleStorage, nil
-	case "Lock":
-		return s.addresses.Lock, nil
-	case "Shipping":
-		return s.addresses.Shipping, nil
-	case "SimpleAuction":
-		return s.addresses.SimpleAuction, nil
-	case "ArrayDemo":
-		return s.addresses.ArrayDemo, nil
-	case "Ballot":
-		return s.addresses.Ballot, nil
-	case "Lottery":
-		return s.addresses.Lottery, nil
-	case "Purchase":
-		return s.addresses.Purchase, nil
-	default:
-		return "", fmt.Errorf("未知的合约类型: %s", contractType)
+	if value, ok := s.addresses[contractType]; ok {
+		return value, nil
 	}
+	return "", fmt.Errorf("未知的合约类型: %s", contractType)
+
 }
 
 // GetAllAddresses 获取所有合约地址
-func (s *ContractStorage) GetAllAddresses() *ContractAddresses {
-	s.mu.RLock()
-	defer s.mu.RUnlock()
-
-	// 创建副本以避免并发访问问题
-	addresses := *s.addresses
-	return &addresses
-}
-
-// GetAllContractAddresses returns a map of contract names to their addresses
-func GetAllContractAddresses() map[string]string {
-	// TODO: Implement actual storage logic
-	return make(map[string]string)
+func (s *ContractStorage) GetAllAddresses() map[string]string {
+	return s.addresses
 }

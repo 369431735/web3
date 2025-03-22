@@ -70,10 +70,6 @@ func SetupRouter() *gin.Engine {
 	docs.SwaggerInfo.BasePath = basePath
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	// 初始化控制器
-	contractController := &controller.ContractController{}
-	eventController := &controller.EventController{}
-
 	// API 路由组
 	v1 := r.Group(basePath)
 	{
@@ -107,18 +103,14 @@ func SetupRouter() *gin.Engine {
 		// 合约相关路由
 		contracts := v1.Group("/contracts")
 		{
-			contracts.POST("/deploy", controller.DeployContracts)
 			contracts.POST("/deploy-all", controller.DeployAllContracts)
-			contracts.GET("", controller.GetContractAddresses)
+			contracts.GET("/allAddresses", controller.GetContractAddresses)
 		}
 
 		// 单个合约部署路由
 		contract := v1.Group("/contract")
 		{
 			// 合约部署路由
-			contract.POST("/deploy/lock", contractController.DeployLock)
-			contract.POST("/deploy/simplestorage", contractController.DeploySimpleStorage)
-
 			contract.POST("/bytecode", controller.GetContractBytecode)
 
 			// SimpleStorage合约方法
@@ -167,7 +159,6 @@ func SetupRouter() *gin.Engine {
 		events := v1.Group("/events")
 		{
 			events.POST("/subscribe", controller.SubscribeContractEvents)
-			events.POST("/subscribe/:contractType", eventController.SubscribeToEvents)
 		}
 	}
 

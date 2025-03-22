@@ -5,12 +5,8 @@ import (
 	"fmt"
 	"log"
 	"math/big"
-	"net/http"
-	"strings"
-	"time"
-
 	"task2/config"
-	"task2/contracts"
+	"task2/contracts/deploy"
 	"task2/storage"
 	"task2/types"
 	"task2/utils"
@@ -55,71 +51,6 @@ func getContractTransactOpts(client *ethclient.Client) (*bind.TransactOpts, erro
 	return auth, nil
 }
 
-// DeployContracts 部署单个合约
-// @Summary 部署单个合约
-// @Description 部署指定的智能合约
-// @Tags contracts
-// @Accept json
-// @Produce json
-// @Param request body types.ContractDeployRequest true "部署请求参数"
-// @Success 200 {object} types.ContractResponse
-// @Failure 400 {object} ErrorResponse
-// @Router /contracts/deploy [post]
-func DeployContracts(c *gin.Context) {
-	var request types.ContractDeployRequest
-	if err := c.ShouldBindJSON(&request); err != nil {
-		c.JSON(400, ErrorResponse{Code: 400, Message: fmt.Sprintf("无效的请求参数: %v", err)})
-		return
-	}
-
-	// 初始化以太坊客户端
-	client, err := utils.GetEthClientHTTP()
-	if err != nil {
-		c.JSON(400, ErrorResponse{Code: 400, Message: fmt.Sprintf("初始化以太坊客户端失败: %v", err)})
-		return
-	}
-	// 不需要defer client.Close()，因为我们使用的是单例客户端
-
-	// 获取交易选项
-	opts, err := getContractTransactOpts(client)
-	if err != nil {
-		c.JSON(400, ErrorResponse{Code: 400, Message: fmt.Sprintf("获取交易选项失败: %v", err)})
-		return
-	}
-
-	// 根据合约类型部署合约
-	var address common.Address
-	var tx *ethTypes.Transaction
-
-	switch request.ContractType {
-	case "SimpleStorage":
-		address, tx, _, err = contracts.DeploySimpleStorage(opts, client)
-	case "Lock":
-		unlockTime := time.Now().Add(24 * time.Hour).Unix()
-		address, tx, _, err = contracts.DeployLock(opts, client, big.NewInt(unlockTime))
-	default:
-		c.JSON(400, ErrorResponse{Code: 400, Message: "不支持的合约类型"})
-		return
-	}
-
-	if err != nil {
-		c.JSON(400, ErrorResponse{Code: 400, Message: fmt.Sprintf("部署合约失败: %v", err)})
-		return
-	}
-
-	// 保存合约地址到存储
-	contractStorage := storage.GetInstance()
-	if err := contractStorage.SetAddress(request.ContractType, address.Hex()); err != nil {
-		log.Printf("保存合约地址失败: %v", err)
-	}
-
-	c.JSON(200, types.ContractResponse{
-		ContractType: request.ContractType,
-		Address:      address.Hex(),
-		TxHash:       tx.Hash().Hex(),
-	})
-}
-
 // DeployAllContracts 部署所有合约
 // @Summary 部署所有合约
 // @Description 部署所有支持的智能合约
@@ -156,14 +87,14 @@ func DeployAllContracts(c *gin.Context) {
 	type deployFunc func(*bind.TransactOpts, *ethclient.Client) (common.Address, *ethTypes.Transaction, error)
 
 	deployFuncs := map[string]deployFunc{
-		"SimpleStorage": contracts.DeploySimpleStorageFromBindings,
-		"Lock":          contracts.DeployLockFromBindings,
-		"Shipping":      contracts.DeployShippingFromBindings,
-		"SimpleAuction": contracts.DeploySimpleAuctionFromBindings,
-		"ArrayDemo":     contracts.DeployArrayDemoFromBindings,
-		"Ballot":        contracts.DeployBallotFromBindings,
-		"Lottery":       contracts.DeployLotteryFromBindings,
-		"Purchase":      contracts.DeployPurchaseFromBindings,
+		"SimpleStorage": deploy.DeploySimpleStorageFromBindings,
+		"Lock":          deploy.DeployLockFromBindings,
+		"Shipping":      deploy.DeployShippingFromBindings,
+		"SimpleAuction": deploy.DeploySimpleAuctionFromBindings,
+		"ArrayDemo":     deploy.DeployArrayDemoFromBindings,
+		"Ballot":        deploy.DeployBallotFromBindings,
+		"Lottery":       deploy.DeployLotteryFromBindings,
+		"Purchase":      deploy.DeployPurchaseFromBindings,
 	}
 
 	results := make(map[string]types.ContractResponse)
@@ -232,11 +163,6 @@ func DeployAllContracts(c *gin.Context) {
 		}
 		log.Printf("合约地址已保存到文件: %s => %s", contractType, address.Hex())
 
-		// 同时更新内存中的映射
-		inMemoryName := strings.ToLower(contractType)
-		types.DeployedContracts[inMemoryName] = address
-		log.Printf("更新内存中的合约地址映射: %s => %s", inMemoryName, address.Hex())
-
 		results[contractType] = types.ContractResponse{
 			ContractType: contractType,
 			Address:      address.Hex(),
@@ -253,9 +179,9 @@ func DeployAllContracts(c *gin.Context) {
 // @Description 获取所有已部署合约的地址
 // @Tags contracts
 // @Produce json
-// @Success 200 {object} storage.ContractAddresses
+// @Success 200 {object}  map[string]string
 // @Failure 400 {object} ErrorResponse
-// @Router /contracts [get]
+// @Router /contracts/allAddresses [get]
 func GetContractAddresses(c *gin.Context) {
 	contractStorage := storage.GetInstance()
 	addresses := contractStorage.GetAllAddresses()
@@ -293,7 +219,6 @@ func GetContractBytecode(c *gin.Context) {
 		c.JSON(400, ErrorResponse{Code: 400, Message: fmt.Sprintf("初始化以太坊客户端失败: %v", err)})
 		return
 	}
-	// 不需要defer client.Close()，因为使用的是单例客户端
 
 	// 获取合约字节码
 	bytecode, err := client.CodeAt(c.Request.Context(), common.HexToAddress(address), nil)
@@ -306,123 +231,5 @@ func GetContractBytecode(c *gin.Context) {
 		ContractType: request.ContractType,
 		Address:      address,
 		Bytecode:     "0x" + common.Bytes2Hex(bytecode),
-	})
-}
-
-// ContractController 处理与智能合约相关的请求
-type ContractController struct{}
-
-// DeployLockRequest Lock合约部署请求参数
-type DeployLockRequest struct {
-	UnlockTime int64 `json:"unlockTime" binding:"required"`
-}
-
-// DeployLock 部署Lock合约
-func (c *ContractController) DeployLock(ctx *gin.Context) {
-	var req DeployLockRequest
-	if err := ctx.ShouldBindJSON(&req); err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "无效的请求参数: " + err.Error()})
-		return
-	}
-
-	// I连接到以太坊节点
-	client, err := utils.GetEthClientHTTP()
-	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "无法连接到以太坊网络: " + err.Error()})
-		return
-	}
-	// 不需要defer client.Close()，因为使用的是单例客户端
-
-	// 获取交易选项
-	opts, err := getContractTransactOpts(client)
-	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "获取交易选项失败: " + err.Error()})
-		return
-	}
-
-	// 使用default账户进行部署
-	network := config.GetCurrentNetwork()
-	if network == nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "未找到网络配置"})
-		return
-	}
-
-	defaultAccount, ok := network.Accounts["default"]
-	if !ok {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "未找到默认账户"})
-		return
-	}
-
-	log.Printf("使用默认账户 %s 部署Lock合约", defaultAccount.Address)
-
-	// 部署合约
-	address, tx, _, err := contracts.DeployLock(opts, client, big.NewInt(req.UnlockTime))
-	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "部署Lock合约失败: " + err.Error()})
-		return
-	}
-
-	// 保存合约地址到存储
-	contractStorage := storage.GetInstance()
-	if err := contractStorage.SetAddress("Lock", address.Hex()); err != nil {
-		log.Printf("保存Lock合约地址失败: %v", err)
-	}
-
-	ctx.JSON(http.StatusOK, gin.H{
-		"message": "Lock合约部署成功",
-		"address": address.Hex(),
-		"txHash":  tx.Hash().Hex(),
-	})
-}
-
-// DeploySimpleStorage 部署SimpleStorage合约
-func (c *ContractController) DeploySimpleStorage(ctx *gin.Context) {
-	// 获取以太坊客户端
-	client, err := utils.GetEthClientHTTP()
-	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "无法连接到以太坊网络: " + err.Error()})
-		return
-	}
-	// 不需要defer client.Close()，因为使用的是单例客户端
-
-	// 获取交易选项
-	opts, err := getContractTransactOpts(client)
-	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "获取交易选项失败: " + err.Error()})
-		return
-	}
-
-	// 使用default账户进行部署
-	network := config.GetCurrentNetwork()
-	if network == nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "未找到网络配置"})
-		return
-	}
-
-	defaultAccount, ok := network.Accounts["default"]
-	if !ok {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "未找到默认账户"})
-		return
-	}
-
-	log.Printf("使用默认账户 %s 部署SimpleStorage合约", defaultAccount.Address)
-
-	// 部署合约
-	address, tx, _, err := contracts.DeploySimpleStorage(opts, client)
-	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "部署SimpleStorage合约失败: " + err.Error()})
-		return
-	}
-
-	// 保存合约地址到存储
-	contractStorage := storage.GetInstance()
-	if err := contractStorage.SetAddress("SimpleStorage", address.Hex()); err != nil {
-		log.Printf("保存SimpleStorage合约地址失败: %v", err)
-	}
-
-	ctx.JSON(http.StatusOK, gin.H{
-		"message": "SimpleStorage合约部署成功",
-		"address": address.Hex(),
-		"txHash":  tx.Hash().Hex(),
 	})
 }
