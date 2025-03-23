@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// CheckAddress 检查地址
+// CheckAddress 检查以太坊地址格式
 func CheckAddress(c *gin.Context) {
 	if err := utils.AddressCheck(); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
@@ -16,6 +16,6 @@ func CheckAddress(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{
-		"message": "地址检查完成",
+		"message": "以太坊地址检查成功",
 	})
 }

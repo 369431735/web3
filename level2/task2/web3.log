@@ -1209,3 +1209,253 @@
 2025/03/22 09:31:34.226051 address.go:55: 处理私钥...
 2025/03/22 09:31:34.226051 address.go:59: 检测到0x前缀，将被移除
 2025/03/22 09:31:34.226051 address.go:82: 私钥处理成功
+2025/03/22 09:32:54.064744 main.go:167: 日志已成功重定向到文件和控制台: web3.log
+2025/03/22 09:32:54.064744 main.go:175: 合约地址已从存储中加载
+2025/03/22 09:32:54.064744 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/22 09:32:54.079099 main.go:182: 初始化路由和API服务
+2025/03/22 09:32:54.079099 main.go:199: 启动 HTTP 服务器在 :8080
+2025/03/22 09:32:54.079099 main.go:200: 服务器模式: debug
+2025/03/22 09:32:54.079099 main.go:201: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/22 09:33:05.183928 address.go:55: 处理私钥...
+2025/03/22 09:33:05.184435 address.go:59: 检测到0x前缀，将被移除
+2025/03/22 09:33:05.200485 address.go:82: 私钥处理成功
+2025/03/22 09:34:05.194705 address.go:55: 处理私钥...
+2025/03/22 09:34:05.194705 address.go:59: 检测到0x前缀，将被移除
+2025/03/22 09:34:05.194705 address.go:82: 私钥处理成功
+2025/03/22 09:34:40.445509 address.go:55: 处理私钥...
+2025/03/22 09:34:40.445509 address.go:59: 检测到0x前缀，将被移除
+2025/03/22 09:34:40.445509 address.go:82: 私钥处理成功
+2025/03/22 09:36:15.263170 address.go:55: 处理私钥...
+2025/03/22 09:36:15.263675 address.go:59: 检测到0x前缀，将被移除
+2025/03/22 09:36:15.263731 address.go:82: 私钥处理成功
+2025/03/22 09:37:47.785569 address.go:55: 处理私钥...
+2025/03/22 09:37:47.785569 address.go:59: 检测到0x前缀，将被移除
+2025/03/22 09:37:47.785569 address.go:82: 私钥处理成功
+2025/03/22 09:37:50.010167 address.go:55: 处理私钥...
+2025/03/22 09:37:50.010167 address.go:59: 检测到0x前缀，将被移除
+2025/03/22 09:37:50.010167 address.go:82: 私钥处理成功
+2025/03/22 10:23:05.926366 main.go:167: 日志已成功重定向到文件和控制台: web3.log
+2025/03/22 10:23:05.926879 main.go:175: 合约地址已从存储中加载
+2025/03/22 10:23:05.926879 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/22 10:23:05.994190 main.go:182: 初始化路由和API服务
+2025/03/22 10:23:05.994696 main.go:199: 启动 HTTP 服务器在 :8080
+2025/03/22 10:23:05.994705 main.go:200: 服务器模式: debug
+2025/03/22 10:23:05.994705 main.go:201: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/22 11:20:08.464446 main.go:167: 日志已成功重定向到文件和控制台: web3.log
+2025/03/22 11:20:08.464446 main.go:175: 合约地址已从存储中加载
+2025/03/22 11:20:08.464446 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/22 11:20:08.508763 main.go:182: 初始化路由和API服务
+2025/03/22 11:20:08.509279 main.go:199: 启动 HTTP 服务器在 :8080
+2025/03/22 11:20:08.509279 main.go:200: 服务器模式: debug
+2025/03/22 11:20:08.509279 main.go:201: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/22 13:24:18.622736 main.go:167: 日志已成功重定向到文件和控制台: web3.log
+2025/03/22 13:24:18.623250 main.go:175: 合约地址已从存储中加载
+2025/03/22 13:24:18.623250 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/22 13:24:18.752281 main.go:182: 初始化路由和API服务
+2025/03/22 13:24:18.753310 main.go:199: 启动 HTTP 服务器在 :8080
+2025/03/22 13:24:18.753310 main.go:200: 服务器模式: debug
+2025/03/22 13:24:18.753310 main.go:201: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 09:25:13.227308 main.go:167: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 09:25:13.227817 main.go:175: 合约地址已从存储中加载
+2025/03/23 09:25:13.227817 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 09:25:13.249475 main.go:182: 初始化路由和API服务
+2025/03/23 09:25:13.249485 main.go:199: 启动 HTTP 服务器在 :8080
+2025/03/23 09:25:13.249485 main.go:200: 服务器模式: debug
+2025/03/23 09:25:13.249485 main.go:201: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 09:28:27.616052 main.go:167: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 09:28:27.616052 main.go:175: 合约地址已从存储中加载
+2025/03/23 09:28:27.616052 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 09:28:27.632700 main.go:182: 初始化路由和API服务
+2025/03/23 09:28:27.633211 main.go:199: 启动 HTTP 服务器在 :8080
+2025/03/23 09:28:27.633211 main.go:200: 服务器模式: debug
+2025/03/23 09:28:27.633211 main.go:201: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 09:29:37.223021 main.go:167: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 09:29:37.223021 main.go:175: 合约地址已从存储中加载
+2025/03/23 09:29:37.223021 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 09:29:37.234739 main.go:182: 初始化路由和API服务
+2025/03/23 09:29:37.234739 main.go:199: 启动 HTTP 服务器在 :8080
+2025/03/23 09:29:37.234739 main.go:200: 服务器模式: debug
+2025/03/23 09:29:37.234739 main.go:201: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 09:30:48.780221 main.go:167: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 09:30:48.780731 main.go:175: 合约地址已从存储中加载
+2025/03/23 09:30:48.780731 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 09:30:48.794348 main.go:182: 初始化路由和API服务
+2025/03/23 09:30:48.794860 main.go:199: 启动 HTTP 服务器在 :8080
+2025/03/23 09:30:48.794860 main.go:200: 服务器模式: debug
+2025/03/23 09:30:48.794860 main.go:201: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 10:31:15.825398 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 10:31:15.825911 main.go:176: 合约地址已从存储中加载
+2025/03/23 10:31:15.825911 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 10:31:15.860431 main.go:183: 初始化路由和API服务
+2025/03/23 10:31:15.864057 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 10:31:15.864057 main.go:201: 服务器模式: debug
+2025/03/23 10:31:15.864057 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 10:33:27.783775 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 10:33:27.783775 main.go:176: 合约地址已从存储中加载
+2025/03/23 10:33:27.783775 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 10:33:27.801199 main.go:183: 初始化路由和API服务
+2025/03/23 10:33:27.801763 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 10:33:27.802282 main.go:201: 服务器模式: debug
+2025/03/23 10:33:27.802282 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 10:35:10.100809 main.go:167: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 10:35:10.100809 main.go:175: 合约地址已从存储中加载
+2025/03/23 10:35:10.101316 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 10:35:10.115376 main.go:182: 初始化路由和API服务
+2025/03/23 10:35:10.115889 main.go:199: 启动 HTTP 服务器在 :8080
+2025/03/23 10:35:10.115889 main.go:200: 服务器模式: debug
+2025/03/23 10:35:10.115889 main.go:201: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 10:36:44.223288 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 10:36:44.223288 main.go:176: 合约地址已从存储中加载
+2025/03/23 10:36:44.223288 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 10:36:44.238737 main.go:183: 初始化路由和API服务
+2025/03/23 10:36:44.239248 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 10:36:44.239248 main.go:201: 服务器模式: debug
+2025/03/23 10:36:44.239248 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 10:37:15.402882 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 10:37:15.402882 main.go:176: 合约地址已从存储中加载
+2025/03/23 10:37:15.402882 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 10:37:15.416149 main.go:183: 初始化路由和API服务
+2025/03/23 10:37:15.417168 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 10:37:15.417168 main.go:201: 服务器模式: debug
+2025/03/23 10:37:15.417168 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 10:37:15.417673 main.go:206: 启动 HTTP 服务器失败: listen tcp :8080: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+2025/03/23 10:37:54.504496 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 10:37:54.505004 main.go:176: 合约地址已从存储中加载
+2025/03/23 10:37:54.505004 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 10:37:54.517478 main.go:183: 初始化路由和API服务
+2025/03/23 10:37:54.521045 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 10:37:54.521045 main.go:201: 服务器模式: debug
+2025/03/23 10:37:54.521045 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 10:38:22.609630 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 10:38:22.610141 main.go:176: 合约地址已从存储中加载
+2025/03/23 10:38:22.610141 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 10:38:22.619706 main.go:183: 初始化路由和API服务
+2025/03/23 10:38:22.622256 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 10:38:22.622256 main.go:201: 服务器模式: debug
+2025/03/23 10:38:22.622256 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 10:39:08.954585 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 10:39:08.954585 main.go:176: 合约地址已从存储中加载
+2025/03/23 10:39:08.955098 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 10:39:08.968495 main.go:183: 初始化路由和API服务
+2025/03/23 10:39:08.973110 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 10:39:08.973110 main.go:201: 服务器模式: debug
+2025/03/23 10:39:08.973110 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 10:42:48.314084 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 10:42:48.314084 main.go:176: 合约地址已从存储中加载
+2025/03/23 10:42:48.314084 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 10:42:48.328074 main.go:183: 初始化路由和API服务
+2025/03/23 10:42:48.333161 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 10:42:48.333161 main.go:201: 服务器模式: debug
+2025/03/23 10:42:48.333161 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 10:45:43.242788 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 10:45:43.243297 main.go:176: 合约地址已从存储中加载
+2025/03/23 10:45:43.243297 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 10:45:43.254792 main.go:183: 初始化路由和API服务
+2025/03/23 10:45:43.255813 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 10:45:43.255813 main.go:201: 服务器模式: debug
+2025/03/23 10:45:43.255813 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 10:48:14.383210 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 10:48:14.383210 main.go:176: 合约地址已从存储中加载
+2025/03/23 10:48:14.383210 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 10:48:14.396631 main.go:183: 初始化路由和API服务
+2025/03/23 10:48:14.397650 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 10:48:14.397650 main.go:201: 服务器模式: debug
+2025/03/23 10:48:14.397650 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 10:50:25.007963 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 10:50:25.008476 main.go:176: 合约地址已从存储中加载
+2025/03/23 10:50:25.008476 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 10:50:25.019558 main.go:183: 初始化路由和API服务
+2025/03/23 10:50:25.020557 main.go:109: 程序发生致命错误: '/*any' in new path '/swagger/*any' conflicts with existing wildcard '/*filepath' in existing prefix '/swagger/*filepath'
+堆栈信息:
+goroutine 1 [running]:
+main.recoverAndLog()
+	D:/work/gitspace/web3/web3/level2/task2/main.go:105 +0x65
+panic({0xa7f6a0?, 0xc000121430?})
+	C:/Program Files/Go/src/runtime/panic.go:791 +0x132
+github.com/gin-gonic/gin.(*node).addRoute(0xb97832?, {0xc000110e20, 0xd}, {0xc0002a70c0, 0x4, 0x4})
+	C:/Users/Administrator/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/tree.go:247 +0xb6a
+github.com/gin-gonic/gin.(*Engine).addRoute(0xc0001fa000, {0xb97832, 0x3}, {0xc000110e20, 0xd}, {0xc0002a70c0, 0x4, 0x4})
+	C:/Users/Administrator/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:349 +0x252
+github.com/gin-gonic/gin.(*RouterGroup).handle(0xc0001fa000, {0xb97832, 0x3}, {0xba79f9?, 0x9?}, {0xc0000bc0d0, 0x1, 0x5?})
+	C:/Users/Administrator/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/routergroup.go:89 +0x145
+github.com/gin-gonic/gin.(*RouterGroup).GET(...)
+	C:/Users/Administrator/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/routergroup.go:117
+task2/api.SetupRouter()
+	D:/work/gitspace/web3/web3/level2/task2/api/router.go:29 +0x2f3
+main.main()
+	D:/work/gitspace/web3/web3/level2/task2/main.go:186 +0x82a
+2025/03/23 10:51:21.578006 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 10:51:21.578518 main.go:176: 合约地址已从存储中加载
+2025/03/23 10:51:21.578518 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 10:51:21.596723 main.go:183: 初始化路由和API服务
+2025/03/23 10:51:21.598243 main.go:109: 程序发生致命错误: '/*any' in new path '/swagger/*any' conflicts with existing wildcard '/*filepath' in existing prefix '/swagger/*filepath'
+堆栈信息:
+goroutine 1 [running]:
+main.recoverAndLog()
+	D:/work/gitspace/web3/web3/level2/task2/main.go:105 +0x65
+panic({0x94f6a0?, 0xc000121790?})
+	C:/Program Files/Go/src/runtime/panic.go:791 +0x132
+github.com/gin-gonic/gin.(*node).addRoute(0xa67832?, {0xc000110e70, 0xd}, {0xc0002a7440, 0x4, 0x4})
+	C:/Users/Administrator/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/tree.go:247 +0xb6a
+github.com/gin-gonic/gin.(*Engine).addRoute(0xc0002d8000, {0xa67832, 0x3}, {0xc000110e70, 0xd}, {0xc0002a7440, 0x4, 0x4})
+	C:/Users/Administrator/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:349 +0x252
+github.com/gin-gonic/gin.(*RouterGroup).handle(0xc0002d8000, {0xa67832, 0x3}, {0xa779f9?, 0x9?}, {0xc00008e0c8, 0x1, 0x5?})
+	C:/Users/Administrator/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/routergroup.go:89 +0x145
+github.com/gin-gonic/gin.(*RouterGroup).GET(...)
+	C:/Users/Administrator/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/routergroup.go:117
+task2/api.SetupRouter()
+	D:/work/gitspace/web3/web3/level2/task2/api/router.go:29 +0x2f3
+main.main()
+	D:/work/gitspace/web3/web3/level2/task2/main.go:186 +0x82a
+2025/03/23 10:52:21.454128 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 10:52:21.454128 main.go:176: 合约地址已从存储中加载
+2025/03/23 10:52:21.454128 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 10:52:21.469349 main.go:183: 初始化路由和API服务
+2025/03/23 10:52:21.472726 main.go:109: 程序发生致命错误: '/*any' in new path '/swagger/*any' conflicts with existing wildcard '/*filepath' in existing prefix '/swagger/*filepath'
+堆栈信息:
+goroutine 1 [running]:
+main.recoverAndLog()
+	D:/work/gitspace/web3/web3/level2/task2/main.go:105 +0x65
+panic({0x90f6a0?, 0xc000045540?})
+	C:/Program Files/Go/src/runtime/panic.go:791 +0x132
+github.com/gin-gonic/gin.(*node).addRoute(0xa27832?, {0xc00000abe0, 0xd}, {0xc000564060, 0x4, 0x4})
+	C:/Users/Administrator/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/tree.go:247 +0xb6a
+github.com/gin-gonic/gin.(*Engine).addRoute(0xc000394000, {0xa27832, 0x3}, {0xc00000abe0, 0xd}, {0xc000564060, 0x4, 0x4})
+	C:/Users/Administrator/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:349 +0x252
+github.com/gin-gonic/gin.(*RouterGroup).handle(0xc000394000, {0xa27832, 0x3}, {0xa379f9?, 0x9?}, {0xc0001ee0a8, 0x1, 0x5?})
+	C:/Users/Administrator/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/routergroup.go:89 +0x145
+github.com/gin-gonic/gin.(*RouterGroup).GET(...)
+	C:/Users/Administrator/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/routergroup.go:117
+task2/api.SetupRouter()
+	D:/work/gitspace/web3/web3/level2/task2/api/router.go:29 +0x2f3
+main.main()
+	D:/work/gitspace/web3/web3/level2/task2/main.go:186 +0x82a
+2025/03/23 10:53:21.864518 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 10:53:21.865518 main.go:176: 合约地址已从存储中加载
+2025/03/23 10:53:21.865518 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 10:53:21.878202 main.go:183: 初始化路由和API服务
+2025/03/23 10:53:21.879222 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 10:53:21.879222 main.go:201: 服务器模式: debug
+2025/03/23 10:53:21.879222 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 10:53:56.573120 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 10:53:56.573120 main.go:176: 合约地址已从存储中加载
+2025/03/23 10:53:56.573120 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 10:53:56.594063 main.go:183: 初始化路由和API服务
+2025/03/23 10:53:56.599722 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 10:53:56.599722 main.go:201: 服务器模式: debug
+2025/03/23 10:53:56.599722 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 10:53:56.601529 main.go:206: 启动 HTTP 服务器失败: listen tcp :8080: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+2025/03/23 10:56:08.070686 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 10:56:08.070686 main.go:176: 合约地址已从存储中加载
+2025/03/23 10:56:08.070686 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 10:56:08.087165 main.go:183: 初始化路由和API服务
+2025/03/23 10:56:08.090045 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 10:56:08.090555 main.go:201: 服务器模式: debug
+2025/03/23 10:56:08.090555 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 11:01:47.048155 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 11:01:47.048665 main.go:176: 合约地址已从存储中加载
+2025/03/23 11:01:47.048665 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 11:01:47.067625 main.go:183: 初始化路由和API服务
+2025/03/23 11:01:47.068136 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 11:01:47.068136 main.go:201: 服务器模式: debug
+2025/03/23 11:01:47.068136 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html

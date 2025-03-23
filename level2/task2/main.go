@@ -31,6 +31,7 @@ import (
 // @contact.email   support@example.com
 // @license.name    Apache 2.0
 // @license.url     http://www.apache.org/licenses/LICENSE-2.0.html
+// @swagger         2.0
 
 // @securityDefinitions.apikey ApiKeyAuth
 // @in header

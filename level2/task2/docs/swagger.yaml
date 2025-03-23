@@ -1,3 +1,4 @@
+swagger: "2.0"
 basePath: /api/v1
 definitions:
   controller.AccountBalance:
@@ -26,6 +27,34 @@ definitions:
     required:
     - value
     type: object
+  controller.ArrayDemoAddValueResponse:
+    properties:
+      address:
+        type: string
+      txHash:
+        type: string
+      value:
+        type: string
+    type: object
+  controller.ArrayDemoGetValuesResponse:
+    properties:
+      address:
+        type: string
+      count:
+        type: integer
+      values:
+        items:
+          type: string
+        type: array
+    type: object
+  controller.BallotVoteRequest:
+    properties:
+      proposal_id:
+        description: 提案ID
+        type: string
+    required:
+    - proposal_id
+    type: object
   controller.BlockResponse:
     properties:
       hash:
@@ -44,6 +73,41 @@ definitions:
         example: 10
         type: integer
     type: object
+  controller.ContractBytecodeRequest:
+    properties:
+      contract_type:
+        example: SimpleStorage
+        type: string
+    required:
+    - contract_type
+    type: object
+  controller.ContractBytecodeResponse:
+    properties:
+      address:
+        example: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
+        type: string
+      bytecode:
+        example: 0x608060405234801561001057600080fd5b50610150806100206000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c80632e64cec11461003b5780636057361d14610059575b600080fd5b610043610075565b60405161005091906100d9565b60405180910390f35b610073600480360381019061006e919061009d565b61007e565b005b60008054905090565b8060008190555050565b60008135905061009781610103565b92915050565b6000602082840312156100b3576100b26100fe565b5b60006100c184828501610088565b91505092915050565b6100d3816100f4565b82525050565b60006020820190506100ee60008301846100ca565b92915050565b6000819050919050565b600080fd5b61010c816100f456b811461011757600080fd5b5056fea26469706673582212209a159a4f3847890f10d0e3a00307a5b6bc6608c2f89fd2d8bd8d7e72a7c1d7d064736f6c63430008070033
+        type: string
+      contract_type:
+        example: SimpleStorage
+        type: string
+    type: object
+  controller.ContractResponse:
+    properties:
+      address:
+        example: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
+        type: string
+      contract_type:
+        example: SimpleStorage
+        type: string
+      error:
+        example: 交易失败
+        type: string
+      txHash:
+        example: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+        type: string
+    type: object
   controller.ErrorResponse:
     properties:
       code:
@@ -54,6 +118,14 @@ definitions:
         type: string
     type: object
   controller.LockWithdrawRequest:
+    type: object
+  controller.LotteryEnterRequest:
+    properties:
+      eth_value:
+        description: 参与彩票抽奖所支付的以太币值
+        type: string
+    required:
+    - eth_value
     type: object
   controller.NetworkInfo:
     properties:
@@ -67,67 +139,90 @@ definitions:
         example: https://sepolia.infura.io/v3/...
         type: string
     type: object
-  controller.ShippingAdvanceStateRequest:
+  controller.PurchaseConfirmRequest:
+    properties:
+      eth_value:
+        description: 购买合约的以太币值
+        type: string
+    required:
+    - eth_value
+    type: object
+  controller.ShippingStateResponse:
+    properties:
+      address:
+        type: string
+      status:
+        type: string
     type: object
   controller.SimpleAuctionBidRequest:
     properties:
       bid_amount:
-        example: "1000000000000000000"
         type: string
     required:
     - bid_amount
     type: object
-  controller.SimpleAuctionWithdrawRequest:
-    type: object
-  controller.SimpleStorageGetResponse:
-    properties:
-      value:
-        example: "42"
-        type: string
-    type: object
-  controller.SimpleStorageSetRequest:
-    properties:
-      value:
-        example: "42"
-        type: string
-    required:
-    - value
-    type: object
-  controller.TransactionRequest:
-    type: object
-  types.ContractBytecodeRequest:
-    properties:
-      contractType:
-        example: SimpleStorage
-        type: string
-    required:
-    - contractType
-    type: object
-  types.ContractBytecodeResponse:
+  controller.SimpleAuctionBidResponse:
     properties:
       address:
-        example: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
         type: string
-      bytecode:
-        example: 0x608060405234801561001057600080fd5b50...
-        type: string
-      contractType:
-        example: SimpleStorage
-        type: string
-    type: object
-  types.ContractResponse:
-    properties:
-      address:
-        example: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
-        type: string
-      contractType:
-        example: SimpleStorage
-        type: string
-      error:
-        example: '部署失败: 交易确认超时'
+      bid_amount:
         type: string
       txHash:
+        type: string
+    type: object
+  controller.SimpleStorageGetValueResponse:
+    properties:
+      address:
+        type: string
+      value:
+        type: string
+    type: object
+  controller.SuccessResponse:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data: {}
+      errMsg:
+        example: ""
+        type: string
+    type: object
+  controller.TransactionRequest:
+    properties:
+      amount:
+        description: 十六进制字符串表示的wei金额，例如"0xde0b6b3a7640000"表示1 ETH
+        example: "0xde0b6b3a7640000"
+        type: string
+      from:
+        example: 0x123...
+        type: string
+      to:
+        example: 0x456...
+        type: string
+    required:
+    - amount
+    - from
+    - to
+    type: object
+  controller.TransactionResponse:
+    properties:
+      blockNumber:
+        example: "12345"
+        type: string
+      from:
+        example: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
+        type: string
+      hash:
         example: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+        type: string
+      timestamp:
+        example: 1634567890
+        type: integer
+      to:
+        example: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
+        type: string
+      value:
+        example: "1000000000000000000"
         type: string
     type: object
 host: localhost:8080
@@ -142,14 +237,14 @@ info:
   title: Web3 区块链接口服务
   version: "1.0"
 paths:
-  /account/balance:
+  /accounts/{address}/balance:
     get:
       consumes:
       - application/json
-      description: 获取指定账户的以太坊余额
+      description: 获取指定以太坊地址的账户余额
       parameters:
-      - description: 账户地址
-        in: query
+      - description: 以太坊地址
+        in: path
         name: address
         required: true
         type: string
@@ -159,7 +254,11 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/controller.AccountResponse'
+            $ref: '#/definitions/controller.AccountBalance'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
         "500":
           description: Internal Server Error
           schema:
@@ -167,12 +266,17 @@ paths:
       summary: 获取账户余额
       tags:
       - 账户
-    post:
+    put:
       consumes:
       - application/json
-      description: 设置指定账户的以太坊余额（仅用于测试网络）
+      description: 设置指定以太坊地址的账户余额
       parameters:
-      - description: 账户余额信息
+      - description: 以太坊地址
+        in: path
+        name: address
+        required: true
+        type: string
+      - description: 余额请求
         in: body
         name: request
         required: true
@@ -184,7 +288,13 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/controller.AccountResponse'
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
         "500":
           description: Internal Server Error
           schema:
@@ -192,11 +302,104 @@ paths:
       summary: 设置账户余额
       tags:
       - 账户
-  /account/hdwallet:
+  /accounts/{address}/code:
+    get:
+      consumes:
+      - application/json
+      description: 获取指定以太坊地址的合约代码，如果地址是合约地址则返回其代码
+      parameters:
+      - description: 以太坊地址
+        in: path
+        name: address
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 获取账户合约代码
+      tags:
+      - 账户
+  /accounts/{address}/nonce:
+    get:
+      consumes:
+      - application/json
+      description: 获取指定以太坊地址的账户当前Nonce值
+      parameters:
+      - description: 以太坊地址
+        in: path
+        name: address
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: integer
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 获取账户Nonce值
+      tags:
+      - 账户
+  /accounts/{address}/transactions:
+    get:
+      consumes:
+      - application/json
+      description: 获取指定以太坊地址的交易历史记录
+      parameters:
+      - description: 以太坊地址
+        in: path
+        name: address
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/controller.TransactionResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 获取账户交易列表
+      tags:
+      - 账户
+  /accounts/hd-wallet:
     post:
       consumes:
       - application/json
-      description: 创建新的分层确定性钱包
+      description: 创建新的以太坊分层确定性钱包
       produces:
       - application/json
       responses:
@@ -213,11 +416,11 @@ paths:
       summary: 创建 HD 钱包
       tags:
       - 账户
-  /account/keystore:
+  /accounts/keystore:
     post:
       consumes:
       - application/json
-      description: 创建新的以太坊密钥库文件
+      description: 创建新的以太坊账户密钥库文件
       produces:
       - application/json
       responses:
@@ -232,11 +435,11 @@ paths:
       summary: 创建密钥库
       tags:
       - 账户
-  /account/wallet:
+  /accounts/wallet:
     post:
       consumes:
       - application/json
-      description: 创建新的以太坊钱包
+      description: 创建新的以太坊账户钱包
       produces:
       - application/json
       responses:
@@ -251,13 +454,71 @@ paths:
       summary: 创建钱包
       tags:
       - 账户
+  /block/{number}:
+    get:
+      consumes:
+      - application/json
+      description: 根据区块编号获取区块信息
+      parameters:
+      - description: 区块编号
+        in: path
+        name: number
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.BlockResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 获取区块
+      tags:
+      - 区块
+  /block/hash/{hash}:
+    get:
+      consumes:
+      - application/json
+      description: 根据区块哈希获取区块信息
+      parameters:
+      - description: 区块哈希
+        in: path
+        name: hash
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.BlockResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 根据区块哈希获取区块信息
+      tags:
+      - 区块
   /block/info:
     get:
       consumes:
       - application/json
-      description: 获取指定区块的详细信息
+      description: 根据区块编号获取区块信息
       parameters:
-      - description: 区块号
+      - description: 区块编号
         in: query
         name: number
         required: true
@@ -280,7 +541,7 @@ paths:
     get:
       consumes:
       - application/json
-      description: 获取最新的区块信息
+      description: 获取最新区块的信息
       produces:
       - application/json
       responses:
@@ -299,7 +560,7 @@ paths:
     get:
       consumes:
       - application/json
-      description: 订阅新区块事件
+      description: 使用WebSocket订阅新区块
       produces:
       - application/json
       responses:
@@ -317,7 +578,7 @@ paths:
     post:
       consumes:
       - application/json
-      description: 订阅以太坊网络的新区块
+      description: 启动后台服务订阅新区块
       produces:
       - application/json
       responses:
@@ -331,16 +592,16 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/controller.ErrorResponse'
-      summary: 订阅新区块
+      summary: 启动区块订阅
       tags:
       - 区块
   /contract/arraydemo/add-value:
     post:
       consumes:
       - application/json
-      description: 添加一个值到数组中
+      description: 向数组合约添加新的整数值
       parameters:
-      - description: 请求参数
+      - description: 添加值请求
         in: body
         name: request
         required: true
@@ -352,8 +613,7 @@ paths:
         "200":
           description: OK
           schema:
-            additionalProperties: true
-            type: object
+            $ref: '#/definitions/controller.ArrayDemoAddValueResponse'
         "400":
           description: Bad Request
           schema:
@@ -362,22 +622,21 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/controller.ErrorResponse'
-      summary: 调用ArrayDemo合约的put方法
+      summary: 向ArrayDemo合约添加值
       tags:
-      - 合约方法
+      - 合约操作
   /contract/arraydemo/get-values:
     get:
       consumes:
       - application/json
-      description: 获取数组中的所有值
+      description: 获取ArrayDemo合约的所有值
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            additionalProperties: true
-            type: object
+            $ref: '#/definitions/controller.ArrayDemoGetValuesResponse'
         "400":
           description: Bad Request
           schema:
@@ -386,42 +645,16 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/controller.ErrorResponse'
-      summary: 调用ArrayDemo合约的getArray方法
+      summary: 获取ArrayDemo合约的值
       tags:
-      - 合约方法
-  /contract/bytecode:
-    post:
-      consumes:
-      - application/json
-      description: 获取指定合约的字节码
-      parameters:
-      - description: 合约字节码请求参数
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/types.ContractBytecodeRequest'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/types.ContractBytecodeResponse'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/controller.ErrorResponse'
-      summary: 获取合约字节码
-      tags:
-      - contracts
+      - 合约操作
   /contract/lock/withdraw:
     post:
       consumes:
       - application/json
-      description: 从Lock合约中提取资金
+      description: 调用Lock合约的Withdraw方法，提取合约中的资金
       parameters:
-      - description: 提取请求参数
+      - description: 提取资金请求参数
         in: body
         name: request
         required: true
@@ -433,8 +666,7 @@ paths:
         "200":
           description: OK
           schema:
-            additionalProperties: true
-            type: object
+            $ref: '#/definitions/controller.ContractResponse'
         "400":
           description: Bad Request
           schema:
@@ -443,29 +675,21 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/controller.ErrorResponse'
-      summary: 调用Lock合约的withdraw方法
+      summary: 执行Lock合约的Withdraw方法
       tags:
-      - 合约方法
+      - 锁定合约
   /contract/shipping/advance-state:
     post:
       consumes:
       - application/json
-      description: 更新Shipping合约的运输状态
-      parameters:
-      - description: 请求参数
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/controller.ShippingAdvanceStateRequest'
+      description: 调用Shipping合约的Shipped方法，将状态推进到下一阶段
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            additionalProperties: true
-            type: object
+            $ref: '#/definitions/controller.ContractResponse'
         "400":
           description: Bad Request
           schema:
@@ -474,22 +698,21 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/controller.ErrorResponse'
-      summary: 调用Shipping合约的Shipped方法
+      summary: 执行Shipping合约的Shipped状态转换
       tags:
-      - 合约方法
+      - 运输合约
   /contract/shipping/get-state:
     get:
       consumes:
       - application/json
-      description: 获取Shipping合约的运输状态
+      description: 获取Shipping合约的状态信息，包括当前阶段
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            additionalProperties: true
-            type: object
+            $ref: '#/definitions/controller.ShippingStateResponse'
         "400":
           description: Bad Request
           schema:
@@ -498,16 +721,16 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/controller.ErrorResponse'
-      summary: 调用Shipping合约的Status方法
+      summary: 获取Shipping合约的Status状态
       tags:
-      - 合约方法
+      - 运输合约
   /contract/simpleauction/bid:
     post:
       consumes:
       - application/json
-      description: 参与拍卖出价
+      description: 向拍卖合约发起竞拍请求
       parameters:
-      - description: 出价请求参数
+      - description: 竞拍金额信息
         in: body
         name: request
         required: true
@@ -519,8 +742,7 @@ paths:
         "200":
           description: OK
           schema:
-            additionalProperties: true
-            type: object
+            $ref: '#/definitions/controller.SimpleAuctionBidResponse'
         "400":
           description: Bad Request
           schema:
@@ -529,29 +751,21 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/controller.ErrorResponse'
-      summary: 调用SimpleAuction合约的bid方法
+      summary: 调用SimpleAuction合约进行竞拍
       tags:
-      - 合约方法
+      - 合约操作
   /contract/simpleauction/withdraw:
     post:
       consumes:
       - application/json
-      description: 从拍卖合约中提取资金
-      parameters:
-      - description: 提取请求参数
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/controller.SimpleAuctionWithdrawRequest'
+      description: 结束竞拍并允许中标者支付款项，非中标者提取资金
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            additionalProperties: true
-            type: object
+            $ref: '#/definitions/controller.ContractResponse'
         "400":
           description: Bad Request
           schema:
@@ -560,52 +774,28 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/controller.ErrorResponse'
-      summary: 调用SimpleAuction合约的withdraw方法
+      summary: 调用SimpleAuction合约结束拍卖并提取资金
       tags:
-      - 合约方法
-  /contract/simplestorage/get:
-    get:
-      consumes:
-      - application/json
-      description: 获取SimpleStorage合约的存储值
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/controller.SimpleStorageGetResponse'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/controller.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/controller.ErrorResponse'
-      summary: 调用SimpleStorage合约的get方法
-      tags:
-      - 合约方法
-  /contract/simplestorage/set:
+      - 合约操作
+  /contracts/Ballot/vote:
     post:
       consumes:
       - application/json
-      description: 设置SimpleStorage合约的存储值
+      description: 调用Ballot合约的vote方法进行投票
       parameters:
-      - description: 设置请求参数
+      - description: 投票请求参数
         in: body
         name: request
         required: true
         schema:
-          $ref: '#/definitions/controller.SimpleStorageSetRequest'
+          $ref: '#/definitions/controller.BallotVoteRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            additionalProperties: true
-            type: object
+            $ref: '#/definitions/controller.SuccessResponse'
         "400":
           description: Bad Request
           schema:
@@ -614,12 +804,294 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/controller.ErrorResponse'
-      summary: 调用SimpleStorage合约的set方法
+      summary: 投票功能
       tags:
-      - 合约方法
+      - Ballot
+  /contracts/Ballot/winner:
+    get:
+      consumes:
+      - application/json
+      description: 调用Ballot合约的winningProposal方法获取当前得票最多的提案ID
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.SuccessResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 获取获胜提案ID
+      tags:
+      - Ballot
+  /contracts/Ballot/winner-name:
+    get:
+      consumes:
+      - application/json
+      description: 调用Ballot合约的winnerName方法获取当前得票最多的提案名称
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.SuccessResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 获取获胜提案名称
+      tags:
+      - Ballot
+  /contracts/Lottery/balance:
+    get:
+      consumes:
+      - application/json
+      description: 获取彩票合约当前的余额，即奖池金额
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.SuccessResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 获取彩票合约余额
+      tags:
+      - Lottery
+  /contracts/Lottery/enter:
+    post:
+      consumes:
+      - application/json
+      description: 用户通过支付一定的以太币参与抽奖，金额必须大于最低要求的金额
+      parameters:
+      - description: 参与彩票抽奖请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controller.LotteryEnterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 参与彩票合约抽奖
+      tags:
+      - Lottery
+  /contracts/Lottery/pick-winner:
+    post:
+      consumes:
+      - application/json
+      description: 管理员选取彩票获奖者并发放奖金
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.SuccessResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 选取彩票获奖者
+      tags:
+      - Lottery
+  /contracts/Lottery/players:
+    get:
+      consumes:
+      - application/json
+      description: 获取所有参与抽奖的用户地址列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.SuccessResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 获取所有参与者地址
+      tags:
+      - Lottery
+  /contracts/Purchase/abort:
+    post:
+      consumes:
+      - application/json
+      description: 卖家可以在未收到确认购买前取消合约，如果已经被确认购买则无法中止
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.SuccessResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 中止购买合约并返还资金
+      tags:
+      - Purchase
+  /contracts/Purchase/confirm:
+    post:
+      consumes:
+      - application/json
+      description: 买家可以确认购买合约，并支付相应的以太币
+      parameters:
+      - description: 购买合约的请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controller.PurchaseConfirmRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 确认购买合约
+      tags:
+      - Purchase
+  /contracts/Purchase/confirm-received:
+    post:
+      consumes:
+      - application/json
+      description: 买家可以确认收到货物，并支付相应的以太币
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.SuccessResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 确认收到货物
+      tags:
+      - Purchase
+  /contracts/Purchase/state:
+    get:
+      consumes:
+      - application/json
+      description: 获取合约的状态，包括状态码和状态文本
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.SuccessResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 获取合约的状态
+      tags:
+      - Purchase
+  /contracts/Purchase/value:
+    get:
+      consumes:
+      - application/json
+      description: 获取合约的当前价值，以wei、gwei和ether为单位
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.SuccessResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 获取合约的当前价值
+      tags:
+      - Purchase
+  /contracts/SimpleStorage/get:
+    get:
+      consumes:
+      - application/json
+      description: 调用SimpleStorage合约的get方法获取当前存储的值
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.SimpleStorageGetValueResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 获取SimpleStorage的值
+      tags:
+      - SimpleStorage
+  /contracts/SimpleStorage/set:
+    post:
+      consumes:
+      - application/json
+      description: 调用SimpleStorage合约的set方法设置存储值
+      parameters:
+      - description: 要存储的整数值
+        in: body
+        name: value
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.ContractResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 设置SimpleStorage值
+      tags:
+      - SimpleStorage
   /contracts/allAddresses:
     get:
-      description: 获取所有已部署合约的地址
+      consumes:
+      - application/json
+      description: 获取所有合约地址，包括SimpleStorage、SimpleAuction、Purchase、Lottery等智能合约
       produces:
       - application/json
       responses:
@@ -629,16 +1101,44 @@ paths:
             additionalProperties:
               type: string
             type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 获取所有合约地址
+      tags:
+      - 合约
+  /contracts/bytecode:
+    post:
+      consumes:
+      - application/json
+      description: 获取指定合约的字节码
+      parameters:
+      - description: 合约类型和合约地址
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controller.ContractBytecodeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.ContractBytecodeResponse'
         "400":
           description: Bad Request
           schema:
             $ref: '#/definitions/controller.ErrorResponse'
-      summary: 获取合约地址
+      summary: 获取合约字节码
       tags:
-      - contracts
+      - 合约
   /contracts/deploy-all:
     post:
-      description: 部署所有支持的智能合约
+      consumes:
+      - application/json
+      description: 部署所有合约，包括SimpleStorage、SimpleAuction、Purchase、Lottery等智能合约
       produces:
       - application/json
       responses:
@@ -646,29 +1146,27 @@ paths:
           description: OK
           schema:
             additionalProperties:
-              $ref: '#/definitions/types.ContractResponse'
+              type: string
             type: object
-        "400":
-          description: Bad Request
+        "500":
+          description: Internal Server Error
           schema:
             $ref: '#/definitions/controller.ErrorResponse'
       summary: 部署所有合约
       tags:
-      - contracts
+      - 合约
   /events/subscribe:
-    post:
+    get:
       consumes:
       - application/json
-      description: 开始监听和处理合约事件
+      description: 通过WebSocket连接订阅合约事件，实时接收事件数据
       produces:
       - application/json
       responses:
-        "200":
-          description: OK
+        "101":
+          description: Switching Protocols to websocket
           schema:
-            additionalProperties:
-              type: string
-            type: object
+            type: string
         "400":
           description: Bad Request
           schema:
@@ -680,28 +1178,11 @@ paths:
       summary: 订阅合约事件
       tags:
       - 事件
-  /health:
-    get:
-      consumes:
-      - application/json
-      description: 检查服务是否正常运行
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties:
-              type: string
-            type: object
-      summary: 健康检查
-      tags:
-      - 系统
   /network:
     get:
       consumes:
       - application/json
-      description: 获取当前连接的网络信息
+      description: 获取以太坊节点的当前网络信息，包括网络名称、链ID和节点URL
       produces:
       - application/json
       responses:
@@ -709,14 +1190,14 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/controller.NetworkInfo'
-      summary: 获取网络信息
+      summary: 获取当前网络信息
       tags:
       - 网络
   /transaction/create:
     post:
       consumes:
       - application/json
-      description: 创建一个新的交易并发送到以太坊网络
+      description: 创建一笔交易，并发送给以太坊网络
       parameters:
       - description: 交易请求参数
         in: body
@@ -728,7 +1209,7 @@ paths:
       - application/json
       responses:
         "200":
-          description: 返回交易哈希
+          description: 返回创建交易的结果
           schema:
             additionalProperties: true
             type: object
@@ -737,17 +1218,17 @@ paths:
           schema:
             $ref: '#/definitions/controller.ErrorResponse'
         "500":
-          description: 服务器内部错误
+          description: 创建交易失败
           schema:
             $ref: '#/definitions/controller.ErrorResponse'
-      summary: 创建并发送交易
+      summary: 创建交易
       tags:
       - 交易
   /transaction/raw:
     post:
       consumes:
       - application/json
-      description: 创建一个未签名的原始交易
+      description: 创建一笔原始交易，并发送给以太坊网络
       produces:
       - application/json
       responses:
@@ -771,4 +1252,3 @@ securityDefinitions:
     in: header
     name: Authorization
     type: apiKey
-swagger: "2.0"

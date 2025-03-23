@@ -19,85 +19,9 @@
     "host": "localhost:8080",
     "basePath": "/api/v1",
     "paths": {
-        "/account/balance": {
-            "get": {
-                "description": "获取指定账户的以太坊余额",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "账户"
-                ],
-                "summary": "获取账户余额",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "账户地址",
-                        "name": "address",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/controller.AccountResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/controller.ErrorResponse"
-                        }
-                    }
-                }
-            },
+        "/accounts/hd-wallet": {
             "post": {
-                "description": "设置指定账户的以太坊余额（仅用于测试网络）",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "账户"
-                ],
-                "summary": "设置账户余额",
-                "parameters": [
-                    {
-                        "description": "账户余额信息",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/controller.AccountBalance"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/controller.AccountResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/controller.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/account/hdwallet": {
-            "post": {
-                "description": "创建新的分层确定性钱包",
+                "description": "创建新的以太坊分层确定性钱包",
                 "consumes": [
                     "application/json"
                 ],
@@ -127,9 +51,9 @@
                 }
             }
         },
-        "/account/keystore": {
+        "/accounts/keystore": {
             "post": {
-                "description": "创建新的以太坊密钥库文件",
+                "description": "创建新的以太坊账户密钥库文件",
                 "consumes": [
                     "application/json"
                 ],
@@ -156,9 +80,9 @@
                 }
             }
         },
-        "/account/wallet": {
+        "/accounts/wallet": {
             "post": {
-                "description": "创建新的以太坊钱包",
+                "description": "创建新的以太坊账户钱包",
                 "consumes": [
                     "application/json"
                 ],
@@ -185,9 +109,292 @@
                 }
             }
         },
+        "/accounts/{address}/balance": {
+            "get": {
+                "description": "获取指定以太坊地址的账户余额",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "账户"
+                ],
+                "summary": "获取账户余额",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "以太坊地址",
+                        "name": "address",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.AccountBalance"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "设置指定以太坊地址的账户余额",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "账户"
+                ],
+                "summary": "设置账户余额",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "以太坊地址",
+                        "name": "address",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "余额请求",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.AccountBalance"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/accounts/{address}/code": {
+            "get": {
+                "description": "获取指定以太坊地址的合约代码，如果地址是合约地址则返回其代码",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "账户"
+                ],
+                "summary": "获取账户合约代码",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "以太坊地址",
+                        "name": "address",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/accounts/{address}/nonce": {
+            "get": {
+                "description": "获取指定以太坊地址的账户当前Nonce值",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "账户"
+                ],
+                "summary": "获取账户Nonce值",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "以太坊地址",
+                        "name": "address",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "integer"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/accounts/{address}/transactions": {
+            "get": {
+                "description": "获取指定以太坊地址的交易历史记录",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "账户"
+                ],
+                "summary": "获取账户交易列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "以太坊地址",
+                        "name": "address",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/controller.TransactionResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/block/hash/{hash}": {
+            "get": {
+                "description": "根据区块哈希获取区块信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "区块"
+                ],
+                "summary": "根据区块哈希获取区块信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "区块哈希",
+                        "name": "hash",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.BlockResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/block/info": {
             "get": {
-                "description": "获取指定区块的详细信息",
+                "description": "根据区块编号获取区块信息",
                 "consumes": [
                     "application/json"
                 ],
@@ -201,7 +408,7 @@
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "区块号",
+                        "description": "区块编号",
                         "name": "number",
                         "in": "query",
                         "required": true
@@ -225,7 +432,7 @@
         },
         "/block/latest": {
             "get": {
-                "description": "获取最新的区块信息",
+                "description": "获取最新区块的信息",
                 "consumes": [
                     "application/json"
                 ],
@@ -254,7 +461,7 @@
         },
         "/block/subscribe": {
             "get": {
-                "description": "订阅新区块事件",
+                "description": "使用WebSocket订阅新区块",
                 "consumes": [
                     "application/json"
                 ],
@@ -281,7 +488,7 @@
                 }
             },
             "post": {
-                "description": "订阅以太坊网络的新区块",
+                "description": "启动后台服务订阅新区块",
                 "consumes": [
                     "application/json"
                 ],
@@ -291,7 +498,7 @@
                 "tags": [
                     "区块"
                 ],
-                "summary": "订阅新区块",
+                "summary": "启动区块订阅",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -311,9 +518,9 @@
                 }
             }
         },
-        "/contract/arraydemo/add-value": {
-            "post": {
-                "description": "添加一个值到数组中",
+        "/block/{number}": {
+            "get": {
+                "description": "根据区块编号获取区块信息",
                 "consumes": [
                     "application/json"
                 ],
@@ -321,12 +528,56 @@
                     "application/json"
                 ],
                 "tags": [
-                    "合约方法"
+                    "区块"
                 ],
-                "summary": "调用ArrayDemo合约的put方法",
+                "summary": "获取区块",
                 "parameters": [
                     {
-                        "description": "请求参数",
+                        "type": "string",
+                        "description": "区块编号",
+                        "name": "number",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.BlockResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contract/arraydemo/add-value": {
+            "post": {
+                "description": "向数组合约添加新的整数值",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "合约操作"
+                ],
+                "summary": "向ArrayDemo合约添加值",
+                "parameters": [
+                    {
+                        "description": "添加值请求",
                         "name": "request",
                         "in": "body",
                         "required": true,
@@ -339,8 +590,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "$ref": "#/definitions/controller.ArrayDemoAddValueResponse"
                         }
                     },
                     "400": {
@@ -360,7 +610,7 @@
         },
         "/contract/arraydemo/get-values": {
             "get": {
-                "description": "获取数组中的所有值",
+                "description": "获取ArrayDemo合约的所有值",
                 "consumes": [
                     "application/json"
                 ],
@@ -368,15 +618,14 @@
                     "application/json"
                 ],
                 "tags": [
-                    "合约方法"
+                    "合约操作"
                 ],
-                "summary": "调用ArrayDemo合约的getArray方法",
+                "summary": "获取ArrayDemo合约的值",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "$ref": "#/definitions/controller.ArrayDemoGetValuesResponse"
                         }
                     },
                     "400": {
@@ -394,49 +643,9 @@
                 }
             }
         },
-        "/contract/bytecode": {
-            "post": {
-                "description": "获取指定合约的字节码",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "contracts"
-                ],
-                "summary": "获取合约字节码",
-                "parameters": [
-                    {
-                        "description": "合约字节码请求参数",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/types.ContractBytecodeRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/types.ContractBytecodeResponse"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/controller.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
         "/contract/lock/withdraw": {
             "post": {
-                "description": "从Lock合约中提取资金",
+                "description": "调用Lock合约的Withdraw方法，提取合约中的资金",
                 "consumes": [
                     "application/json"
                 ],
@@ -444,12 +653,12 @@
                     "application/json"
                 ],
                 "tags": [
-                    "合约方法"
+                    "锁定合约"
                 ],
-                "summary": "调用Lock合约的withdraw方法",
+                "summary": "执行Lock合约的Withdraw方法",
                 "parameters": [
                     {
-                        "description": "提取请求参数",
+                        "description": "提取资金请求参数",
                         "name": "request",
                         "in": "body",
                         "required": true,
@@ -462,8 +671,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "$ref": "#/definitions/controller.ContractResponse"
                         }
                     },
                     "400": {
@@ -483,7 +691,7 @@
         },
         "/contract/shipping/advance-state": {
             "post": {
-                "description": "更新Shipping合约的运输状态",
+                "description": "调用Shipping合约的Shipped方法，将状态推进到下一阶段",
                 "consumes": [
                     "application/json"
                 ],
@@ -491,26 +699,14 @@
                     "application/json"
                 ],
                 "tags": [
-                    "合约方法"
+                    "运输合约"
                 ],
-                "summary": "调用Shipping合约的Shipped方法",
-                "parameters": [
-                    {
-                        "description": "请求参数",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/controller.ShippingAdvanceStateRequest"
-                        }
-                    }
-                ],
+                "summary": "执行Shipping合约的Shipped状态转换",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "$ref": "#/definitions/controller.ContractResponse"
                         }
                     },
                     "400": {
@@ -530,7 +726,7 @@
         },
         "/contract/shipping/get-state": {
             "get": {
-                "description": "获取Shipping合约的运输状态",
+                "description": "获取Shipping合约的状态信息，包括当前阶段",
                 "consumes": [
                     "application/json"
                 ],
@@ -538,15 +734,14 @@
                     "application/json"
                 ],
                 "tags": [
-                    "合约方法"
+                    "运输合约"
                 ],
-                "summary": "调用Shipping合约的Status方法",
+                "summary": "获取Shipping合约的Status状态",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "$ref": "#/definitions/controller.ShippingStateResponse"
                         }
                     },
                     "400": {
@@ -566,7 +761,7 @@
         },
         "/contract/simpleauction/bid": {
             "post": {
-                "description": "参与拍卖出价",
+                "description": "向拍卖合约发起竞拍请求",
                 "consumes": [
                     "application/json"
                 ],
@@ -574,12 +769,12 @@
                     "application/json"
                 ],
                 "tags": [
-                    "合约方法"
+                    "合约操作"
                 ],
-                "summary": "调用SimpleAuction合约的bid方法",
+                "summary": "调用SimpleAuction合约进行竞拍",
                 "parameters": [
                     {
-                        "description": "出价请求参数",
+                        "description": "竞拍金额信息",
                         "name": "request",
                         "in": "body",
                         "required": true,
@@ -592,8 +787,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "$ref": "#/definitions/controller.SimpleAuctionBidResponse"
                         }
                     },
                     "400": {
@@ -613,7 +807,7 @@
         },
         "/contract/simpleauction/withdraw": {
             "post": {
-                "description": "从拍卖合约中提取资金",
+                "description": "结束竞拍并允许中标者支付款项，非中标者提取资金",
                 "consumes": [
                     "application/json"
                 ],
@@ -621,26 +815,14 @@
                     "application/json"
                 ],
                 "tags": [
-                    "合约方法"
+                    "合约操作"
                 ],
-                "summary": "调用SimpleAuction合约的withdraw方法",
-                "parameters": [
-                    {
-                        "description": "提取请求参数",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/controller.SimpleAuctionWithdrawRequest"
-                        }
-                    }
-                ],
+                "summary": "调用SimpleAuction合约结束拍卖并提取资金",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "$ref": "#/definitions/controller.ContractResponse"
                         }
                     },
                     "400": {
@@ -658,44 +840,9 @@
                 }
             }
         },
-        "/contract/simplestorage/get": {
-            "get": {
-                "description": "获取SimpleStorage合约的存储值",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "合约方法"
-                ],
-                "summary": "调用SimpleStorage合约的get方法",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/controller.SimpleStorageGetResponse"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/controller.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/controller.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/contract/simplestorage/set": {
+        "/contracts/Ballot/vote": {
             "post": {
-                "description": "设置SimpleStorage合约的存储值",
+                "description": "调用Ballot合约的vote方法进行投票",
                 "consumes": [
                     "application/json"
                 ],
@@ -703,17 +850,17 @@
                     "application/json"
                 ],
                 "tags": [
-                    "合约方法"
+                    "Ballot"
                 ],
-                "summary": "调用SimpleStorage合约的set方法",
+                "summary": "投票功能",
                 "parameters": [
                     {
-                        "description": "设置请求参数",
+                        "description": "投票请求参数",
                         "name": "request",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/controller.SimpleStorageSetRequest"
+                            "$ref": "#/definitions/controller.BallotVoteRequest"
                         }
                     }
                 ],
@@ -721,8 +868,435 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "$ref": "#/definitions/controller.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contracts/Ballot/winner": {
+            "get": {
+                "description": "调用Ballot合约的winningProposal方法获取当前得票最多的提案ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ballot"
+                ],
+                "summary": "获取获胜提案ID",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.SuccessResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contracts/Ballot/winner-name": {
+            "get": {
+                "description": "调用Ballot合约的winnerName方法获取当前得票最多的提案名称",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ballot"
+                ],
+                "summary": "获取获胜提案名称",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.SuccessResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contracts/Lottery/balance": {
+            "get": {
+                "description": "获取彩票合约当前的余额，即奖池金额",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Lottery"
+                ],
+                "summary": "获取彩票合约余额",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.SuccessResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contracts/Lottery/enter": {
+            "post": {
+                "description": "用户通过支付一定的以太币参与抽奖，金额必须大于最低要求的金额",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Lottery"
+                ],
+                "summary": "参与彩票合约抽奖",
+                "parameters": [
+                    {
+                        "description": "参与彩票抽奖请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.LotteryEnterRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contracts/Lottery/pick-winner": {
+            "post": {
+                "description": "管理员选取彩票获奖者并发放奖金",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Lottery"
+                ],
+                "summary": "选取彩票获奖者",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.SuccessResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contracts/Lottery/players": {
+            "get": {
+                "description": "获取所有参与抽奖的用户地址列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Lottery"
+                ],
+                "summary": "获取所有参与者地址",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.SuccessResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contracts/Purchase/abort": {
+            "post": {
+                "description": "卖家可以在未收到确认购买前取消合约，如果已经被确认购买则无法中止",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Purchase"
+                ],
+                "summary": "中止购买合约并返还资金",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.SuccessResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contracts/Purchase/confirm": {
+            "post": {
+                "description": "买家可以确认购买合约，并支付相应的以太币",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Purchase"
+                ],
+                "summary": "确认购买合约",
+                "parameters": [
+                    {
+                        "description": "购买合约的请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.PurchaseConfirmRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contracts/Purchase/confirm-received": {
+            "post": {
+                "description": "买家可以确认收到货物，并支付相应的以太币",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Purchase"
+                ],
+                "summary": "确认收到货物",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.SuccessResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contracts/Purchase/state": {
+            "get": {
+                "description": "获取合约的状态，包括状态码和状态文本",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Purchase"
+                ],
+                "summary": "获取合约的状态",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.SuccessResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contracts/Purchase/value": {
+            "get": {
+                "description": "获取合约的当前价值，以wei、gwei和ether为单位",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Purchase"
+                ],
+                "summary": "获取合约的当前价值",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.SuccessResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contracts/SimpleStorage/get": {
+            "get": {
+                "description": "调用SimpleStorage合约的get方法获取当前存储的值",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SimpleStorage"
+                ],
+                "summary": "获取SimpleStorage的值",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.SimpleStorageGetValueResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contracts/SimpleStorage/set": {
+            "post": {
+                "description": "调用SimpleStorage合约的set方法设置存储值",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SimpleStorage"
+                ],
+                "summary": "设置SimpleStorage值",
+                "parameters": [
+                    {
+                        "description": "要存储的整数值",
+                        "name": "value",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ContractResponse"
                         }
                     },
                     "400": {
@@ -742,14 +1316,17 @@
         },
         "/contracts/allAddresses": {
             "get": {
-                "description": "获取所有已部署合约的地址",
+                "description": "获取所有合约地址，包括SimpleStorage、SimpleAuction、Purchase、Lottery等智能合约",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "contracts"
+                    "合约"
                 ],
-                "summary": "获取合约地址",
+                "summary": "获取所有合约地址",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -758,6 +1335,46 @@
                             "additionalProperties": {
                                 "type": "string"
                             }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contracts/bytecode": {
+            "post": {
+                "description": "获取指定合约的字节码",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "合约"
+                ],
+                "summary": "获取合约字节码",
+                "parameters": [
+                    {
+                        "description": "合约类型和合约地址",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.ContractBytecodeRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ContractBytecodeResponse"
                         }
                     },
                     "400": {
@@ -771,12 +1388,15 @@
         },
         "/contracts/deploy-all": {
             "post": {
-                "description": "部署所有支持的智能合约",
+                "description": "部署所有合约，包括SimpleStorage、SimpleAuction、Purchase、Lottery等智能合约",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "contracts"
+                    "合约"
                 ],
                 "summary": "部署所有合约",
                 "responses": {
@@ -785,12 +1405,12 @@
                         "schema": {
                             "type": "object",
                             "additionalProperties": {
-                                "$ref": "#/definitions/types.ContractResponse"
+                                "type": "string"
                             }
                         }
                     },
-                    "400": {
-                        "description": "Bad Request",
+                    "500": {
+                        "description": "Internal Server Error",
                         "schema": {
                             "$ref": "#/definitions/controller.ErrorResponse"
                         }
@@ -799,8 +1419,8 @@
             }
         },
         "/events/subscribe": {
-            "post": {
-                "description": "开始监听和处理合约事件",
+            "get": {
+                "description": "通过WebSocket连接订阅合约事件，实时接收事件数据",
                 "consumes": [
                     "application/json"
                 ],
@@ -812,13 +1432,10 @@
                 ],
                 "summary": "订阅合约事件",
                 "responses": {
-                    "200": {
-                        "description": "OK",
+                    "101": {
+                        "description": "Switching Protocols to websocket",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
+                            "type": "string"
                         }
                     },
                     "400": {
@@ -836,35 +1453,9 @@
                 }
             }
         },
-        "/health": {
-            "get": {
-                "description": "检查服务是否正常运行",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "系统"
-                ],
-                "summary": "健康检查",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/network": {
             "get": {
-                "description": "获取当前连接的网络信息",
+                "description": "获取以太坊节点的当前网络信息，包括网络名称、链ID和节点URL",
                 "consumes": [
                     "application/json"
                 ],
@@ -874,7 +1465,7 @@
                 "tags": [
                     "网络"
                 ],
-                "summary": "获取网络信息",
+                "summary": "获取当前网络信息",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -887,7 +1478,7 @@
         },
         "/transaction/create": {
             "post": {
-                "description": "创建一个新的交易并发送到以太坊网络",
+                "description": "创建一笔交易，并发送给以太坊网络",
                 "consumes": [
                     "application/json"
                 ],
@@ -897,7 +1488,7 @@
                 "tags": [
                     "交易"
                 ],
-                "summary": "创建并发送交易",
+                "summary": "创建交易",
                 "parameters": [
                     {
                         "description": "交易请求参数",
@@ -911,7 +1502,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "返回交易哈希",
+                        "description": "返回创建交易的结果",
                         "schema": {
                             "type": "object",
                             "additionalProperties": true
@@ -924,7 +1515,7 @@
                         }
                     },
                     "500": {
-                        "description": "服务器内部错误",
+                        "description": "创建交易失败",
                         "schema": {
                             "$ref": "#/definitions/controller.ErrorResponse"
                         }
@@ -934,7 +1525,7 @@
         },
         "/transaction/raw": {
             "post": {
-                "description": "创建一个未签名的原始交易",
+                "description": "创建一笔原始交易，并发送给以太坊网络",
                 "consumes": [
                     "application/json"
                 ],
@@ -1004,6 +1595,49 @@
                 }
             }
         },
+        "controller.ArrayDemoAddValueResponse": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "txHash": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.ArrayDemoGetValuesResponse": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "count": {
+                    "type": "integer"
+                },
+                "values": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "controller.BallotVoteRequest": {
+            "type": "object",
+            "required": [
+                "proposal_id"
+            ],
+            "properties": {
+                "proposal_id": {
+                    "description": "提案ID",
+                    "type": "string"
+                }
+            }
+        },
         "controller.BlockResponse": {
             "type": "object",
             "properties": {
@@ -1029,6 +1663,56 @@
                 }
             }
         },
+        "controller.ContractBytecodeRequest": {
+            "type": "object",
+            "required": [
+                "contract_type"
+            ],
+            "properties": {
+                "contract_type": {
+                    "type": "string",
+                    "example": "SimpleStorage"
+                }
+            }
+        },
+        "controller.ContractBytecodeResponse": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string",
+                    "example": "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
+                },
+                "bytecode": {
+                    "type": "string",
+                    "example": "0x608060405234801561001057600080fd5b50610150806100206000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c80632e64cec11461003b5780636057361d14610059575b600080fd5b610043610075565b60405161005091906100d9565b60405180910390f35b610073600480360381019061006e919061009d565b61007e565b005b60008054905090565b8060008190555050565b60008135905061009781610103565b92915050565b6000602082840312156100b3576100b26100fe565b5b60006100c184828501610088565b91505092915050565b6100d3816100f4565b82525050565b60006020820190506100ee60008301846100ca565b92915050565b6000819050919050565b600080fd5b61010c816100f4565b811461011757600080fd5b5056fea26469706673582212209a159a4f3847890f10d0e3a00307a5b6bc6608c2f89fd2d8bd8d7e72a7c1d7d064736f6c63430008070033"
+                },
+                "contract_type": {
+                    "type": "string",
+                    "example": "SimpleStorage"
+                }
+            }
+        },
+        "controller.ContractResponse": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string",
+                    "example": "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
+                },
+                "contract_type": {
+                    "type": "string",
+                    "example": "SimpleStorage"
+                },
+                "error": {
+                    "type": "string",
+                    "example": "交易失败"
+                },
+                "txHash": {
+                    "type": "string",
+                    "example": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"
+                }
+            }
+        },
         "controller.ErrorResponse": {
             "type": "object",
             "properties": {
@@ -1044,6 +1728,18 @@
         },
         "controller.LockWithdrawRequest": {
             "type": "object"
+        },
+        "controller.LotteryEnterRequest": {
+            "type": "object",
+            "required": [
+                "eth_value"
+            ],
+            "properties": {
+                "eth_value": {
+                    "description": "参与彩票抽奖所支付的以太币值",
+                    "type": "string"
+                }
+            }
         },
         "controller.NetworkInfo": {
             "type": "object",
@@ -1062,8 +1758,28 @@
                 }
             }
         },
-        "controller.ShippingAdvanceStateRequest": {
-            "type": "object"
+        "controller.PurchaseConfirmRequest": {
+            "type": "object",
+            "required": [
+                "eth_value"
+            ],
+            "properties": {
+                "eth_value": {
+                    "description": "购买合约的以太币值",
+                    "type": "string"
+                }
+            }
+        },
+        "controller.ShippingStateResponse": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
         },
         "controller.SimpleAuctionBidRequest": {
             "type": "object",
@@ -1072,85 +1788,98 @@
             ],
             "properties": {
                 "bid_amount": {
-                    "type": "string",
-                    "example": "1000000000000000000"
+                    "type": "string"
                 }
             }
         },
-        "controller.SimpleAuctionWithdrawRequest": {
-            "type": "object"
-        },
-        "controller.SimpleStorageGetResponse": {
+        "controller.SimpleAuctionBidResponse": {
             "type": "object",
             "properties": {
-                "value": {
-                    "type": "string",
-                    "example": "42"
+                "address": {
+                    "type": "string"
+                },
+                "bid_amount": {
+                    "type": "string"
+                },
+                "txHash": {
+                    "type": "string"
                 }
             }
         },
-        "controller.SimpleStorageSetRequest": {
+        "controller.SimpleStorageGetValueResponse": {
             "type": "object",
-            "required": [
-                "value"
-            ],
             "properties": {
+                "address": {
+                    "type": "string"
+                },
                 "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.SuccessResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 200
+                },
+                "data": {},
+                "errMsg": {
                     "type": "string",
-                    "example": "42"
+                    "example": ""
                 }
             }
         },
         "controller.TransactionRequest": {
-            "type": "object"
-        },
-        "types.ContractBytecodeRequest": {
             "type": "object",
             "required": [
-                "contractType"
+                "amount",
+                "from",
+                "to"
             ],
             "properties": {
-                "contractType": {
+                "amount": {
+                    "description": "十六进制字符串表示的wei金额，例如\"0xde0b6b3a7640000\"表示1 ETH",
                     "type": "string",
-                    "example": "SimpleStorage"
+                    "example": "0xde0b6b3a7640000"
+                },
+                "from": {
+                    "type": "string",
+                    "example": "0x123..."
+                },
+                "to": {
+                    "type": "string",
+                    "example": "0x456..."
                 }
             }
         },
-        "types.ContractBytecodeResponse": {
+        "controller.TransactionResponse": {
             "type": "object",
             "properties": {
-                "address": {
+                "blockNumber": {
+                    "type": "string",
+                    "example": "12345"
+                },
+                "from": {
                     "type": "string",
                     "example": "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
                 },
-                "bytecode": {
-                    "type": "string",
-                    "example": "0x608060405234801561001057600080fd5b50..."
-                },
-                "contractType": {
-                    "type": "string",
-                    "example": "SimpleStorage"
-                }
-            }
-        },
-        "types.ContractResponse": {
-            "type": "object",
-            "properties": {
-                "address": {
-                    "type": "string",
-                    "example": "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
-                },
-                "contractType": {
-                    "type": "string",
-                    "example": "SimpleStorage"
-                },
-                "error": {
-                    "type": "string",
-                    "example": "部署失败: 交易确认超时"
-                },
-                "txHash": {
+                "hash": {
                     "type": "string",
                     "example": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"
+                },
+                "timestamp": {
+                    "type": "integer",
+                    "example": 1634567890
+                },
+                "to": {
+                    "type": "string",
+                    "example": "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
+                },
+                "value": {
+                    "type": "string",
+                    "example": "1000000000000000000"
                 }
             }
         }
