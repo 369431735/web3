@@ -48,6 +48,10 @@ type TransactionResponse struct {
 	Value       string `json:"value" example:"1000000000000000000"`
 	BlockNumber string `json:"blockNumber" example:"12345"`
 	Timestamp   uint64 `json:"timestamp" example:"1634567890"`
+	Gas         uint64 `json:"gas" example:"21000"`
+	GasPrice    string `json:"gasPrice" example:"20000000000"`
+	BlockHash   string `json:"blockHash" example:"0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890"`
+	Status      string `json:"status" example:"成功"`
 }
 
 // ContractBytecodeRequest 合约字节码请求

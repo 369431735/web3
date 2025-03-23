@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"task2/utils"
 
+	"math/big"
+
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/gin-gonic/gin"
 )
@@ -167,7 +169,93 @@ func CreateHDWallet(c *gin.Context) {
 // @Failure      500      {object}  ErrorResponse
 // @Router       /accounts/{address}/transactions [get]
 func GetAccountTransactions(c *gin.Context) {
-	// 待实现...
+	address := c.Param("address")
+	if address == "" {
+		c.JSON(http.StatusBadRequest, ErrorResponse{Code: http.StatusBadRequest, Message: "地址不能为空"})
+		return
+	}
+
+	// 检查地址格式
+	if !common.IsHexAddress(address) {
+		c.JSON(http.StatusBadRequest, ErrorResponse{Code: http.StatusBadRequest, Message: "无效的以太坊地址"})
+		return
+	}
+
+	client, err := utils.GetEthClientHTTP()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse{Code: http.StatusInternalServerError, Message: "初始化以太坊客户端失败: " + err.Error()})
+		return
+	}
+
+	// 获取最新区块号
+	latestBlock, err := client.BlockByNumber(c.Request.Context(), nil)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse{Code: http.StatusInternalServerError, Message: "获取最新区块失败: " + err.Error()})
+		return
+	}
+
+	// 仅查询最近的几个区块
+	maxBlocks := 10
+	startBlock := new(big.Int).Sub(latestBlock.Number(), big.NewInt(int64(maxBlocks)))
+	if startBlock.Cmp(big.NewInt(0)) < 0 {
+		startBlock = big.NewInt(0)
+	}
+
+	var transactions []TransactionResponse
+	ethAddress := common.HexToAddress(address)
+
+	// 遍历区块查找与地址相关的交易
+	for blockNum := new(big.Int).Set(startBlock); blockNum.Cmp(latestBlock.Number()) <= 0; blockNum.Add(blockNum, big.NewInt(1)) {
+		block, err := client.BlockByNumber(c.Request.Context(), blockNum)
+		if err != nil {
+			continue
+		}
+
+		for _, tx := range block.Transactions() {
+			// 检查交易发送方
+			from, err := client.TransactionSender(c.Request.Context(), tx, block.Hash(), uint(0))
+			if err != nil {
+				continue
+			}
+
+			// 检查是否与目标地址相关（发送方或接收方）
+			if from == ethAddress || (tx.To() != nil && *tx.To() == ethAddress) {
+				receipt, err := client.TransactionReceipt(c.Request.Context(), tx.Hash())
+				var status string
+				if err == nil {
+					if receipt.Status == 1 {
+						status = "成功"
+					} else {
+						status = "失败"
+					}
+				} else {
+					status = "未知"
+				}
+
+				var to string
+				if tx.To() != nil {
+					to = tx.To().Hex()
+				} else {
+					to = "合约创建"
+				}
+
+				transactions = append(transactions, TransactionResponse{
+					Hash:        tx.Hash().Hex(),
+					From:        from.Hex(),
+					To:          to,
+					Value:       tx.Value().String(),
+					Gas:         tx.Gas(),
+					GasPrice:    tx.GasPrice().String(),
+					BlockHash:   block.Hash().Hex(),
+					BlockNumber: block.Number().String(),
+					Timestamp:   block.Time(),
+					Status:      status,
+				})
+			}
+		}
+	}
+
+	c.JSON(http.StatusOK, transactions)
 }
 
 // GetAccountNonce godoc
@@ -182,7 +270,32 @@ func GetAccountTransactions(c *gin.Context) {
 // @Failure      500      {object}  ErrorResponse
 // @Router       /accounts/{address}/nonce [get]
 func GetAccountNonce(c *gin.Context) {
-	// 待实现...
+	address := c.Param("address")
+	if address == "" {
+		c.JSON(http.StatusBadRequest, ErrorResponse{Code: http.StatusBadRequest, Message: "地址不能为空"})
+		return
+	}
+
+	// 检查地址格式
+	if !common.IsHexAddress(address) {
+		c.JSON(http.StatusBadRequest, ErrorResponse{Code: http.StatusBadRequest, Message: "无效的以太坊地址"})
+		return
+	}
+
+	client, err := utils.GetEthClientHTTP()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse{Code: http.StatusInternalServerError, Message: "初始化以太坊客户端失败: " + err.Error()})
+		return
+	}
+
+	// 获取账户的nonce值
+	nonce, err := client.NonceAt(c.Request.Context(), common.HexToAddress(address), nil)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse{Code: http.StatusInternalServerError, Message: "获取账户Nonce失败: " + err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, map[string]uint64{"nonce": nonce})
 }
 
 // GetAccountCode godoc
@@ -197,5 +310,41 @@ func GetAccountNonce(c *gin.Context) {
 // @Failure      500      {object}  ErrorResponse
 // @Router       /accounts/{address}/code [get]
 func GetAccountCode(c *gin.Context) {
-	// 待实现...
+	address := c.Param("address")
+	if address == "" {
+		c.JSON(http.StatusBadRequest, ErrorResponse{Code: http.StatusBadRequest, Message: "地址不能为空"})
+		return
+	}
+
+	// 检查地址格式
+	if !common.IsHexAddress(address) {
+		c.JSON(http.StatusBadRequest, ErrorResponse{Code: http.StatusBadRequest, Message: "无效的以太坊地址"})
+		return
+	}
+
+	client, err := utils.GetEthClientHTTP()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse{Code: http.StatusInternalServerError, Message: "初始化以太坊客户端失败: " + err.Error()})
+		return
+	}
+
+	// 获取合约代码
+	code, err := client.CodeAt(c.Request.Context(), common.HexToAddress(address), nil)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse{Code: http.StatusInternalServerError, Message: "获取合约代码失败: " + err.Error()})
+		return
+	}
+
+	var message string
+	if len(code) == 0 {
+		message = "该地址不是合约地址或合约代码为空"
+	} else {
+		message = "成功获取合约代码"
+	}
+
+	c.JSON(http.StatusOK, map[string]string{
+		"address": address,
+		"code":    common.Bytes2Hex(code),
+		"message": message,
+	})
 }

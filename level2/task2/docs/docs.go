@@ -1861,6 +1861,10 @@ const docTemplate = `{
         "controller.TransactionResponse": {
             "type": "object",
             "properties": {
+                "blockHash": {
+                    "type": "string",
+                    "example": "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890"
+                },
                 "blockNumber": {
                     "type": "string",
                     "example": "12345"
@@ -1869,9 +1873,21 @@ const docTemplate = `{
                     "type": "string",
                     "example": "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
                 },
+                "gas": {
+                    "type": "integer",
+                    "example": 21000
+                },
+                "gasPrice": {
+                    "type": "string",
+                    "example": "20000000000"
+                },
                 "hash": {
                     "type": "string",
                     "example": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "成功"
                 },
                 "timestamp": {
                     "type": "integer",
@@ -1901,7 +1917,7 @@ const docTemplate = `{
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
 	Host:             "localhost:8080",
-	BasePath:         "/api/v1",
+	BasePath:         "/",
 	Schemes:          []string{"http"},
 	Title:            "Web3 区块链接口服务",
 	Description:      "提供以太坊区块链相关的API服务，包括账户管理、交易处理、合约部署等功能",

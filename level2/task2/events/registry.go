@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	ethTypes "github.com/ethereum/go-ethereum/core/types"
+	"github.com/goccy/go-json"
 	"strings"
 	"task2/utils"
 
@@ -34,12 +35,14 @@ func RegisterEventHandler(handler EventHandler) {
 }
 
 func InitializeEventHandlersByAdress(filename, adress string) {
-	// 扫描合约绑定目录
 	client, _ := utils.GetEthClientHTTP()
-	code, _ := client.CodeAt(context.Background(), common.HexToAddress(adress), nil)
+	code, _ := client.AbiAt(context.Background(), adress)
 
 	// 需要合约有验证过源码
 	abiJSON, _ := abi.JSON(strings.NewReader(string(code)))
+	if err := json.Unmarshal(code, &abiJSON); err != nil {
+		return
+	}
 	// 为每个事件创建处理器
 	for eventName := range abiJSON.Events {
 		eventSignature := abiJSON.Events[eventName].ID

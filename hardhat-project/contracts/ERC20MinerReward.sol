@@ -3,8 +3,9 @@ pragma solidity >=0.4.22;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract ERC20MierReward is ERC20 {
-     LogNewAlert(
+contract ERC20MinerReward is ERC20 {
+    // Added 'event' keyword and proper syntax for event declaration
+    event LogNewAlert(
         string description,
         address indexed _from,
         uint256 _n
@@ -12,8 +13,9 @@ contract ERC20MierReward is ERC20 {
 
     constructor() ERC20("MinerReward", "MRW") {}
 
-    function _reward() public {
+    function reward() public {
         _mint(block.coinbase, 20);
-        emit LogNewAlert('_rewarded', block.coinbase, block.number);
+        // Changed single quotes to double quotes for string literal
+        emit LogNewAlert("_rewarded", block.coinbase, block.number);
     }
 }

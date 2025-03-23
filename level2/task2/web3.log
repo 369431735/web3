@@ -1459,3 +1459,123 @@ main.main()
 2025/03/23 11:01:47.068136 main.go:200: 启动 HTTP 服务器在 :8080
 2025/03/23 11:01:47.068136 main.go:201: 服务器模式: debug
 2025/03/23 11:01:47.068136 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 11:14:48.800752 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 11:14:48.800752 main.go:176: 合约地址已从存储中加载
+2025/03/23 11:14:48.800752 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 11:14:48.830413 main.go:183: 初始化路由和API服务
+2025/03/23 11:14:48.830920 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 11:14:48.830920 main.go:201: 服务器模式: debug
+2025/03/23 11:14:48.830920 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 11:23:30.606155 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 11:23:30.606155 main.go:176: 合约地址已从存储中加载
+2025/03/23 11:23:30.606155 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 11:23:30.631366 main.go:183: 初始化路由和API服务
+2025/03/23 11:23:30.632378 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 11:23:30.632378 main.go:201: 服务器模式: debug
+2025/03/23 11:23:30.632378 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 11:23:55.786586 contract.go:63: 开始部署所有合约，包括SimpleStorage、SimpleAuction、Purchase、Lottery等智能合约..
+2025/03/23 11:23:55.787097 contract.go:74: 以太坊客户端连接成功
+2025/03/23 11:23:55.787607 address.go:55: 处理私钥...
+2025/03/23 11:23:55.787607 address.go:59: 检测到0x前缀，将被移除
+2025/03/23 11:23:55.811509 address.go:82: 私钥处理成功
+2025/03/23 11:23:55.812020 contract.go:84: 合约交易选项获取成功
+2025/03/23 11:23:55.812020 contract.go:102: 将部署 8 个合约
+2025/03/23 11:23:55.812521 contract.go:106: 开始部署合约 Lottery
+2025/03/23 11:23:55.852188 contract.go:123: 等待交易确认 0x673949c61a92001cd4e5edfcb5523fff7e872b4dc5ac2b3e91a085bfa30ed964
+2025/03/23 11:23:55.858546 contract.go:149: 合约 Lottery 部署成功，合约地址: 0x21515C37970CbE667e53FE9fECd2358756b37c87, 交易哈希: 0x673949c61a92001cd4e5edfcb5523fff7e872b4dc5ac2b3e91a085bfa30ed964
+2025/03/23 11:23:55.861963 contract.go:163: 合约 Lottery 部署成功，合约地址: 0x21515C37970CbE667e53FE9fECd2358756b37c87, 交易哈希: 0x673949c61a92001cd4e5edfcb5523fff7e872b4dc5ac2b3e91a085bfa30ed964
+2025/03/23 11:23:55.861963 contract.go:106: 开始部署合约 Purchase
+2025/03/23 11:23:55.870910 contract.go:123: 等待交易确认 0x5070777eda9a88f76396c28c02d1ebda4cb827d1dd1a6e13097b2c2b157cd279
+2025/03/23 11:23:55.871883 contract.go:149: 合约 Purchase 部署成功，合约地址: 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa, 交易哈希: 0x5070777eda9a88f76396c28c02d1ebda4cb827d1dd1a6e13097b2c2b157cd279
+2025/03/23 11:23:55.873069 contract.go:163: 合约 Purchase 部署成功，合约地址: 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa, 交易哈希: 0x5070777eda9a88f76396c28c02d1ebda4cb827d1dd1a6e13097b2c2b157cd279
+2025/03/23 11:23:55.873069 contract.go:106: 开始部署合约 SimpleStorage
+2025/03/23 11:23:55.877583 contract.go:123: 等待交易确认 0x4adcc63202b8f093df9366827e641bf2f4995d99b3782ea9c9aaa8756d8d03d6
+2025/03/23 11:23:55.879462 contract.go:149: 合约 SimpleStorage 部署成功，合约地址: 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A, 交易哈希: 0x4adcc63202b8f093df9366827e641bf2f4995d99b3782ea9c9aaa8756d8d03d6
+2025/03/23 11:23:55.880494 contract.go:163: 合约 SimpleStorage 部署成功，合约地址: 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A, 交易哈希: 0x4adcc63202b8f093df9366827e641bf2f4995d99b3782ea9c9aaa8756d8d03d6
+2025/03/23 11:23:55.880494 contract.go:106: 开始部署合约 Lock
+2025/03/23 11:23:55.883909 contract.go:123: 等待交易确认 0x3c69d0c4dd52cb39f45f2c227f3ffcd81ed373d8d68705a327bba4e6e72cc9db
+2025/03/23 11:23:55.884929 contract.go:149: 合约 Lock 部署成功，合约地址: 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E, 交易哈希: 0x3c69d0c4dd52cb39f45f2c227f3ffcd81ed373d8d68705a327bba4e6e72cc9db
+2025/03/23 11:23:55.886383 contract.go:163: 合约 Lock 部署成功，合约地址: 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E, 交易哈希: 0x3c69d0c4dd52cb39f45f2c227f3ffcd81ed373d8d68705a327bba4e6e72cc9db
+2025/03/23 11:23:55.886962 contract.go:106: 开始部署合约 Shipping
+2025/03/23 11:23:55.890124 contract.go:123: 等待交易确认 0xe799190045d19578dc27180af2b9c0615eec39dcbb1c7078193c842984cdc2e2
+2025/03/23 11:23:55.891600 contract.go:149: 合约 Shipping 部署成功，合约地址: 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204, 交易哈希: 0xe799190045d19578dc27180af2b9c0615eec39dcbb1c7078193c842984cdc2e2
+2025/03/23 11:23:55.893885 contract.go:163: 合约 Shipping 部署成功，合约地址: 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204, 交易哈希: 0xe799190045d19578dc27180af2b9c0615eec39dcbb1c7078193c842984cdc2e2
+2025/03/23 11:23:55.894479 contract.go:106: 开始部署合约 SimpleAuction
+2025/03/23 11:23:55.897862 contract.go:123: 等待交易确认 0x34399a2455fe39d2cbb0cb1b0f24b5581f20e1739a6e88a4d4542a41f75d687c
+2025/03/23 11:23:55.899580 contract.go:149: 合约 SimpleAuction 部署成功，合约地址: 0xd32F443bd6bFe76FfE1998d52b1aEc6753745bE2, 交易哈希: 0x34399a2455fe39d2cbb0cb1b0f24b5581f20e1739a6e88a4d4542a41f75d687c
+2025/03/23 11:23:55.901353 contract.go:163: 合约 SimpleAuction 部署成功，合约地址: 0xd32F443bd6bFe76FfE1998d52b1aEc6753745bE2, 交易哈希: 0x34399a2455fe39d2cbb0cb1b0f24b5581f20e1739a6e88a4d4542a41f75d687c
+2025/03/23 11:23:55.901520 contract.go:106: 开始部署合约 ArrayDemo
+2025/03/23 11:23:55.903932 contract.go:123: 等待交易确认 0xd07e9922e8e26a39b3907d476bed103823b01163996bcc61b109a0fd8ac85d1b
+2025/03/23 11:23:55.905219 contract.go:149: 合约 ArrayDemo 部署成功，合约地址: 0x57FE0f87D96DAf4aD9228A130424120acBEF3Cfb, 交易哈希: 0xd07e9922e8e26a39b3907d476bed103823b01163996bcc61b109a0fd8ac85d1b
+2025/03/23 11:23:55.906427 contract.go:163: 合约 ArrayDemo 部署成功，合约地址: 0x57FE0f87D96DAf4aD9228A130424120acBEF3Cfb, 交易哈希: 0xd07e9922e8e26a39b3907d476bed103823b01163996bcc61b109a0fd8ac85d1b
+2025/03/23 11:23:55.906427 contract.go:106: 开始部署合约 Ballot
+2025/03/23 11:23:55.911906 contract.go:123: 等待交易确认 0xaab55e232b33c45501b8c94f21b62f53a736254fb96a852a280eb6f65e64efa9
+2025/03/23 11:23:55.912876 contract.go:149: 合约 Ballot 部署成功，合约地址: 0x82EdbE421099367367F6Bdc06608725D6241381a, 交易哈希: 0xaab55e232b33c45501b8c94f21b62f53a736254fb96a852a280eb6f65e64efa9
+2025/03/23 11:23:55.914633 contract.go:163: 合约 Ballot 部署成功，合约地址: 0x82EdbE421099367367F6Bdc06608725D6241381a, 交易哈希: 0xaab55e232b33c45501b8c94f21b62f53a736254fb96a852a280eb6f65e64efa9
+2025/03/23 11:23:55.914633 contract.go:172: 所有合约部署完成，共部署 8 个合约
+2025/03/23 11:32:17.157574 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 11:32:17.158089 main.go:176: 合约地址已从存储中加载
+2025/03/23 11:32:26.704174 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 11:36:28.318621 main.go:183: 初始化路由和API服务
+2025/03/23 11:36:30.239440 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 11:36:30.476645 main.go:201: 服务器模式: debug
+2025/03/23 11:36:30.703448 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 11:36:31.809147 main.go:206: 启动 HTTP 服务器失败: listen tcp :8080: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+2025/03/23 11:39:48.251736 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 11:39:48.252243 main.go:176: 合约地址已从存储中加载
+2025/03/23 11:39:56.063169 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 11:40:03.263888 main.go:183: 初始化路由和API服务
+2025/03/23 11:40:03.265956 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 11:40:03.265956 main.go:201: 服务器模式: debug
+2025/03/23 11:40:03.265956 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 11:40:03.266469 main.go:206: 启动 HTTP 服务器失败: listen tcp :8080: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+2025/03/23 11:40:08.462309 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 11:40:08.462819 main.go:176: 合约地址已从存储中加载
+2025/03/23 11:40:10.607222 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 20:42:34.467077 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 20:42:34.467591 main.go:176: 合约地址已从存储中加载
+2025/03/23 20:42:34.467591 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 20:42:34.489786 main.go:183: 初始化路由和API服务
+2025/03/23 20:42:34.489786 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 20:42:34.489786 main.go:201: 服务器模式: debug
+2025/03/23 20:42:34.489786 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 20:43:48.891282 contract.go:63: 开始部署所有合约，包括SimpleStorage、SimpleAuction、Purchase、Lottery等智能合约..
+2025/03/23 20:43:48.891282 contract.go:74: 以太坊客户端连接成功
+2025/03/23 20:43:48.891282 address.go:55: 处理私钥...
+2025/03/23 20:43:48.891282 address.go:59: 检测到0x前缀，将被移除
+2025/03/23 20:43:48.921060 address.go:82: 私钥处理成功
+2025/03/23 20:43:48.922061 contract.go:84: 合约交易选项获取成功
+2025/03/23 20:43:48.922061 contract.go:102: 将部署 8 个合约
+2025/03/23 20:43:48.922061 contract.go:106: 开始部署合约 Lottery
+2025/03/23 20:43:48.947306 contract.go:123: 等待交易确认 0x673949c61a92001cd4e5edfcb5523fff7e872b4dc5ac2b3e91a085bfa30ed964
+2025/03/23 20:43:48.949819 contract.go:149: 合约 Lottery 部署成功，合约地址: 0x21515C37970CbE667e53FE9fECd2358756b37c87, 交易哈希: 0x673949c61a92001cd4e5edfcb5523fff7e872b4dc5ac2b3e91a085bfa30ed964
+2025/03/23 20:43:48.950470 contract.go:163: 合约 Lottery 部署成功，合约地址: 0x21515C37970CbE667e53FE9fECd2358756b37c87, 交易哈希: 0x673949c61a92001cd4e5edfcb5523fff7e872b4dc5ac2b3e91a085bfa30ed964
+2025/03/23 20:43:48.950470 contract.go:106: 开始部署合约 Purchase
+2025/03/23 20:43:48.955897 contract.go:123: 等待交易确认 0x5070777eda9a88f76396c28c02d1ebda4cb827d1dd1a6e13097b2c2b157cd279
+2025/03/23 20:43:48.956620 contract.go:149: 合约 Purchase 部署成功，合约地址: 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa, 交易哈希: 0x5070777eda9a88f76396c28c02d1ebda4cb827d1dd1a6e13097b2c2b157cd279
+2025/03/23 20:43:48.957213 contract.go:163: 合约 Purchase 部署成功，合约地址: 0x2fd10E6ac8D779eD8886D6eA54d5f891329428fa, 交易哈希: 0x5070777eda9a88f76396c28c02d1ebda4cb827d1dd1a6e13097b2c2b157cd279
+2025/03/23 20:43:48.957213 contract.go:106: 开始部署合约 SimpleStorage
+2025/03/23 20:43:48.960480 contract.go:123: 等待交易确认 0x4adcc63202b8f093df9366827e641bf2f4995d99b3782ea9c9aaa8756d8d03d6
+2025/03/23 20:43:48.961294 contract.go:149: 合约 SimpleStorage 部署成功，合约地址: 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A, 交易哈希: 0x4adcc63202b8f093df9366827e641bf2f4995d99b3782ea9c9aaa8756d8d03d6
+2025/03/23 20:43:48.961813 contract.go:163: 合约 SimpleStorage 部署成功，合约地址: 0x59Ebeb7Bb9895fa0c451f28d33921e5d3F128C1A, 交易哈希: 0x4adcc63202b8f093df9366827e641bf2f4995d99b3782ea9c9aaa8756d8d03d6
+2025/03/23 20:43:48.961813 contract.go:106: 开始部署合约 Lock
+2025/03/23 20:43:48.965092 contract.go:123: 等待交易确认 0xc7ee2a95aeee3fefc5ce3c59c7cd5aa26b24665ca8a95a7dd3f589f203428af9
+2025/03/23 20:43:48.965777 contract.go:149: 合约 Lock 部署成功，合约地址: 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E, 交易哈希: 0xc7ee2a95aeee3fefc5ce3c59c7cd5aa26b24665ca8a95a7dd3f589f203428af9
+2025/03/23 20:43:48.966284 contract.go:163: 合约 Lock 部署成功，合约地址: 0x5842a972D2141fb9cFCC20DDfB900E7fC34b346E, 交易哈希: 0xc7ee2a95aeee3fefc5ce3c59c7cd5aa26b24665ca8a95a7dd3f589f203428af9
+2025/03/23 20:43:48.966284 contract.go:106: 开始部署合约 Shipping
+2025/03/23 20:43:48.970389 contract.go:123: 等待交易确认 0xe799190045d19578dc27180af2b9c0615eec39dcbb1c7078193c842984cdc2e2
+2025/03/23 20:43:48.971165 contract.go:149: 合约 Shipping 部署成功，合约地址: 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204, 交易哈希: 0xe799190045d19578dc27180af2b9c0615eec39dcbb1c7078193c842984cdc2e2
+2025/03/23 20:43:48.971673 contract.go:163: 合约 Shipping 部署成功，合约地址: 0xBC3CFA3eB431b8af2225700A0fE0324F0dEA9204, 交易哈希: 0xe799190045d19578dc27180af2b9c0615eec39dcbb1c7078193c842984cdc2e2
+2025/03/23 20:43:48.971673 contract.go:106: 开始部署合约 SimpleAuction
+2025/03/23 20:43:48.976075 contract.go:123: 等待交易确认 0x34399a2455fe39d2cbb0cb1b0f24b5581f20e1739a6e88a4d4542a41f75d687c
+2025/03/23 20:43:48.977294 contract.go:149: 合约 SimpleAuction 部署成功，合约地址: 0xd32F443bd6bFe76FfE1998d52b1aEc6753745bE2, 交易哈希: 0x34399a2455fe39d2cbb0cb1b0f24b5581f20e1739a6e88a4d4542a41f75d687c
+2025/03/23 20:43:48.977294 contract.go:163: 合约 SimpleAuction 部署成功，合约地址: 0xd32F443bd6bFe76FfE1998d52b1aEc6753745bE2, 交易哈希: 0x34399a2455fe39d2cbb0cb1b0f24b5581f20e1739a6e88a4d4542a41f75d687c
+2025/03/23 20:43:48.977294 contract.go:106: 开始部署合约 ArrayDemo
+2025/03/23 20:43:48.981198 contract.go:123: 等待交易确认 0xd07e9922e8e26a39b3907d476bed103823b01163996bcc61b109a0fd8ac85d1b
+2025/03/23 20:43:48.981796 contract.go:149: 合约 ArrayDemo 部署成功，合约地址: 0x57FE0f87D96DAf4aD9228A130424120acBEF3Cfb, 交易哈希: 0xd07e9922e8e26a39b3907d476bed103823b01163996bcc61b109a0fd8ac85d1b
+2025/03/23 20:43:48.982302 contract.go:163: 合约 ArrayDemo 部署成功，合约地址: 0x57FE0f87D96DAf4aD9228A130424120acBEF3Cfb, 交易哈希: 0xd07e9922e8e26a39b3907d476bed103823b01163996bcc61b109a0fd8ac85d1b
+2025/03/23 20:43:48.982302 contract.go:106: 开始部署合约 Ballot
+2025/03/23 20:43:48.987139 contract.go:123: 等待交易确认 0xaab55e232b33c45501b8c94f21b62f53a736254fb96a852a280eb6f65e64efa9
+2025/03/23 20:43:48.988478 contract.go:149: 合约 Ballot 部署成功，合约地址: 0x82EdbE421099367367F6Bdc06608725D6241381a, 交易哈希: 0xaab55e232b33c45501b8c94f21b62f53a736254fb96a852a280eb6f65e64efa9
+2025/03/23 20:43:48.989013 contract.go:163: 合约 Ballot 部署成功，合约地址: 0x82EdbE421099367367F6Bdc06608725D6241381a, 交易哈希: 0xaab55e232b33c45501b8c94f21b62f53a736254fb96a852a280eb6f65e64efa9
+2025/03/23 20:43:48.989013 contract.go:172: 所有合约部署完成，共部署 8 个合约

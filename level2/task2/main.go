@@ -25,7 +25,7 @@ import (
 // @version         1.0
 // @description     提供以太坊区块链相关的API服务，包括账户管理、交易处理、合约部署等功能
 // @host            localhost:8080
-// @BasePath        /api/v1
+// @BasePath        /
 // @schemes         http
 // @contact.name    API Support
 // @contact.email   support@example.com

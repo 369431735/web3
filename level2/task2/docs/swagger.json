@@ -17,7 +17,7 @@
         "version": "1.0"
     },
     "host": "localhost:8080",
-    "basePath": "/api/v1",
+    "basePath": "/",
     "paths": {
         "/accounts/hd-wallet": {
             "post": {
@@ -1857,6 +1857,10 @@
         "controller.TransactionResponse": {
             "type": "object",
             "properties": {
+                "blockHash": {
+                    "type": "string",
+                    "example": "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890"
+                },
                 "blockNumber": {
                     "type": "string",
                     "example": "12345"
@@ -1865,9 +1869,21 @@
                     "type": "string",
                     "example": "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
                 },
+                "gas": {
+                    "type": "integer",
+                    "example": 21000
+                },
+                "gasPrice": {
+                    "type": "string",
+                    "example": "20000000000"
+                },
                 "hash": {
                     "type": "string",
                     "example": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "成功"
                 },
                 "timestamp": {
                     "type": "integer",
