@@ -1,12 +1,15 @@
 package events
 
 import (
-	"context"
+	"bytes"
 	"fmt"
+	"io/ioutil"
+	"log"
+	"path/filepath"
+	"task2/utils"
+
 	ethTypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/goccy/go-json"
-	"strings"
-	"task2/utils"
 
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
@@ -34,15 +37,56 @@ func RegisterEventHandler(handler EventHandler) {
 	})
 }
 
-func InitializeEventHandlersByAdress(filename, adress string) {
-	client, _ := utils.GetEthClientHTTP()
-	code, _ := client.AbiAt(context.Background(), adress)
+// 匹配 Hardhat 编译结果的完整结构
+type ContractArtifact struct {
+	ABI      []abiEntry `json:"abi"`
+	Bytecode string     `json:"bytecode"`
+}
 
-	// 需要合约有验证过源码
-	abiJSON, _ := abi.JSON(strings.NewReader(string(code)))
-	if err := json.Unmarshal(code, &abiJSON); err != nil {
-		return
+// 定义 ABI 条目结构
+type abiEntry struct {
+	Type      string        `json:"type"`
+	Name      string        `json:"name,omitempty"`
+	Inputs    []abiArgument `json:"inputs,omitempty"`
+	Anonymous bool          `json:"anonymous,omitempty"`
+}
+
+// 定义 ABI 参数结构
+type abiArgument struct {
+	Name         string `json:"name"`
+	Type         string `json:"type"`
+	Indexed      bool   `json:"indexed,omitempty"`
+	InternalType string `json:"internalType,omitempty"`
+}
+
+func InitializeEventHandlersByAdress(filename string) {
+	// 从编译后的文件中读取ABI
+	dirPath := filepath.Join("contracts", "compile", filename+".sol")
+	jsonPath := filepath.Join(dirPath, filename+".json")
+
+	data, err := ioutil.ReadFile(jsonPath)
+	if err != nil {
+		log.Fatalf("文件读取失败: %v", err)
 	}
+
+	// 2. 解析为结构体
+	var artifact ContractArtifact
+	if err := json.Unmarshal(data, &artifact); err != nil {
+		log.Fatalf("JSON 解析失败: %v", err)
+	}
+
+	// 3. 重新序列化 ABI 部分
+	abiData, err := json.Marshal(artifact.ABI)
+	if err != nil {
+		log.Fatalf("ABI 序列化失败: %v", err)
+	}
+
+	// 4. 解析为 ABI 对象
+	abiJSON, err := abi.JSON(bytes.NewReader(abiData))
+	if err != nil {
+		log.Fatalf("ABI 解析失败: %v", err)
+	}
+
 	// 为每个事件创建处理器
 	for eventName := range abiJSON.Events {
 		eventSignature := abiJSON.Events[eventName].ID

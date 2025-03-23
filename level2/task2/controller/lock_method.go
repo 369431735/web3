@@ -20,7 +20,7 @@ import (
 // @Success      200  {object}  ContractResponse
 // @Failure      400  {object}  ErrorResponse
 // @Failure      500  {object}  ErrorResponse
-// @Router       /contract/lock/withdraw [post]
+// @Router       /contracts/Lock/withdraw [post]
 func LockWithdraw(c *gin.Context) {
 	// 创建以太坊客户端连接
 	client, err := utils.GetEthClientHTTP()

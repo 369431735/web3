@@ -562,284 +562,6 @@
                 }
             }
         },
-        "/contract/arraydemo/add-value": {
-            "post": {
-                "description": "向数组合约添加新的整数值",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "合约操作"
-                ],
-                "summary": "向ArrayDemo合约添加值",
-                "parameters": [
-                    {
-                        "description": "添加值请求",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/controller.ArrayDemoAddValueRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/controller.ArrayDemoAddValueResponse"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/controller.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/controller.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/contract/arraydemo/get-values": {
-            "get": {
-                "description": "获取ArrayDemo合约的所有值",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "合约操作"
-                ],
-                "summary": "获取ArrayDemo合约的值",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/controller.ArrayDemoGetValuesResponse"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/controller.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/controller.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/contract/lock/withdraw": {
-            "post": {
-                "description": "调用Lock合约的Withdraw方法，提取合约中的资金",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "锁定合约"
-                ],
-                "summary": "执行Lock合约的Withdraw方法",
-                "parameters": [
-                    {
-                        "description": "提取资金请求参数",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/controller.LockWithdrawRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/controller.ContractResponse"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/controller.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/controller.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/contract/shipping/advance-state": {
-            "post": {
-                "description": "调用Shipping合约的Shipped方法，将状态推进到下一阶段",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "运输合约"
-                ],
-                "summary": "执行Shipping合约的Shipped状态转换",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/controller.ContractResponse"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/controller.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/controller.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/contract/shipping/get-state": {
-            "get": {
-                "description": "获取Shipping合约的状态信息，包括当前阶段",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "运输合约"
-                ],
-                "summary": "获取Shipping合约的Status状态",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/controller.ShippingStateResponse"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/controller.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/controller.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/contract/simpleauction/bid": {
-            "post": {
-                "description": "向拍卖合约发起竞拍请求",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "合约操作"
-                ],
-                "summary": "调用SimpleAuction合约进行竞拍",
-                "parameters": [
-                    {
-                        "description": "竞拍金额信息",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/controller.SimpleAuctionBidRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/controller.SimpleAuctionBidResponse"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/controller.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/controller.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/contract/simpleauction/withdraw": {
-            "post": {
-                "description": "结束竞拍并允许中标者支付款项，非中标者提取资金",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "合约操作"
-                ],
-                "summary": "调用SimpleAuction合约结束拍卖并提取资金",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/controller.ContractResponse"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/controller.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/controller.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
         "/contracts/Ballot/vote": {
             "post": {
                 "description": "调用Ballot合约的vote方法进行投票",
@@ -933,6 +655,52 @@
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/controller.SuccessResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contracts/Lock/withdraw": {
+            "post": {
+                "description": "调用Lock合约的Withdraw方法，提取合约中的资金",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "锁定合约"
+                ],
+                "summary": "执行Lock合约的Withdraw方法",
+                "parameters": [
+                    {
+                        "description": "提取资金请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.LockWithdrawRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ContractResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     },
                     "500": {
@@ -1239,6 +1007,157 @@
                 }
             }
         },
+        "/contracts/Shipping/advance-state": {
+            "post": {
+                "description": "调用Shipping合约的Shipped方法，将状态推进到下一阶段",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "运输合约"
+                ],
+                "summary": "执行Shipping合约的Shipped状态转换",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ContractResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contracts/Shipping/get-state": {
+            "get": {
+                "description": "获取Shipping合约的状态信息，包括当前阶段",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "运输合约"
+                ],
+                "summary": "获取Shipping合约的Status状态",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ShippingStateResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contracts/SimpleAuction/bid": {
+            "post": {
+                "description": "向拍卖合约发起竞拍请求",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "合约操作"
+                ],
+                "summary": "调用SimpleAuction合约进行竞拍",
+                "parameters": [
+                    {
+                        "description": "竞拍金额信息",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.SimpleAuctionBidRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.SimpleAuctionBidResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contracts/SimpleAuction/withdraw": {
+            "post": {
+                "description": "结束竞拍并允许中标者支付款项，非中标者提取资金",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "合约操作"
+                ],
+                "summary": "调用SimpleAuction合约结束拍卖并提取资金",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ContractResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/contracts/SimpleStorage/get": {
             "get": {
                 "description": "调用SimpleStorage合约的get方法获取当前存储的值",
@@ -1335,6 +1254,87 @@
                             "additionalProperties": {
                                 "type": "string"
                             }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contracts/arraydemo/add-value": {
+            "post": {
+                "description": "向数组合约添加新的整数值",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "合约操作"
+                ],
+                "summary": "向ArrayDemo合约添加值",
+                "parameters": [
+                    {
+                        "description": "添加值请求",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.ArrayDemoAddValueRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ArrayDemoAddValueResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contracts/arraydemo/get-values": {
+            "get": {
+                "description": "获取ArrayDemo合约的所有值",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "合约操作"
+                ],
+                "summary": "获取ArrayDemo合约的值",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ArrayDemoGetValuesResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     },
                     "500": {

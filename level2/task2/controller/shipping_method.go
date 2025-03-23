@@ -26,7 +26,7 @@ type ShippingStateResponse struct {
 // @Success      200  {object}  ContractResponse
 // @Failure      400  {object}  ErrorResponse
 // @Failure      500  {object}  ErrorResponse
-// @Router       /contract/shipping/advance-state [post]
+// @Router       /contracts/Shipping/advance-state [post]
 func ShippingAdvanceState(c *gin.Context) {
 	// 创建以太坊客户端连接
 	client, err := utils.GetEthClientHTTP()
@@ -93,7 +93,7 @@ func ShippingAdvanceState(c *gin.Context) {
 // @Success      200  {object}  ShippingStateResponse
 // @Failure      400  {object}  ErrorResponse
 // @Failure      500  {object}  ErrorResponse
-// @Router       /contract/shipping/get-state [get]
+// @Router       /contracts/Shipping/get-state [get]
 func ShippingGetState(c *gin.Context) {
 	// 创建以太坊客户端连接
 	client, err := utils.GetEthClientHTTP()

@@ -1579,3 +1579,292 @@ main.main()
 2025/03/23 20:43:48.988478 contract.go:149: 合约 Ballot 部署成功，合约地址: 0x82EdbE421099367367F6Bdc06608725D6241381a, 交易哈希: 0xaab55e232b33c45501b8c94f21b62f53a736254fb96a852a280eb6f65e64efa9
 2025/03/23 20:43:48.989013 contract.go:163: 合约 Ballot 部署成功，合约地址: 0x82EdbE421099367367F6Bdc06608725D6241381a, 交易哈希: 0xaab55e232b33c45501b8c94f21b62f53a736254fb96a852a280eb6f65e64efa9
 2025/03/23 20:43:48.989013 contract.go:172: 所有合约部署完成，共部署 8 个合约
+2025/03/23 20:44:06.046092 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 20:44:06.046092 main.go:176: 合约地址已从存储中加载
+2025/03/23 20:44:06.046092 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 22:17:08.444042 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 22:17:08.444554 main.go:176: 合约地址已从存储中加载
+2025/03/23 22:17:08.444554 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\contracts\compile\Lock\Lock.json
+2025/03/23 22:17:08.444554 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\contracts\compile\Lottery\Lottery.json
+2025/03/23 22:17:08.445068 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\contracts\compile\Purchase\Purchase.json
+2025/03/23 22:17:08.445068 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\contracts\compile\Shipping\Shipping.json
+2025/03/23 22:17:08.445068 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\contracts\compile\SimpleAuction\SimpleAuction.json
+2025/03/23 22:17:08.445068 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\contracts\compile\SimpleStorage\SimpleStorage.json
+2025/03/23 22:17:08.445068 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\contracts\compile\ArrayDemo\ArrayDemo.json
+2025/03/23 22:17:08.445068 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\contracts\compile\Ballot\Ballot.json
+2025/03/23 22:17:08.445580 main.go:183: 初始化路由和API服务
+2025/03/23 22:17:08.448674 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 22:17:08.448674 main.go:201: 服务器模式: debug
+2025/03/23 22:17:08.448674 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 22:17:29.771140 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 22:17:29.771650 main.go:176: 合约地址已从存储中加载
+2025/03/23 22:18:44.569882 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\contracts\compile\Lock\Lock.json
+2025/03/23 22:18:45.163969 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\contracts\compile\Lottery\Lottery.json
+2025/03/23 22:18:45.940276 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\contracts\compile\Purchase\Purchase.json
+2025/03/23 22:18:46.345600 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\contracts\compile\Shipping\Shipping.json
+2025/03/23 22:18:46.543291 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\contracts\compile\SimpleAuction\SimpleAuction.json
+2025/03/23 22:18:46.746877 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\contracts\compile\SimpleStorage\SimpleStorage.json
+2025/03/23 22:18:46.939788 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\contracts\compile\ArrayDemo\ArrayDemo.json
+2025/03/23 22:18:47.066902 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\contracts\compile\Ballot\Ballot.json
+2025/03/23 22:18:47.066902 main.go:183: 初始化路由和API服务
+2025/03/23 22:18:47.067417 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 22:18:47.067417 main.go:201: 服务器模式: debug
+2025/03/23 22:18:47.067417 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 22:18:54.273257 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 22:18:54.273257 main.go:176: 合约地址已从存储中加载
+2025/03/23 22:21:46.491148 block.go:17: 错误: 解析ABI失败 - json: cannot unmarshal object into Go value of type []struct { Type string; Name string; Inputs []abi.Argument; Outputs []abi.Argument; StateMutability string; Constant bool; Payable bool; Anonymous bool }
+2025/03/23 22:21:46.492698 block.go:17: 错误: 解析ABI失败 - json: cannot unmarshal object into Go value of type []struct { Type string; Name string; Inputs []abi.Argument; Outputs []abi.Argument; StateMutability string; Constant bool; Payable bool; Anonymous bool }
+2025/03/23 22:21:46.493723 block.go:17: 错误: 解析ABI失败 - json: cannot unmarshal object into Go value of type []struct { Type string; Name string; Inputs []abi.Argument; Outputs []abi.Argument; StateMutability string; Constant bool; Payable bool; Anonymous bool }
+2025/03/23 22:21:46.494239 block.go:17: 错误: 解析ABI失败 - json: cannot unmarshal object into Go value of type []struct { Type string; Name string; Inputs []abi.Argument; Outputs []abi.Argument; StateMutability string; Constant bool; Payable bool; Anonymous bool }
+2025/03/23 22:21:46.495318 block.go:17: 错误: 解析ABI失败 - json: cannot unmarshal object into Go value of type []struct { Type string; Name string; Inputs []abi.Argument; Outputs []abi.Argument; StateMutability string; Constant bool; Payable bool; Anonymous bool }
+2025/03/23 22:21:46.495760 block.go:17: 错误: 解析ABI失败 - json: cannot unmarshal object into Go value of type []struct { Type string; Name string; Inputs []abi.Argument; Outputs []abi.Argument; StateMutability string; Constant bool; Payable bool; Anonymous bool }
+2025/03/23 22:21:46.496408 block.go:17: 错误: 解析ABI失败 - json: cannot unmarshal object into Go value of type []struct { Type string; Name string; Inputs []abi.Argument; Outputs []abi.Argument; StateMutability string; Constant bool; Payable bool; Anonymous bool }
+2025/03/23 22:21:46.497453 block.go:17: 错误: 解析ABI失败 - json: cannot unmarshal object into Go value of type []struct { Type string; Name string; Inputs []abi.Argument; Outputs []abi.Argument; StateMutability string; Constant bool; Payable bool; Anonymous bool }
+2025/03/23 22:21:46.497453 main.go:183: 初始化路由和API服务
+2025/03/23 22:21:46.499961 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 22:21:46.499961 main.go:201: 服务器模式: debug
+2025/03/23 22:21:46.499961 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 22:21:52.701211 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 22:21:52.701211 main.go:176: 合约地址已从存储中加载
+2025/03/23 22:22:42.123755 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\artifacts\contracts\SimpleStorage.sol\SimpleStorage.json
+2025/03/23 22:22:43.294291 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\artifacts\contracts\ArrayDemo.sol\ArrayDemo.json
+2025/03/23 22:22:44.556449 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\artifacts\contracts\Ballot.sol\Ballot.json
+2025/03/23 22:22:44.556974 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\artifacts\contracts\Lock.sol\Lock.json
+2025/03/23 22:22:44.556974 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\artifacts\contracts\Lottery.sol\Lottery.json
+2025/03/23 22:22:44.556974 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\artifacts\contracts\Purchase.sol\Purchase.json
+2025/03/23 22:22:44.556974 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\artifacts\contracts\Shipping.sol\Shipping.json
+2025/03/23 22:22:44.556974 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\artifacts\contracts\SimpleAuction.sol\SimpleAuction.json
+2025/03/23 22:22:44.556974 main.go:183: 初始化路由和API服务
+2025/03/23 22:22:44.559551 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 22:22:44.559551 main.go:201: 服务器模式: debug
+2025/03/23 22:22:44.559551 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 22:22:48.825834 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 22:22:48.826345 main.go:176: 合约地址已从存储中加载
+2025/03/23 22:25:20.132047 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\contracts\Lock.sol\Lock.json
+2025/03/23 22:25:20.820157 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\contracts\Lottery.sol\Lottery.json
+2025/03/23 22:25:21.194969 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\contracts\Purchase.sol\Purchase.json
+2025/03/23 22:25:21.440561 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\contracts\Shipping.sol\Shipping.json
+2025/03/23 22:25:21.619479 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\contracts\SimpleAuction.sol\SimpleAuction.json
+2025/03/23 22:25:21.811906 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\contracts\SimpleStorage.sol\SimpleStorage.json
+2025/03/23 22:25:21.983145 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\contracts\ArrayDemo.sol\ArrayDemo.json
+2025/03/23 22:25:22.179861 block.go:17: 错误: 读取ABI文件失败 - 文件不存在: D:\work\gitspace\web3\web3\level2\task2\contracts\Ballot.sol\Ballot.json
+2025/03/23 22:25:22.179861 main.go:183: 初始化路由和API服务
+2025/03/23 22:25:22.186047 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 22:25:22.186047 main.go:201: 服务器模式: debug
+2025/03/23 22:25:22.186047 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 22:25:28.569390 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 22:25:28.569390 main.go:176: 合约地址已从存储中加载
+2025/03/23 22:26:17.962987 block.go:17: 错误: 解析ABI失败 - json: cannot unmarshal object into Go value of type []struct { Type string; Name string; Inputs []abi.Argument; Outputs []abi.Argument; StateMutability string; Constant bool; Payable bool; Anonymous bool }
+2025/03/23 22:26:23.783193 block.go:17: 错误: 解析ABI失败 - json: cannot unmarshal object into Go value of type []struct { Type string; Name string; Inputs []abi.Argument; Outputs []abi.Argument; StateMutability string; Constant bool; Payable bool; Anonymous bool }
+2025/03/23 22:26:26.538384 block.go:17: 错误: 解析ABI失败 - json: cannot unmarshal object into Go value of type []struct { Type string; Name string; Inputs []abi.Argument; Outputs []abi.Argument; StateMutability string; Constant bool; Payable bool; Anonymous bool }
+2025/03/23 22:26:28.767325 block.go:17: 错误: 解析ABI失败 - json: cannot unmarshal object into Go value of type []struct { Type string; Name string; Inputs []abi.Argument; Outputs []abi.Argument; StateMutability string; Constant bool; Payable bool; Anonymous bool }
+2025/03/23 22:26:58.311118 block.go:17: 错误: 解析ABI失败 - json: cannot unmarshal object into Go value of type []struct { Type string; Name string; Inputs []abi.Argument; Outputs []abi.Argument; StateMutability string; Constant bool; Payable bool; Anonymous bool }
+2025/03/23 22:26:58.963631 block.go:17: 错误: 解析ABI失败 - json: cannot unmarshal object into Go value of type []struct { Type string; Name string; Inputs []abi.Argument; Outputs []abi.Argument; StateMutability string; Constant bool; Payable bool; Anonymous bool }
+2025/03/23 22:26:59.365700 block.go:17: 错误: 解析ABI失败 - json: cannot unmarshal object into Go value of type []struct { Type string; Name string; Inputs []abi.Argument; Outputs []abi.Argument; StateMutability string; Constant bool; Payable bool; Anonymous bool }
+2025/03/23 22:26:59.880963 block.go:17: 错误: 解析ABI失败 - json: cannot unmarshal object into Go value of type []struct { Type string; Name string; Inputs []abi.Argument; Outputs []abi.Argument; StateMutability string; Constant bool; Payable bool; Anonymous bool }
+2025/03/23 22:26:59.880963 main.go:183: 初始化路由和API服务
+2025/03/23 22:26:59.883570 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 22:26:59.883570 main.go:201: 服务器模式: debug
+2025/03/23 22:26:59.883570 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 22:37:17.523737 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 22:37:17.523737 main.go:176: 合约地址已从存储中加载
+2025/03/23 22:38:26.373440 block.go:22: 信息: 注册事件处理器 - map[event:Withdrawal signature:0xbf2ed60bd5b5965d685680c01195c9514e4382e28e3a5a2d2d5244bf59411b93]
+2025/03/23 22:38:32.471399 block.go:22: 信息: 注册事件处理器 - map[event:LotteryReset signature:0x6564d21026f38ac4bc4ef082b01864f3ae6869e139a373fdf664a27a6c6dbebb]
+2025/03/23 22:38:33.740502 block.go:22: 信息: 注册事件处理器 - map[event:PlayerEntered signature:0xc16481c9484122696a660b57df0bf6839645c6b620cb1704ac2437de13be9225]
+2025/03/23 22:38:34.520037 block.go:22: 信息: 注册事件处理器 - map[event:WinnerPicked signature:0x64791dbae5677392ba76761a5273633cec8f1d9d8cfe808da7bac6ef16a880be]
+2025/03/23 22:38:38.399394 block.go:22: 信息: 注册事件处理器 - map[event:PurchaseConfirmed signature:0xa29484a0d47153a96f00a1369c6885bbc89e95e35273ee97c943c440f7c4c282]
+2025/03/23 22:38:38.399394 block.go:22: 信息: 注册事件处理器 - map[event:Aborted signature:0x13c3922f06c44c3cac6a2c721f8ec8db793360b0180d5e560ca2028de2037eaa]
+2025/03/23 22:38:38.399911 block.go:22: 信息: 注册事件处理器 - map[event:ItemReceived signature:0x977d335cc268af836f9e8542f5c430c79e387ceb4a005d8aa05350b655fd65d3]
+2025/03/23 22:38:39.297458 block.go:22: 信息: 注册事件处理器 - map[event:LogNewAlert signature:0xca75c80642b93c980135b8355995abae3ab06033dc81f956b3824323b4903ef5]
+2025/03/23 22:38:40.309810 block.go:22: 信息: 注册事件处理器 - map[event:AuctionEnded signature:0xdaec4582d5d9595688c8c98545fdd1c696d41c6aeaeb636737e84ed2f5c00eda]
+2025/03/23 22:38:40.309810 block.go:22: 信息: 注册事件处理器 - map[event:HighestBidIncreased signature:0xf4757a49b326036464bec6fe419a4ae38c8a02ce3e68bf0809674f6aab8ad300]
+2025/03/23 22:38:41.124527 main.go:183: 初始化路由和API服务
+2025/03/23 22:38:41.125719 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 22:38:41.125719 main.go:201: 服务器模式: debug
+2025/03/23 22:38:41.125719 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 22:42:07.147780 contract.go:63: 开始部署所有合约，包括SimpleStorage、SimpleAuction、Purchase、Lottery等智能合约..
+2025/03/23 22:42:07.149650 client.go:76: 成功使用HTTP连接以太坊网络: http://localhost:8545
+2025/03/23 22:42:07.149650 contract.go:74: 以太坊客户端连接成功
+2025/03/23 22:42:07.149650 address.go:55: 处理私钥...
+2025/03/23 22:42:07.149650 address.go:59: 检测到0x前缀，将被移除
+2025/03/23 22:42:07.178313 address.go:82: 私钥处理成功
+2025/03/23 22:42:07.178313 contract.go:84: 合约交易选项获取成功
+2025/03/23 22:42:07.178313 contract.go:102: 将部署 8 个合约
+2025/03/23 22:42:07.178313 contract.go:106: 开始部署合约 SimpleAuction
+2025/03/23 22:42:07.301729 contract.go:123: 等待交易确认 0x2f55e6cdbcb9e400c5d6f6a7045f9255e210228cea4013696fb2eac70b1685c9
+2025/03/23 22:42:07.304342 contract.go:149: 合约 SimpleAuction 部署成功，合约地址: 0x556407ef4d722CeA441b549fC12be474bcE84433, 交易哈希: 0x2f55e6cdbcb9e400c5d6f6a7045f9255e210228cea4013696fb2eac70b1685c9
+2025/03/23 22:42:07.305596 contract.go:163: 合约 SimpleAuction 部署成功，合约地址: 0x556407ef4d722CeA441b549fC12be474bcE84433, 交易哈希: 0x2f55e6cdbcb9e400c5d6f6a7045f9255e210228cea4013696fb2eac70b1685c9
+2025/03/23 22:42:07.305596 contract.go:106: 开始部署合约 ArrayDemo
+2025/03/23 22:42:07.314709 contract.go:123: 等待交易确认 0xd513837e9c821680c38bccbc1daa506747ccbde49b3983f02aec828ca0e86efb
+2025/03/23 22:42:07.315826 contract.go:149: 合约 ArrayDemo 部署成功，合约地址: 0x86130B7863fDF3BEbC0F887A1204797E6328b8B7, 交易哈希: 0xd513837e9c821680c38bccbc1daa506747ccbde49b3983f02aec828ca0e86efb
+2025/03/23 22:42:07.316342 contract.go:163: 合约 ArrayDemo 部署成功，合约地址: 0x86130B7863fDF3BEbC0F887A1204797E6328b8B7, 交易哈希: 0xd513837e9c821680c38bccbc1daa506747ccbde49b3983f02aec828ca0e86efb
+2025/03/23 22:42:07.316342 contract.go:106: 开始部署合约 Ballot
+2025/03/23 22:42:07.321848 contract.go:123: 等待交易确认 0xaf59833291a9a20625e0278e83cb883d3de335882b153fff1f440fd9dab63bdb
+2025/03/23 22:42:07.323713 contract.go:149: 合约 Ballot 部署成功，合约地址: 0xe1f96F7c4f9a817e2Bf3258abD58384284871d29, 交易哈希: 0xaf59833291a9a20625e0278e83cb883d3de335882b153fff1f440fd9dab63bdb
+2025/03/23 22:42:07.325012 contract.go:163: 合约 Ballot 部署成功，合约地址: 0xe1f96F7c4f9a817e2Bf3258abD58384284871d29, 交易哈希: 0xaf59833291a9a20625e0278e83cb883d3de335882b153fff1f440fd9dab63bdb
+2025/03/23 22:42:07.325012 contract.go:106: 开始部署合约 Lottery
+2025/03/23 22:42:07.330446 contract.go:123: 等待交易确认 0x8dd1285f972a8cae5091ec917d5d7f72ed003ed3718275e605f22211bde9051a
+2025/03/23 22:42:07.331476 contract.go:149: 合约 Lottery 部署成功，合约地址: 0xE65d2B1eF910901fB21Be4419F1b53C9F360b9EF, 交易哈希: 0x8dd1285f972a8cae5091ec917d5d7f72ed003ed3718275e605f22211bde9051a
+2025/03/23 22:42:07.331994 contract.go:163: 合约 Lottery 部署成功，合约地址: 0xE65d2B1eF910901fB21Be4419F1b53C9F360b9EF, 交易哈希: 0x8dd1285f972a8cae5091ec917d5d7f72ed003ed3718275e605f22211bde9051a
+2025/03/23 22:42:07.331994 contract.go:106: 开始部署合约 Purchase
+2025/03/23 22:42:07.336757 contract.go:123: 等待交易确认 0x825e37e36166f8554e72e3d028adfface5120078ef2691f5f093954bacc40ed3
+2025/03/23 22:42:07.350841 contract.go:149: 合约 Purchase 部署成功，合约地址: 0x4D19c8Bc1cbffe18c68E8566e6BCf82eCD9Df289, 交易哈希: 0x825e37e36166f8554e72e3d028adfface5120078ef2691f5f093954bacc40ed3
+2025/03/23 22:42:07.351362 contract.go:163: 合约 Purchase 部署成功，合约地址: 0x4D19c8Bc1cbffe18c68E8566e6BCf82eCD9Df289, 交易哈希: 0x825e37e36166f8554e72e3d028adfface5120078ef2691f5f093954bacc40ed3
+2025/03/23 22:42:07.351362 contract.go:106: 开始部署合约 SimpleStorage
+2025/03/23 22:42:07.356174 contract.go:123: 等待交易确认 0xba64e144629b0d606bf434c05f090f63e9d877baa712341546e744f374ccdbe2
+2025/03/23 22:42:07.357255 contract.go:149: 合约 SimpleStorage 部署成功，合约地址: 0xf718443130738F401Cd3688c1932234e5712195F, 交易哈希: 0xba64e144629b0d606bf434c05f090f63e9d877baa712341546e744f374ccdbe2
+2025/03/23 22:42:07.359287 contract.go:163: 合约 SimpleStorage 部署成功，合约地址: 0xf718443130738F401Cd3688c1932234e5712195F, 交易哈希: 0xba64e144629b0d606bf434c05f090f63e9d877baa712341546e744f374ccdbe2
+2025/03/23 22:42:07.362065 contract.go:106: 开始部署合约 Lock
+2025/03/23 22:42:07.365952 contract.go:123: 等待交易确认 0x1cfcceaef36838ea89d8bbd49c0ce975ddfa8498d51cbade5c6cc9ca94899d73
+2025/03/23 22:42:07.367399 contract.go:149: 合约 Lock 部署成功，合约地址: 0x5786d296D4D6d7e3c7C561cCB90817Cb78221ABB, 交易哈希: 0x1cfcceaef36838ea89d8bbd49c0ce975ddfa8498d51cbade5c6cc9ca94899d73
+2025/03/23 22:42:07.367932 contract.go:163: 合约 Lock 部署成功，合约地址: 0x5786d296D4D6d7e3c7C561cCB90817Cb78221ABB, 交易哈希: 0x1cfcceaef36838ea89d8bbd49c0ce975ddfa8498d51cbade5c6cc9ca94899d73
+2025/03/23 22:42:07.367932 contract.go:106: 开始部署合约 Shipping
+2025/03/23 22:42:07.371165 contract.go:123: 等待交易确认 0xe12a56179883538005eb5697ebebcd6ced65b3a51d583c3815756d0f087c4f0f
+2025/03/23 22:42:07.371743 contract.go:149: 合约 Shipping 部署成功，合约地址: 0x050b378505EBa9aa97B51aBAD534013288c65A59, 交易哈希: 0xe12a56179883538005eb5697ebebcd6ced65b3a51d583c3815756d0f087c4f0f
+2025/03/23 22:42:07.372315 contract.go:163: 合约 Shipping 部署成功，合约地址: 0x050b378505EBa9aa97B51aBAD534013288c65A59, 交易哈希: 0xe12a56179883538005eb5697ebebcd6ced65b3a51d583c3815756d0f087c4f0f
+2025/03/23 22:42:07.372315 contract.go:172: 所有合约部署完成，共部署 8 个合约
+2025/03/23 22:42:26.494903 client.go:115: 成功使用WebSocket连接以太坊网络: ws://localhost:8545
+2025/03/23 22:50:30.938428 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 22:50:30.938428 main.go:176: 合约地址已从存储中加载
+2025/03/23 22:50:33.177459 block.go:22: 信息: 注册事件处理器 - map[event:AuctionEnded signature:0xdaec4582d5d9595688c8c98545fdd1c696d41c6aeaeb636737e84ed2f5c00eda]
+2025/03/23 22:50:33.177459 block.go:22: 信息: 注册事件处理器 - map[event:HighestBidIncreased signature:0xf4757a49b326036464bec6fe419a4ae38c8a02ce3e68bf0809674f6aab8ad300]
+2025/03/23 22:50:34.365491 block.go:22: 信息: 注册事件处理器 - map[event:Withdrawal signature:0xbf2ed60bd5b5965d685680c01195c9514e4382e28e3a5a2d2d5244bf59411b93]
+2025/03/23 22:50:34.366567 block.go:22: 信息: 注册事件处理器 - map[event:PlayerEntered signature:0xc16481c9484122696a660b57df0bf6839645c6b620cb1704ac2437de13be9225]
+2025/03/23 22:50:34.366569 block.go:22: 信息: 注册事件处理器 - map[event:WinnerPicked signature:0x64791dbae5677392ba76761a5273633cec8f1d9d8cfe808da7bac6ef16a880be]
+2025/03/23 22:50:34.366569 block.go:22: 信息: 注册事件处理器 - map[event:LotteryReset signature:0x6564d21026f38ac4bc4ef082b01864f3ae6869e139a373fdf664a27a6c6dbebb]
+2025/03/23 22:50:34.367087 block.go:22: 信息: 注册事件处理器 - map[event:Aborted signature:0x13c3922f06c44c3cac6a2c721f8ec8db793360b0180d5e560ca2028de2037eaa]
+2025/03/23 22:50:34.367592 block.go:22: 信息: 注册事件处理器 - map[event:ItemReceived signature:0x977d335cc268af836f9e8542f5c430c79e387ceb4a005d8aa05350b655fd65d3]
+2025/03/23 22:50:34.367617 block.go:22: 信息: 注册事件处理器 - map[event:PurchaseConfirmed signature:0xa29484a0d47153a96f00a1369c6885bbc89e95e35273ee97c943c440f7c4c282]
+2025/03/23 22:50:34.367617 block.go:22: 信息: 注册事件处理器 - map[event:LogNewAlert signature:0xca75c80642b93c980135b8355995abae3ab06033dc81f956b3824323b4903ef5]
+2025/03/23 22:50:34.367617 main.go:183: 初始化路由和API服务
+2025/03/23 22:50:34.368693 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 22:50:34.368693 main.go:201: 服务器模式: debug
+2025/03/23 22:50:34.368693 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 22:52:18.650050 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 22:52:18.650561 main.go:176: 合约地址已从存储中加载
+2025/03/23 22:52:18.651590 block.go:22: 信息: 注册事件处理器 - map[event:Withdrawal signature:0xbf2ed60bd5b5965d685680c01195c9514e4382e28e3a5a2d2d5244bf59411b93]
+2025/03/23 22:52:18.652102 block.go:22: 信息: 注册事件处理器 - map[event:LotteryReset signature:0x6564d21026f38ac4bc4ef082b01864f3ae6869e139a373fdf664a27a6c6dbebb]
+2025/03/23 22:52:18.652102 block.go:22: 信息: 注册事件处理器 - map[event:PlayerEntered signature:0xc16481c9484122696a660b57df0bf6839645c6b620cb1704ac2437de13be9225]
+2025/03/23 22:52:18.652102 block.go:22: 信息: 注册事件处理器 - map[event:WinnerPicked signature:0x64791dbae5677392ba76761a5273633cec8f1d9d8cfe808da7bac6ef16a880be]
+2025/03/23 22:52:18.652102 block.go:22: 信息: 注册事件处理器 - map[event:Aborted signature:0x13c3922f06c44c3cac6a2c721f8ec8db793360b0180d5e560ca2028de2037eaa]
+2025/03/23 22:52:18.652102 block.go:22: 信息: 注册事件处理器 - map[event:ItemReceived signature:0x977d335cc268af836f9e8542f5c430c79e387ceb4a005d8aa05350b655fd65d3]
+2025/03/23 22:52:18.652102 block.go:22: 信息: 注册事件处理器 - map[event:PurchaseConfirmed signature:0xa29484a0d47153a96f00a1369c6885bbc89e95e35273ee97c943c440f7c4c282]
+2025/03/23 22:52:18.652607 block.go:22: 信息: 注册事件处理器 - map[event:LogNewAlert signature:0xca75c80642b93c980135b8355995abae3ab06033dc81f956b3824323b4903ef5]
+2025/03/23 22:52:18.653015 block.go:22: 信息: 注册事件处理器 - map[event:HighestBidIncreased signature:0xf4757a49b326036464bec6fe419a4ae38c8a02ce3e68bf0809674f6aab8ad300]
+2025/03/23 22:52:18.653015 block.go:22: 信息: 注册事件处理器 - map[event:AuctionEnded signature:0xdaec4582d5d9595688c8c98545fdd1c696d41c6aeaeb636737e84ed2f5c00eda]
+2025/03/23 22:52:18.653532 main.go:183: 初始化路由和API服务
+2025/03/23 22:52:18.654114 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 22:52:18.654114 main.go:201: 服务器模式: debug
+2025/03/23 22:52:18.654114 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 22:53:35.449551 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 22:53:35.450069 main.go:176: 合约地址已从存储中加载
+2025/03/23 22:53:35.451098 block.go:22: 信息: 注册事件处理器 - map[event:AuctionEnded signature:0xdaec4582d5d9595688c8c98545fdd1c696d41c6aeaeb636737e84ed2f5c00eda]
+2025/03/23 22:53:35.451098 block.go:22: 信息: 注册事件处理器 - map[event:HighestBidIncreased signature:0xf4757a49b326036464bec6fe419a4ae38c8a02ce3e68bf0809674f6aab8ad300]
+2025/03/23 22:53:35.451611 block.go:22: 信息: 注册事件处理器 - map[event:Withdrawal signature:0xbf2ed60bd5b5965d685680c01195c9514e4382e28e3a5a2d2d5244bf59411b93]
+2025/03/23 22:53:35.452118 block.go:22: 信息: 注册事件处理器 - map[event:LotteryReset signature:0x6564d21026f38ac4bc4ef082b01864f3ae6869e139a373fdf664a27a6c6dbebb]
+2025/03/23 22:53:35.452118 block.go:22: 信息: 注册事件处理器 - map[event:PlayerEntered signature:0xc16481c9484122696a660b57df0bf6839645c6b620cb1704ac2437de13be9225]
+2025/03/23 22:53:35.452118 block.go:22: 信息: 注册事件处理器 - map[event:WinnerPicked signature:0x64791dbae5677392ba76761a5273633cec8f1d9d8cfe808da7bac6ef16a880be]
+2025/03/23 22:53:35.452628 block.go:22: 信息: 注册事件处理器 - map[event:Aborted signature:0x13c3922f06c44c3cac6a2c721f8ec8db793360b0180d5e560ca2028de2037eaa]
+2025/03/23 22:53:35.452628 block.go:22: 信息: 注册事件处理器 - map[event:ItemReceived signature:0x977d335cc268af836f9e8542f5c430c79e387ceb4a005d8aa05350b655fd65d3]
+2025/03/23 22:53:35.452628 block.go:22: 信息: 注册事件处理器 - map[event:PurchaseConfirmed signature:0xa29484a0d47153a96f00a1369c6885bbc89e95e35273ee97c943c440f7c4c282]
+2025/03/23 22:53:35.452628 block.go:22: 信息: 注册事件处理器 - map[event:LogNewAlert signature:0xca75c80642b93c980135b8355995abae3ab06033dc81f956b3824323b4903ef5]
+2025/03/23 22:53:35.452628 main.go:183: 初始化路由和API服务
+2025/03/23 22:53:35.453143 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 22:53:35.453143 main.go:201: 服务器模式: debug
+2025/03/23 22:53:35.453143 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 22:53:50.436191 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 22:53:50.436191 main.go:176: 合约地址已从存储中加载
+2025/03/23 22:53:50.437207 block.go:22: 信息: 注册事件处理器 - map[event:Withdrawal signature:0xbf2ed60bd5b5965d685680c01195c9514e4382e28e3a5a2d2d5244bf59411b93]
+2025/03/23 22:53:50.437716 block.go:22: 信息: 注册事件处理器 - map[event:LotteryReset signature:0x6564d21026f38ac4bc4ef082b01864f3ae6869e139a373fdf664a27a6c6dbebb]
+2025/03/23 22:53:50.437716 block.go:22: 信息: 注册事件处理器 - map[event:PlayerEntered signature:0xc16481c9484122696a660b57df0bf6839645c6b620cb1704ac2437de13be9225]
+2025/03/23 22:53:50.437716 block.go:22: 信息: 注册事件处理器 - map[event:WinnerPicked signature:0x64791dbae5677392ba76761a5273633cec8f1d9d8cfe808da7bac6ef16a880be]
+2025/03/23 22:53:50.437716 block.go:22: 信息: 注册事件处理器 - map[event:Aborted signature:0x13c3922f06c44c3cac6a2c721f8ec8db793360b0180d5e560ca2028de2037eaa]
+2025/03/23 22:53:50.437716 block.go:22: 信息: 注册事件处理器 - map[event:ItemReceived signature:0x977d335cc268af836f9e8542f5c430c79e387ceb4a005d8aa05350b655fd65d3]
+2025/03/23 22:53:50.437716 block.go:22: 信息: 注册事件处理器 - map[event:PurchaseConfirmed signature:0xa29484a0d47153a96f00a1369c6885bbc89e95e35273ee97c943c440f7c4c282]
+2025/03/23 22:53:50.437716 block.go:22: 信息: 注册事件处理器 - map[event:LogNewAlert signature:0xca75c80642b93c980135b8355995abae3ab06033dc81f956b3824323b4903ef5]
+2025/03/23 22:53:50.437716 block.go:22: 信息: 注册事件处理器 - map[event:HighestBidIncreased signature:0xf4757a49b326036464bec6fe419a4ae38c8a02ce3e68bf0809674f6aab8ad300]
+2025/03/23 22:53:50.437716 block.go:22: 信息: 注册事件处理器 - map[event:AuctionEnded signature:0xdaec4582d5d9595688c8c98545fdd1c696d41c6aeaeb636737e84ed2f5c00eda]
+2025/03/23 22:53:50.438224 main.go:183: 初始化路由和API服务
+2025/03/23 22:53:50.438224 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 22:53:50.438224 main.go:201: 服务器模式: debug
+2025/03/23 22:53:50.438224 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 22:55:15.347295 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 22:55:15.347295 main.go:176: 合约地址已从存储中加载
+2025/03/23 22:55:15.348324 block.go:22: 信息: 注册事件处理器 - map[event:Withdrawal signature:0xbf2ed60bd5b5965d685680c01195c9514e4382e28e3a5a2d2d5244bf59411b93]
+2025/03/23 22:55:15.348324 block.go:22: 信息: 注册事件处理器 - map[event:LotteryReset signature:0x6564d21026f38ac4bc4ef082b01864f3ae6869e139a373fdf664a27a6c6dbebb]
+2025/03/23 22:55:15.348324 block.go:22: 信息: 注册事件处理器 - map[event:PlayerEntered signature:0xc16481c9484122696a660b57df0bf6839645c6b620cb1704ac2437de13be9225]
+2025/03/23 22:55:15.348324 block.go:22: 信息: 注册事件处理器 - map[event:WinnerPicked signature:0x64791dbae5677392ba76761a5273633cec8f1d9d8cfe808da7bac6ef16a880be]
+2025/03/23 22:55:15.348834 block.go:22: 信息: 注册事件处理器 - map[event:Aborted signature:0x13c3922f06c44c3cac6a2c721f8ec8db793360b0180d5e560ca2028de2037eaa]
+2025/03/23 22:55:15.348834 block.go:22: 信息: 注册事件处理器 - map[event:ItemReceived signature:0x977d335cc268af836f9e8542f5c430c79e387ceb4a005d8aa05350b655fd65d3]
+2025/03/23 22:55:15.348834 block.go:22: 信息: 注册事件处理器 - map[event:PurchaseConfirmed signature:0xa29484a0d47153a96f00a1369c6885bbc89e95e35273ee97c943c440f7c4c282]
+2025/03/23 22:55:15.348834 block.go:22: 信息: 注册事件处理器 - map[event:LogNewAlert signature:0xca75c80642b93c980135b8355995abae3ab06033dc81f956b3824323b4903ef5]
+2025/03/23 22:55:15.348834 block.go:22: 信息: 注册事件处理器 - map[event:AuctionEnded signature:0xdaec4582d5d9595688c8c98545fdd1c696d41c6aeaeb636737e84ed2f5c00eda]
+2025/03/23 22:55:15.348834 block.go:22: 信息: 注册事件处理器 - map[event:HighestBidIncreased signature:0xf4757a49b326036464bec6fe419a4ae38c8a02ce3e68bf0809674f6aab8ad300]
+2025/03/23 22:55:15.349349 main.go:183: 初始化路由和API服务
+2025/03/23 22:55:15.349349 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 22:55:15.349854 main.go:201: 服务器模式: debug
+2025/03/23 22:55:15.349854 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 22:57:43.385369 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 22:57:43.385885 main.go:176: 合约地址已从存储中加载
+2025/03/23 22:57:43.386942 block.go:22: 信息: 注册事件处理器 - map[event:WinnerPicked signature:0x64791dbae5677392ba76761a5273633cec8f1d9d8cfe808da7bac6ef16a880be]
+2025/03/23 22:57:43.386942 block.go:22: 信息: 注册事件处理器 - map[event:LotteryReset signature:0x6564d21026f38ac4bc4ef082b01864f3ae6869e139a373fdf664a27a6c6dbebb]
+2025/03/23 22:57:43.386942 block.go:22: 信息: 注册事件处理器 - map[event:PlayerEntered signature:0xc16481c9484122696a660b57df0bf6839645c6b620cb1704ac2437de13be9225]
+2025/03/23 22:57:43.387456 block.go:22: 信息: 注册事件处理器 - map[event:Aborted signature:0x13c3922f06c44c3cac6a2c721f8ec8db793360b0180d5e560ca2028de2037eaa]
+2025/03/23 22:57:43.387456 block.go:22: 信息: 注册事件处理器 - map[event:ItemReceived signature:0x977d335cc268af836f9e8542f5c430c79e387ceb4a005d8aa05350b655fd65d3]
+2025/03/23 22:57:43.387456 block.go:22: 信息: 注册事件处理器 - map[event:PurchaseConfirmed signature:0xa29484a0d47153a96f00a1369c6885bbc89e95e35273ee97c943c440f7c4c282]
+2025/03/23 22:57:43.387456 block.go:22: 信息: 注册事件处理器 - map[event:LogNewAlert signature:0xca75c80642b93c980135b8355995abae3ab06033dc81f956b3824323b4903ef5]
+2025/03/23 22:57:43.387973 block.go:22: 信息: 注册事件处理器 - map[event:AuctionEnded signature:0xdaec4582d5d9595688c8c98545fdd1c696d41c6aeaeb636737e84ed2f5c00eda]
+2025/03/23 22:57:43.387973 block.go:22: 信息: 注册事件处理器 - map[event:HighestBidIncreased signature:0xf4757a49b326036464bec6fe419a4ae38c8a02ce3e68bf0809674f6aab8ad300]
+2025/03/23 22:57:43.389014 block.go:22: 信息: 注册事件处理器 - map[event:Withdrawal signature:0xbf2ed60bd5b5965d685680c01195c9514e4382e28e3a5a2d2d5244bf59411b93]
+2025/03/23 22:57:43.389014 main.go:183: 初始化路由和API服务
+2025/03/23 22:57:43.392103 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 22:57:43.392608 main.go:201: 服务器模式: debug
+2025/03/23 22:57:43.392630 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 22:58:49.297116 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 22:58:49.297116 main.go:176: 合约地址已从存储中加载
+2025/03/23 22:58:49.298135 block.go:22: 信息: 注册事件处理器 - map[event:Withdrawal signature:0xbf2ed60bd5b5965d685680c01195c9514e4382e28e3a5a2d2d5244bf59411b93]
+2025/03/23 22:58:49.298644 block.go:22: 信息: 注册事件处理器 - map[event:LotteryReset signature:0x6564d21026f38ac4bc4ef082b01864f3ae6869e139a373fdf664a27a6c6dbebb]
+2025/03/23 22:58:49.298644 block.go:22: 信息: 注册事件处理器 - map[event:PlayerEntered signature:0xc16481c9484122696a660b57df0bf6839645c6b620cb1704ac2437de13be9225]
+2025/03/23 22:58:49.298644 block.go:22: 信息: 注册事件处理器 - map[event:WinnerPicked signature:0x64791dbae5677392ba76761a5273633cec8f1d9d8cfe808da7bac6ef16a880be]
+2025/03/23 22:58:49.299152 block.go:22: 信息: 注册事件处理器 - map[event:Aborted signature:0x13c3922f06c44c3cac6a2c721f8ec8db793360b0180d5e560ca2028de2037eaa]
+2025/03/23 22:58:49.299152 block.go:22: 信息: 注册事件处理器 - map[event:ItemReceived signature:0x977d335cc268af836f9e8542f5c430c79e387ceb4a005d8aa05350b655fd65d3]
+2025/03/23 22:58:49.299152 block.go:22: 信息: 注册事件处理器 - map[event:PurchaseConfirmed signature:0xa29484a0d47153a96f00a1369c6885bbc89e95e35273ee97c943c440f7c4c282]
+2025/03/23 22:58:49.299152 block.go:22: 信息: 注册事件处理器 - map[event:LogNewAlert signature:0xca75c80642b93c980135b8355995abae3ab06033dc81f956b3824323b4903ef5]
+2025/03/23 22:58:49.299664 block.go:22: 信息: 注册事件处理器 - map[event:AuctionEnded signature:0xdaec4582d5d9595688c8c98545fdd1c696d41c6aeaeb636737e84ed2f5c00eda]
+2025/03/23 22:58:49.299664 block.go:22: 信息: 注册事件处理器 - map[event:HighestBidIncreased signature:0xf4757a49b326036464bec6fe419a4ae38c8a02ce3e68bf0809674f6aab8ad300]
+2025/03/23 22:58:49.300173 main.go:183: 初始化路由和API服务
+2025/03/23 22:58:49.300681 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 22:58:49.300681 main.go:201: 服务器模式: debug
+2025/03/23 22:58:49.300681 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 23:03:28.584478 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 23:03:28.584478 main.go:176: 合约地址已从存储中加载
+2025/03/23 23:03:28.585060 block.go:22: 信息: 注册事件处理器 - map[event:Aborted signature:0x13c3922f06c44c3cac6a2c721f8ec8db793360b0180d5e560ca2028de2037eaa]
+2025/03/23 23:03:28.585573 block.go:22: 信息: 注册事件处理器 - map[event:ItemReceived signature:0x977d335cc268af836f9e8542f5c430c79e387ceb4a005d8aa05350b655fd65d3]
+2025/03/23 23:03:28.585573 block.go:22: 信息: 注册事件处理器 - map[event:PurchaseConfirmed signature:0xa29484a0d47153a96f00a1369c6885bbc89e95e35273ee97c943c440f7c4c282]
+2025/03/23 23:03:28.585573 block.go:22: 信息: 注册事件处理器 - map[event:LogNewAlert signature:0xca75c80642b93c980135b8355995abae3ab06033dc81f956b3824323b4903ef5]
+2025/03/23 23:03:28.585573 block.go:22: 信息: 注册事件处理器 - map[event:AuctionEnded signature:0xdaec4582d5d9595688c8c98545fdd1c696d41c6aeaeb636737e84ed2f5c00eda]
+2025/03/23 23:03:28.585573 block.go:22: 信息: 注册事件处理器 - map[event:HighestBidIncreased signature:0xf4757a49b326036464bec6fe419a4ae38c8a02ce3e68bf0809674f6aab8ad300]
+2025/03/23 23:03:28.586087 block.go:22: 信息: 注册事件处理器 - map[event:Withdrawal signature:0xbf2ed60bd5b5965d685680c01195c9514e4382e28e3a5a2d2d5244bf59411b93]
+2025/03/23 23:03:28.586087 block.go:22: 信息: 注册事件处理器 - map[event:WinnerPicked signature:0x64791dbae5677392ba76761a5273633cec8f1d9d8cfe808da7bac6ef16a880be]
+2025/03/23 23:03:28.586087 block.go:22: 信息: 注册事件处理器 - map[event:LotteryReset signature:0x6564d21026f38ac4bc4ef082b01864f3ae6869e139a373fdf664a27a6c6dbebb]
+2025/03/23 23:03:28.586087 block.go:22: 信息: 注册事件处理器 - map[event:PlayerEntered signature:0xc16481c9484122696a660b57df0bf6839645c6b620cb1704ac2437de13be9225]
+2025/03/23 23:03:28.586087 main.go:183: 初始化路由和API服务
+2025/03/23 23:03:28.588140 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 23:03:28.588140 main.go:201: 服务器模式: debug
+2025/03/23 23:03:28.588645 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html
+2025/03/23 23:05:15.621880 main.go:168: 日志已成功重定向到文件和控制台: web3.log
+2025/03/23 23:05:15.622392 main.go:176: 合约地址已从存储中加载
+2025/03/23 23:05:15.622901 block.go:22: 信息: 注册事件处理器 - map[event:AuctionEnded signature:0xdaec4582d5d9595688c8c98545fdd1c696d41c6aeaeb636737e84ed2f5c00eda]
+2025/03/23 23:05:15.622901 block.go:22: 信息: 注册事件处理器 - map[event:HighestBidIncreased signature:0xf4757a49b326036464bec6fe419a4ae38c8a02ce3e68bf0809674f6aab8ad300]
+2025/03/23 23:05:15.623408 block.go:22: 信息: 注册事件处理器 - map[event:Withdrawal signature:0xbf2ed60bd5b5965d685680c01195c9514e4382e28e3a5a2d2d5244bf59411b93]
+2025/03/23 23:05:15.623919 block.go:22: 信息: 注册事件处理器 - map[event:LotteryReset signature:0x6564d21026f38ac4bc4ef082b01864f3ae6869e139a373fdf664a27a6c6dbebb]
+2025/03/23 23:05:15.623919 block.go:22: 信息: 注册事件处理器 - map[event:PlayerEntered signature:0xc16481c9484122696a660b57df0bf6839645c6b620cb1704ac2437de13be9225]
+2025/03/23 23:05:15.623919 block.go:22: 信息: 注册事件处理器 - map[event:WinnerPicked signature:0x64791dbae5677392ba76761a5273633cec8f1d9d8cfe808da7bac6ef16a880be]
+2025/03/23 23:05:15.623919 block.go:22: 信息: 注册事件处理器 - map[event:Aborted signature:0x13c3922f06c44c3cac6a2c721f8ec8db793360b0180d5e560ca2028de2037eaa]
+2025/03/23 23:05:15.623919 block.go:22: 信息: 注册事件处理器 - map[event:ItemReceived signature:0x977d335cc268af836f9e8542f5c430c79e387ceb4a005d8aa05350b655fd65d3]
+2025/03/23 23:05:15.623919 block.go:22: 信息: 注册事件处理器 - map[event:PurchaseConfirmed signature:0xa29484a0d47153a96f00a1369c6885bbc89e95e35273ee97c943c440f7c4c282]
+2025/03/23 23:05:15.623919 block.go:22: 信息: 注册事件处理器 - map[event:LogNewAlert signature:0xca75c80642b93c980135b8355995abae3ab06033dc81f956b3824323b4903ef5]
+2025/03/23 23:05:15.623919 main.go:183: 初始化路由和API服务
+2025/03/23 23:05:15.624427 main.go:200: 启动 HTTP 服务器在 :8080
+2025/03/23 23:05:15.624427 main.go:201: 服务器模式: debug
+2025/03/23 23:05:15.624427 main.go:202: Swagger 文档地址: http://localhost:8080/swagger/index.html

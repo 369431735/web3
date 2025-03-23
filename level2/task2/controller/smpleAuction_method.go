@@ -33,7 +33,7 @@ type SimpleAuctionBidResponse struct {
 // @Success      200  {object}  SimpleAuctionBidResponse
 // @Failure      400  {object}  ErrorResponse
 // @Failure      500  {object}  ErrorResponse
-// @Router       /contract/simpleauction/bid [post]
+// @Router       /contracts/SimpleAuction/bid [post]
 func SimpleAuctionBid(c *gin.Context) {
 	var req SimpleAuctionBidRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -115,7 +115,7 @@ func SimpleAuctionBid(c *gin.Context) {
 // @Success      200  {object}  ContractResponse
 // @Failure      400  {object}  ErrorResponse
 // @Failure      500  {object}  ErrorResponse
-// @Router       /contract/simpleauction/withdraw [post]
+// @Router       /contracts/SimpleAuction/withdraw [post]
 func SimpleAuctionWithdraw(c *gin.Context) {
 	// 初始化以太坊客户端
 	client, err := utils.GetEthClientHTTP()

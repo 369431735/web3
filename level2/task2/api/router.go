@@ -100,7 +100,7 @@ func SetupRouter() *gin.Engine {
 		}
 
 		// ArrayDemo合约方法
-		arrayDemo := contracts.Group("/ArrayDemo")
+		arrayDemo := contracts.Group("/arraydemo")
 		{
 			arrayDemo.POST("/add-value", controller.ArrayDemoAddValue)
 			arrayDemo.GET("/get-values", controller.ArrayDemoGetValues)

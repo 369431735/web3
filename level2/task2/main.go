@@ -174,8 +174,8 @@ func main() {
 	// 初始化合约地址
 	contractStorage := storage.GetInstance()
 	log.Println("合约地址已从存储中加载")
-	for key, value := range contractStorage.GetAllAddresses() {
-		events.InitializeEventHandlersByAdress(key, value)
+	for key, _ := range contractStorage.GetAllAddresses() {
+		events.InitializeEventHandlersByAdress(key)
 	}
 	// 初始化事件处理器
 

@@ -47,7 +47,7 @@ type ArrayDemoGetValuesResponse struct {
 // @Success      200  {object}  ArrayDemoAddValueResponse
 // @Failure      400  {object}  ErrorResponse
 // @Failure      500  {object}  ErrorResponse
-// @Router       /contract/arraydemo/add-value [post]
+// @Router       /contracts/arraydemo/add-value [post]
 func ArrayDemoAddValue(c *gin.Context) {
 	var req ArrayDemoAddValueRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -135,7 +135,7 @@ func ArrayDemoAddValue(c *gin.Context) {
 // @Success      200  {object}  ArrayDemoGetValuesResponse
 // @Failure      400  {object}  ErrorResponse
 // @Failure      500  {object}  ErrorResponse
-// @Router       /contract/arraydemo/get-values [get]
+// @Router       /contracts/arraydemo/get-values [get]
 func ArrayDemoGetValues(c *gin.Context) {
 	// 获取合约地址
 	contractAddress, err := getContractAddress("ArrayDemo")
