@@ -8,6 +8,7 @@ require (
 	github.com/ethereum/go-ethereum v1.13.11
 	github.com/gin-contrib/cors v1.7.4
 	github.com/gin-gonic/gin v1.10.0
+	github.com/goccy/go-json v0.10.5
 	github.com/gorilla/websocket v1.4.2
 	github.com/miguelmota/go-ethereum-hdwallet v0.1.2
 	github.com/swaggo/files v1.0.1
@@ -47,7 +48,6 @@ require (
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.25.0 // indirect
-	github.com/goccy/go-json v0.10.5 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/holiman/uint256 v1.2.4 // indirect
 	github.com/josharian/intern v1.0.0 // indirect

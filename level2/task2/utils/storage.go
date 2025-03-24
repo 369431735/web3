@@ -79,8 +79,6 @@ func (s *ContractStorage) StoreContract(name string, address common.Address) err
 
 // GetContract 获取合约地址
 func (s *ContractStorage) GetContract(name string) (common.Address, bool) {
-	s.mu.RLock()
-	defer s.mu.RUnlock()
 
 	addressHex, exists := s.Contracts[name]
 	if !exists {
