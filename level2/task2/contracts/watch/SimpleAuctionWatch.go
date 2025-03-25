@@ -18,11 +18,11 @@ import (
 )
 
 const (
-	eventChanBuffer    = 2000 // 增大事件通道缓冲区
+	eventChanBuffer    = 2000
 	baseRetryDelay     = 2 * time.Second
 	maxRetryDelay      = 30 * time.Second
 	reconnectThreshold = 3
-	eventSendTimeout   = 500 * time.Millisecond // 新增事件发送超时
+	eventSendTimeout   = 500 * time.Millisecond
 )
 
 type AuctionWatcher struct {
@@ -30,13 +30,17 @@ type AuctionWatcher struct {
 	contract     *bindings.SimpleAuction
 	currentBlock *big.Int
 	sub          ethereum.Subscription
+	subActive    bool
 	mu           sync.RWMutex
 	ctx          context.Context
 	cancelCtx    context.CancelFunc
 	eventChan    chan *bindings.SimpleAuctionHighestBidIncreased
 }
 
+// NewAuctionWatcher 创建监听器（带入口日志）
 func NewAuctionWatcher(contractAddr string) (*AuctionWatcher, error) {
+	log.Printf("[METHOD] NewAuctionWatcher 入口，合约地址: %s", contractAddr)
+
 	client, err := utils.GetEthClientWS()
 	if err != nil {
 		return nil, fmt.Errorf("连接节点失败: %w", err)
@@ -63,21 +67,29 @@ func NewAuctionWatcher(contractAddr string) (*AuctionWatcher, error) {
 	}, nil
 }
 
-// 新增关闭方法确保资源释放
+// Close 释放资源（带入口日志）
 func (w *AuctionWatcher) Close() {
+	log.Printf("[METHOD] Close 入口")
+
 	w.cancelCtx()
 	w.closeSubscription()
 }
 
+// WatchHighestBidIncreased 启动监听（带入口日志）
 func (w *AuctionWatcher) WatchHighestBidIncreased() error {
+	log.Printf("[METHOD] WatchHighestBidIncreased 入口")
+
 	go w.watchEvents()
 	return nil
 }
 
+// watchEvents 核心循环（带入口日志）
 func (w *AuctionWatcher) watchEvents() {
+	log.Printf("[METHOD] watchEvents 入口")
+
 	defer func() {
 		w.closeSubscription()
-		close(w.eventChan) // 唯一关闭通道的位置
+		close(w.eventChan)
 	}()
 
 	retryCount := 0
@@ -85,9 +97,9 @@ func (w *AuctionWatcher) watchEvents() {
 	for {
 		select {
 		case <-w.ctx.Done():
+			log.Printf("[METHOD] watchEvents 退出")
 			return
 		default:
-			// 加锁检查订阅状态
 			if w.isSubscriptionActive() {
 				time.Sleep(100 * time.Millisecond)
 				continue
@@ -103,14 +115,19 @@ func (w *AuctionWatcher) watchEvents() {
 	}
 }
 
-// 封装订阅状态检查（加锁）
+// isSubscriptionActive 检查订阅状态（带入口日志）
 func (w *AuctionWatcher) isSubscriptionActive() bool {
+	log.Printf("[METHOD] isSubscriptionActive 入口")
+
 	w.mu.RLock()
 	defer w.mu.RUnlock()
-	return w.sub != nil && w.sub.Err() == nil
+	return w.sub != nil && w.subActive
 }
 
+// createAndHandleSubscription 创建订阅（带入口日志）
 func (w *AuctionWatcher) createAndHandleSubscription(retryCount *int) error {
+	log.Printf("[METHOD] createAndHandleSubscription 入口，重试次数: %d", *retryCount)
+
 	w.mu.Lock()
 	defer w.mu.Unlock()
 
@@ -134,16 +151,37 @@ func (w *AuctionWatcher) createAndHandleSubscription(retryCount *int) error {
 	}
 
 	w.sub = sub
+	w.subActive = true
 	*retryCount = 0
 
+	go w.monitorSubscription(sub)
 	go w.processEvents(sink)
 	return nil
 }
 
+// monitorSubscription 监控订阅（带入口日志）
+func (w *AuctionWatcher) monitorSubscription(sub ethereum.Subscription) {
+	log.Printf("[METHOD] monitorSubscription 入口")
+
+	err := <-sub.Err()
+
+	w.mu.Lock()
+	w.subActive = false
+	w.mu.Unlock()
+
+	if err != nil {
+		log.Printf("[WARN] 订阅异常: %v", err)
+	}
+}
+
+// processEvents 处理事件流（带入口日志）
 func (w *AuctionWatcher) processEvents(sink <-chan *bindings.SimpleAuctionHighestBidIncreased) {
+	log.Printf("[METHOD] processEvents 入口")
+
 	for {
 		select {
 		case <-w.ctx.Done():
+			log.Printf("[METHOD] processEvents 退出")
 			return
 		case event, ok := <-sink:
 			if !ok {
@@ -155,26 +193,30 @@ func (w *AuctionWatcher) processEvents(sink <-chan *bindings.SimpleAuctionHighes
 	}
 }
 
-// 改进事件处理（增加超时机制）
+// handleEvent 处理单个事件（带入口日志）
 func (w *AuctionWatcher) handleEvent(event *bindings.SimpleAuctionHighestBidIncreased) {
+	log.Printf("[METHOD] handleEvent 入口，区块: %d", event.Raw.BlockNumber)
+
 	w.updateBlockNumber(event.Raw.BlockNumber)
+
+	log.Printf("[EVENT] 收到事件: 区块=%d 出价人=%s 金额=%s wei",
+		event.Raw.BlockNumber,
+		event.Bidder.Hex(),
+		event.Amount.String(),
+	)
 
 	select {
 	case w.eventChan <- event:
-		for event1 := range w.eventChan {
-			log.Printf("[EVENT] 收到事件: 区块=%d 出价人=%s 金额=%s",
-				event1.Raw.BlockNumber,
-				event1.Bidder.Hex(),
-				event1.Amount.String(),
-			)
-		}
 	case <-time.After(eventSendTimeout):
-		log.Printf("[WARN] 发送事件超时，丢弃区块 %d 的事件", event.Raw.BlockNumber)
+		log.Printf("[WARN] 事件通道已满，丢弃区块 %d 的事件", event.Raw.BlockNumber)
 	case <-w.ctx.Done():
 	}
 }
 
+// updateBlockNumber 更新区块号（带入口日志）
 func (w *AuctionWatcher) updateBlockNumber(newBlock uint64) {
+	log.Printf("[METHOD] updateBlockNumber 入口，新区块: %d", newBlock)
+
 	w.mu.Lock()
 	defer w.mu.Unlock()
 	if newBlock > w.currentBlock.Uint64() {
@@ -182,14 +224,16 @@ func (w *AuctionWatcher) updateBlockNumber(newBlock uint64) {
 	}
 }
 
+// getStartBlock 获取起始区块（带入口日志）
 func (w *AuctionWatcher) getStartBlock() *big.Int {
-	w.mu.RLock()
-	defer w.mu.RUnlock()
+	log.Printf("[METHOD] getStartBlock 入口")
 	return w.currentBlock
 }
 
-// 改进重试逻辑（统一退避处理）
+// handleRetry 处理重试（带入口日志）
 func (w *AuctionWatcher) handleRetry(retryCount *int) {
+	log.Printf("[METHOD] handleRetry 入口，当前重试次数: %d", *retryCount)
+
 	if *retryCount >= reconnectThreshold {
 		delay := w.calculateBackoff(*retryCount)
 		log.Printf("[WARN] 达到重试阈值，等待 %v 后重试", delay)
@@ -197,20 +241,23 @@ func (w *AuctionWatcher) handleRetry(retryCount *int) {
 	} else {
 		time.Sleep(baseRetryDelay)
 	}
-	*retryCount++
+	*retryCount += 1
 }
 
+// closeSubscription 关闭订阅（带入口日志）
 func (w *AuctionWatcher) closeSubscription() {
-	w.mu.Lock()
-	defer w.mu.Unlock()
-
+	log.Printf("[METHOD] closeSubscription 入口")
 	if w.sub != nil {
 		w.sub.Unsubscribe()
 		w.sub = nil
+		w.subActive = false
 	}
 }
 
+// calculateBackoff 计算退避时间（带入口日志）
 func (w *AuctionWatcher) calculateBackoff(attempt int) time.Duration {
+	log.Printf("[METHOD] calculateBackoff 入口，尝试次数: %d", attempt)
+
 	delay := baseRetryDelay * time.Duration(1<<uint(attempt))
 	if delay > maxRetryDelay {
 		return maxRetryDelay
@@ -218,7 +265,10 @@ func (w *AuctionWatcher) calculateBackoff(attempt int) time.Duration {
 	return delay
 }
 
+// safeUint64FromBig 转换大整数（带入口日志）
 func safeUint64FromBig(i *big.Int) (uint64, error) {
+	log.Printf("[METHOD] safeUint64FromBig 入口，输入值: %s", i.String())
+
 	if i == nil {
 		return 0, errors.New("nil 指针异常")
 	}
