@@ -1,18 +1,29 @@
 package controller
 
 import (
+	"context"
+	"github.com/gin-gonic/gin"
+	"log"
 	"math/big"
 	"net/http"
+	"sync"
 	bindings2 "task2/contracts/bindings"
+	"task2/contracts/watch"
+	"task2/storage"
 	"task2/utils"
-
-	"github.com/gin-gonic/gin"
 )
 
 // SimpleAuctionBidRequest 竞拍请求
 type SimpleAuctionBidRequest struct {
 	BidAmount string `json:"bid_amount" binding:"required"`
 }
+
+var (
+	auctionWatcher *watch.AuctionWatcher
+	watcherOnce    sync.Once
+	ctx            context.Context
+	cancelCtx      context.CancelFunc
+)
 
 // SimpleAuctionBidResponse 竞拍响应结果
 type SimpleAuctionBidResponse struct {
@@ -26,7 +37,7 @@ type SimpleAuctionBidResponse struct {
 // SimpleAuctionBid godoc
 // @Summary      调用SimpleAuction合约进行竞拍
 // @Description  向拍卖合约发起竞拍请求
-// @Tags         合约操作
+// @Tags         SimpleAuction合约操作
 // @Accept       application/json
 // @Produce      application/json
 // @Param        request body SimpleAuctionBidRequest true "竞拍金额信息"
@@ -109,7 +120,7 @@ func SimpleAuctionBid(c *gin.Context) {
 // SimpleAuctionWithdraw godoc
 // @Summary      调用SimpleAuction合约结束拍卖并提取资金
 // @Description  结束竞拍并允许中标者支付款项，非中标者提取资金
-// @Tags         合约操作
+// @Tags         SimpleAuction合约操作
 // @Accept       application/json
 // @Produce      application/json
 // @Success      200  {object}  ContractResponse
@@ -171,5 +182,61 @@ func SimpleAuctionWithdraw(c *gin.Context) {
 		ContractType: "SimpleAuction",
 		Address:      contractAddress.Hex(),
 		TxHash:       tx.Hash().Hex(),
+	})
+}
+
+// SimpleAuctionWithdraw godoc
+// @Summary      监听HighestBidIncreased
+// @Description  监听HighestBidIncreased
+// @Tags         SimpleAuction合约操作
+// @Accept       application/json
+// @Produce      application/json
+// @Failure      400  {object}  ErrorResponse
+// @Failure      500  {object}  ErrorResponse
+// @Router       /contracts/SimpleAuction/watchHighestBidIncreased [post]
+func WatchHighestBidIncreased(c *gin.Context) {
+	var err error
+
+	// 使用 sync.Once 确保只初始化一次 AuctionWatcher
+	watcherOnce.Do(func() {
+		contractAddr, _ := storage.GetInstance().GetAddress("SimpleAuction")
+		auctionWatcher, err = watch.NewAuctionWatcher(contractAddr)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"code":    http.StatusInternalServerError,
+				"message": "创建监控实例失败: " + err.Error(),
+			})
+			return
+		}
+
+		// 启动后台监听
+		go func() {
+			if err := auctionWatcher.WatchHighestBidIncreased(); err != nil {
+				log.Fatalf("监听失败: %v", err)
+			}
+		}()
+	})
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"code":    http.StatusInternalServerError,
+			"message": "启动监听失败: " + err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"code":         http.StatusOK,
+		"message":      "监听已启动",
+		"contractType": "SimpleAuction",
+	})
+}
+
+// Shutdown 优雅关闭监听器和上下文
+func Shutdown(c *gin.Context) {
+	cancelCtx()
+	c.JSON(http.StatusOK, gin.H{
+		"code":    http.StatusOK,
+		"message": "监听器已关闭",
 	})
 }

@@ -97,6 +97,7 @@ func SetupRouter() *gin.Engine {
 		{
 			simpleAuction.POST("/bid", controller.SimpleAuctionBid)
 			simpleAuction.POST("/withdraw", controller.SimpleAuctionWithdraw)
+			simpleAuction.POST("/watchHighestBidIncreased", controller.WatchHighestBidIncreased)
 		}
 
 		// ArrayDemo合约方法

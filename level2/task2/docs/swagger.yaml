@@ -972,7 +972,26 @@ paths:
             $ref: '#/definitions/controller.ErrorResponse'
       summary: 调用SimpleAuction合约进行竞拍
       tags:
-      - 合约操作
+      - SimpleAuction合约操作
+  /contracts/SimpleAuction/watchHighestBidIncreased:
+    post:
+      consumes:
+      - application/json
+      description: 监听HighestBidIncreased
+      produces:
+      - application/json
+      responses:
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 监听HighestBidIncreased
+      tags:
+      - SimpleAuction合约操作
   /contracts/SimpleAuction/withdraw:
     post:
       consumes:
@@ -995,7 +1014,7 @@ paths:
             $ref: '#/definitions/controller.ErrorResponse'
       summary: 调用SimpleAuction合约结束拍卖并提取资金
       tags:
-      - 合约操作
+      - SimpleAuction合约操作
   /contracts/SimpleStorage/get:
     get:
       consumes:
@@ -1095,7 +1114,7 @@ paths:
             $ref: '#/definitions/controller.ErrorResponse'
       summary: 向ArrayDemo合约添加值
       tags:
-      - 合约操作
+      - ArrayDemo合约操作
   /contracts/arraydemo/get-values:
     get:
       consumes:
@@ -1118,7 +1137,7 @@ paths:
             $ref: '#/definitions/controller.ErrorResponse'
       summary: 获取ArrayDemo合约的值
       tags:
-      - 合约操作
+      - ArrayDemo合约操作
   /contracts/bytecode:
     post:
       consumes:

@@ -1091,7 +1091,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "合约操作"
+                    "SimpleAuction合约操作"
                 ],
                 "summary": "调用SimpleAuction合约进行竞拍",
                 "parameters": [
@@ -1127,6 +1127,35 @@ const docTemplate = `{
                 }
             }
         },
+        "/contracts/SimpleAuction/watchHighestBidIncreased": {
+            "post": {
+                "description": "监听HighestBidIncreased",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SimpleAuction合约操作"
+                ],
+                "summary": "监听HighestBidIncreased",
+                "responses": {
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/contracts/SimpleAuction/withdraw": {
             "post": {
                 "description": "结束竞拍并允许中标者支付款项，非中标者提取资金",
@@ -1137,7 +1166,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "合约操作"
+                    "SimpleAuction合约操作"
                 ],
                 "summary": "调用SimpleAuction合约结束拍卖并提取资金",
                 "responses": {
@@ -1279,7 +1308,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "合约操作"
+                    "ArrayDemo合约操作"
                 ],
                 "summary": "向ArrayDemo合约添加值",
                 "parameters": [
@@ -1325,7 +1354,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "合约操作"
+                    "ArrayDemo合约操作"
                 ],
                 "summary": "获取ArrayDemo合约的值",
                 "responses": {

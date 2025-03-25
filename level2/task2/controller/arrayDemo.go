@@ -40,7 +40,7 @@ type ArrayDemoGetValuesResponse struct {
 // ArrayDemoAddValue godoc
 // @Summary      向ArrayDemo合约添加值
 // @Description  向数组合约添加新的整数值
-// @Tags         合约操作
+// @Tags         ArrayDemo合约操作
 // @Accept       application/json
 // @Produce      application/json
 // @Param        request body ArrayDemoAddValueRequest true "添加值请求"
@@ -129,7 +129,7 @@ func ArrayDemoAddValue(c *gin.Context) {
 // ArrayDemoGetValues godoc
 // @Summary      获取ArrayDemo合约的值
 // @Description  获取ArrayDemo合约的所有值
-// @Tags         合约操作
+// @Tags         ArrayDemo合约操作
 // @Accept       application/json
 // @Produce      application/json
 // @Success      200  {object}  ArrayDemoGetValuesResponse
