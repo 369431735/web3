@@ -1,4 +1,5 @@
-// SPDX-License-Identifier: MIT
+// 输入验证
+require(i >= -2**255 && i <= 2**255 - 1, "Input out of range");// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.28;
 
 contract arrayDemo {
@@ -7,6 +8,8 @@ contract arrayDemo {
 
     // 添加元素到数组
     function put(int i) public {
+        // 输入验证
+        require(i >= -2**255 && i <= 2**255 - 1, "Input out of range");
         array.push(i);
     }
 
