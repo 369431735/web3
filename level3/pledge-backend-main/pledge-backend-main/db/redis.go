@@ -4,23 +4,25 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/gomodule/redigo/redis"
 	"pledge-backend/config"
 	"pledge-backend/log"
 	"time"
+
+	"github.com/gomodule/redigo/redis"
 )
 
-// InitRedis 初始化Redis
+// InitRedis 初始化Redis连接池
+// 根据配置创建Redis连接池，设置连接参数和认证信息
 func InitRedis() *redis.Pool {
 	log.Logger.Info("Init Redis")
 	redisConf := config.Config.Redis
 	// 建立连接池
 	RedisConn = &redis.Pool{
-		MaxIdle:     10,   // 最大的空闲连接数，表示即使没有redis连接时依然可以保持N个空闲的连接，而不被清除，随时处于待命状态。
-		MaxActive:   0,    // 最大的激活连接数，表示同时最多有N个连接   0 表示无穷大
-		Wait:        true, // 如果连接数不足则阻塞等待
-		IdleTimeout: 180 * time.Second,
-		Dial: func() (redis.Conn, error) {
+		MaxIdle:     10,                // 最大的空闲连接数，表示即使没有redis连接时依然可以保持N个空闲的连接，而不被清除，随时处于待命状态。
+		MaxActive:   0,                 // 最大的激活连接数，表示同时最多有N个连接   0 表示无穷大
+		Wait:        true,              // 如果连接数不足则阻塞等待
+		IdleTimeout: 180 * time.Second, // 空闲连接超时时间
+		Dial: func() (redis.Conn, error) { // 创建连接的函数
 			c, err := redis.Dial("tcp", fmt.Sprintf("%s:%s", redisConf.Address, redisConf.Port))
 			if err != nil {
 				return nil, err
@@ -45,7 +47,10 @@ func InitRedis() *redis.Pool {
 	return RedisConn
 }
 
-// RedisSet 设置key、value、time
+// RedisSet 设置键值对，支持过期时间
+// key: 键名
+// data: 值（会被JSON序列化）
+// aliveSeconds: 过期时间（秒），0表示永不过期
 func RedisSet(key string, data interface{}, aliveSeconds int) error {
 	conn := RedisConn.Get()
 	defer func() {
@@ -66,7 +71,10 @@ func RedisSet(key string, data interface{}, aliveSeconds int) error {
 	return nil
 }
 
-// RedisSetString  设置key、value、time
+// RedisSetString 设置字符串键值对，支持过期时间
+// key: 键名
+// data: 字符串值
+// aliveSeconds: 过期时间（秒），0表示永不过期
 func RedisSetString(key string, data string, aliveSeconds int) error {
 	conn := RedisConn.Get()
 	defer func() {
@@ -84,7 +92,9 @@ func RedisSetString(key string, data string, aliveSeconds int) error {
 	return nil
 }
 
-// RedisGet 获取Key
+// RedisGet 获取键对应的值（字节数组形式）
+// key: 键名
+// 返回: 字节数组值和错误信息
 func RedisGet(key string) ([]byte, error) {
 	conn := RedisConn.Get()
 	defer func() {
@@ -97,7 +107,9 @@ func RedisGet(key string) ([]byte, error) {
 	return reply, nil
 }
 
-// RedisGetString 获取Key
+// RedisGetString 获取键对应的字符串值
+// key: 键名
+// 返回: 字符串值和错误信息
 func RedisGetString(key string) (string, error) {
 	conn := RedisConn.Get()
 	defer func() {
@@ -110,7 +122,10 @@ func RedisGetString(key string) (string, error) {
 	return reply, nil
 }
 
-// RedisSetInt64  set int64 value by key
+// RedisSetInt64 设置整数键值对
+// key: 键名
+// data: int64整数值
+// time: 过期时间（秒），0表示永不过期
 func RedisSetInt64(key string, data int64, time int) error {
 	conn := RedisConn.Get()
 	defer func() {
@@ -133,7 +148,9 @@ func RedisSetInt64(key string, data int64, time int) error {
 	return nil
 }
 
-// RedisGetInt64 get int64 value by key
+// RedisGetInt64 获取键对应的整数值
+// key: 键名
+// 返回: int64整数值和错误信息，如果出错则返回-1
 func RedisGetInt64(key string) (int64, error) {
 	conn := RedisConn.Get()
 	defer func() {
@@ -146,7 +163,9 @@ func RedisGetInt64(key string) (int64, error) {
 	return reply, nil
 }
 
-// RedisDelete 删除Key
+// RedisDelete 删除指定的键
+// key: 要删除的键名
+// 返回: 是否成功和错误信息
 func RedisDelete(key string) (bool, error) {
 	conn := RedisConn.Get()
 	defer func() {
@@ -155,7 +174,8 @@ func RedisDelete(key string) (bool, error) {
 	return redis.Bool(conn.Do("del", key))
 }
 
-// RedisFlushDB 清空当前DB
+// RedisFlushDB 清空当前选择的Redis数据库
+// 返回: 错误信息
 func RedisFlushDB() error {
 	conn := RedisConn.Get()
 	defer func() {
@@ -168,7 +188,10 @@ func RedisFlushDB() error {
 	return nil
 }
 
-// RedisGetHashOne 获取Heah其中一个值
+// RedisGetHashOne 获取Hash表中指定字段的值
+// key: Hash表的键名
+// name: Hash表中的字段名
+// 返回: 字段值和错误信息
 func RedisGetHashOne(key, name string) (interface{}, error) {
 	conn := RedisConn.Get()
 	defer func() {
@@ -181,7 +204,10 @@ func RedisGetHashOne(key, name string) (interface{}, error) {
 	return reply, nil
 }
 
-// RedisSetHash 设置Hash
+// RedisSetHash 设置Hash表的多个字段值
+// key: Hash表的键名
+// data: 字段名和值的映射
+// time: 过期时间（秒），0表示永不过期
 func RedisSetHash(key string, data map[string]string, time interface{}) error {
 	conn := RedisConn.Get()
 	defer func() {

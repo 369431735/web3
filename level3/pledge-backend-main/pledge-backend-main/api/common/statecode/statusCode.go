@@ -1,29 +1,34 @@
 package statecode
 
+// 定义系统中使用的状态码常量
+// 状态码用于标识API请求的处理结果，分为不同的业务类别
 const (
-	// LangZh language
-	LangZh   = 111
-	LangEn   = 112
-	LangZhTw = 113
+	// 语言类型常量
+	LangZh   = 111 // 简体中文
+	LangEn   = 112 // 英文
+	LangZhTw = 113 // 繁体中文
 
-	// CommonSuccess common
-	CommonSuccess      = 0
-	CommonErrServerErr = 1000
-	ParameterEmptyErr  = 1001
+	// 通用状态码
+	CommonSuccess      = 0    // 操作成功
+	CommonErrServerErr = 1000 // 服务器错误
+	ParameterEmptyErr  = 1001 // 参数为空错误
 
-	TokenErr = 1102 //token error
+	// 认证相关状态码
+	TokenErr = 1102 // 令牌错误
 
-	// PNameEmpty muti-sign
-	PNameEmpty   = 1201 //p_name empty
-	ChainIdEmpty = 1202 //chain id empty
-	ChainIdErr   = 1203 //chain id error
+	// 多重签名相关状态码
+	PNameEmpty   = 1201 // 签名名称为空
+	ChainIdEmpty = 1202 // 链ID为空
+	ChainIdErr   = 1203 // 链ID错误
 
-	NameOrPasswordErr = 1303 //name or password error
-
+	// 用户相关状态码
+	NameOrPasswordErr = 1303 // 用户名或密码错误
 )
 
+// Msg 状态码消息映射
+// 为每个状态码定义不同语言的错误消息
+// 第一层键为状态码，第二层键为语言类型，值为对应的消息文本
 var Msg = map[int]map[int]string{
-
 	0: {
 		LangZh:   "成功",
 		LangZhTw: "成功",
@@ -81,6 +86,11 @@ var Msg = map[int]map[int]string{
 	},
 }
 
+// GetMsg 获取状态码对应的消息
+// 根据状态码和语言类型，返回对应的错误消息
+// c: 状态码
+// lang: 语言类型
+// 返回: 对应语言的错误消息，如果未找到则返回服务器错误的默认消息
 func GetMsg(c int, lang int) string {
 	_, ok := Msg[c]
 	if ok {

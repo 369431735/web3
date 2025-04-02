@@ -6,18 +6,19 @@ import (
 	"pledge-backend/schedule/tasks"
 )
 
+// main 定时任务服务的主入口函数，初始化数据库连接并启动任务调度
 func main() {
 
-	// init mysql
+	// 初始化MySQL数据库连接
 	db.InitMysql()
 
-	// init redis
+	// 初始化Redis连接
 	db.InitRedis()
 
-	// create table
+	// 创建并初始化数据表结构
 	models.InitTable()
 
-	// pool task
+	// 启动质押池相关的定时任务
 	tasks.Task()
 
 }

@@ -23,6 +23,7 @@ import (
 )
 
 // GetMd5String 生成32位md5字串
+// 对输入字符串进行MD5哈希计算，并返回32位的十六进制字符串
 func GetMd5String(s string) string {
 	h := md5.New()
 	h.Write([]byte(s))
@@ -30,6 +31,7 @@ func GetMd5String(s string) string {
 }
 
 // UniqueId 生成Guid字串
+// 创建一个全局唯一的ID字符串，包含随机数、时间戳和MD5哈希
 func UniqueId() string {
 	b := make([]byte, 48)
 	if _, err := io.ReadFull(rand.Reader, b); err != nil {
@@ -39,6 +41,8 @@ func UniqueId() string {
 	return encryptedString[0:16] + Int64ToString(time.Now().Unix()) + encryptedString[26:]
 }
 
+// JsonToMap 将JSON字符串转换为Map
+// 解析JSON字符串并返回对应的映射表结构
 func JsonToMap(str string) map[string]interface{} {
 	var tempMap map[string]interface{}
 	err := json.Unmarshal([]byte(str), &tempMap)
@@ -49,6 +53,7 @@ func JsonToMap(str string) map[string]interface{} {
 }
 
 // GenerateCode 生成验证码
+// 生成指定位数的随机数字验证码
 func GenerateCode(figures int) (randNum string) {
 	startNum := math.Pow(10, float64(figures))
 	number := mrand.New(mrand.NewSource(time.Now().UnixNano())).Int31n(int32(startNum))
@@ -56,6 +61,7 @@ func GenerateCode(figures int) (randNum string) {
 }
 
 // IsPhone 判断是否为手机号码
+// 验证字符串是否符合中国大陆11位手机号格式（1开头）
 func IsPhone(phoneNo string) bool {
 	if phoneNo != "" {
 		if isOk, _ := regexp.MatchString(`^1[0-9]{10}$`, phoneNo); isOk {
@@ -66,6 +72,7 @@ func IsPhone(phoneNo string) bool {
 }
 
 // IsNumb 判断是否为数字
+// 验证字符串是否只包含数字
 func IsNumb(num string) bool {
 	if num != "" {
 		if isOk, _ := regexp.MatchString(`^[0-9]*$`, num); isOk {
@@ -76,9 +83,9 @@ func IsNumb(num string) bool {
 }
 
 /*
-CheckAccountFormat
-判断账户是否为字母开头的字母和数字组合
-字母开口，限制6-20位，可以使用数字和字母
+CheckAccountFormat 判断账户是否为字母开头的字母和数字组合
+字母开头，限制6-20位，可以使用数字和字母
+验证用户账号格式是否合法
 */
 func CheckAccountFormat(s string) bool {
 	if s != "" {
@@ -91,6 +98,7 @@ func CheckAccountFormat(s string) bool {
 }
 
 // IsPassword 判断是否为合法密码
+// 验证密码是否符合要求：6-20位，可包含字母、数字和特定符号
 func IsPassword(pwd string) bool {
 	if pwd != "" {
 		if isOk, _ := regexp.MatchString(`^[a-zA-Z0-9!@#￥%^&*]{6,20}$`, pwd); isOk {
@@ -100,7 +108,8 @@ func IsPassword(pwd string) bool {
 	return false
 }
 
-// IsEmail 判断是否为合法邮箱-
+// IsEmail 判断是否为合法邮箱
+// 验证邮箱地址格式是否符合标准
 func IsEmail(email string) bool {
 	if email != "" {
 		if isOk, _ := regexp.MatchString(`^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$`, email); isOk {
@@ -114,6 +123,7 @@ func IsEmail(email string) bool {
 }
 
 // StringToInt64 字符串转int64
+// 将字符串解析为64位整数
 func StringToInt64(s string) int64 {
 	int64Num, _ := strconv.ParseInt(s, 10, 64)
 	return int64Num
@@ -126,18 +136,21 @@ func StringToInt64(s string) int64 {
 //}
 
 // Int64ToString int64转字符串
+// 将64位整数转换为字符串
 func Int64ToString(n int64) string {
 	i := int64(n)
 	return strconv.FormatInt(i, 10)
 }
 
 // Int32ToString int32转字符串
+// 将32位整数转换为字符串
 func Int32ToString(n int32) string {
 	i := int64(n)
 	return strconv.FormatInt(i, 10)
 }
 
-// StringToInt32 int32转字符串
+// StringToInt32 字符串转int32
+// 将字符串解析为32位整数
 func StringToInt32(s string) int32 {
 	var j int32
 	int10, _ := strconv.ParseInt(s, 10, 32)
@@ -145,7 +158,8 @@ func StringToInt32(s string) int32 {
 	return j
 }
 
-// Int64ToInt int64转字int
+// Int64ToInt int64转int
+// 将64位整数转换为标准int类型
 func Int64ToInt(n int64) int {
 	strInt64 := strconv.FormatInt(n, 10)
 	id16, _ := strconv.Atoi(strInt64)
@@ -153,26 +167,31 @@ func Int64ToInt(n int64) int {
 }
 
 // Wrap 将float64转成精确的int64
+// 通过将浮点数乘以10的retain次方，并转为整数，实现精确表示
 func Wrap(num float64, retain int) int64 {
 	return int64(num * math.Pow10(retain))
 }
 
 // Unwrap 将int64恢复成正常的float64
+// 通过将整数除以10的retain次方，恢复为原始浮点数
 func Unwrap(num int64, retain int) float64 {
 	return float64(num) / math.Pow10(retain)
 }
 
 // WrapToFloat64 精准float64
+// 通过乘以10的retain次方实现精确的浮点数表示
 func WrapToFloat64(num float64, retain int) float64 {
 	return num * math.Pow10(retain)
 }
 
 // UnwrapToInt64 精准int64
+// 将精确表示的int64转回普通表示
 func UnwrapToInt64(num int64, retain int) int64 {
 	return int64(Unwrap(num, retain))
 }
 
 // PathExists 判断文件或文件夹是否存在
+// 检查指定路径的文件或目录是否存在，返回是否存在及错误信息
 func PathExists(path string) (bool, error) {
 	_, err := os.Stat(path)
 	if err == nil {
@@ -185,6 +204,7 @@ func PathExists(path string) (bool, error) {
 }
 
 // GetRandomString 随机生成指定位数的大小写字母和数字的组合
+// 生成包含字母和数字的随机字符串，长度为n
 func GetRandomString(n int) string {
 	str := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 	bytes := []byte(str)
@@ -197,6 +217,7 @@ func GetRandomString(n int) string {
 }
 
 // CreateCaptcha 生成10位随机数字
+// 创建一个10位的随机数字字符串，用于验证码等场景
 func CreateCaptcha() string {
 	randomInt := mrand.New(mrand.NewSource(time.Now().UnixNano())).Int63n(10000000000)
 	if randomInt < 1000000000 {
