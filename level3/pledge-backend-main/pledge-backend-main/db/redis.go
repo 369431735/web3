@@ -13,6 +13,9 @@ import (
 
 // InitRedis 初始化Redis连接池
 // 根据配置创建Redis连接池，设置连接参数和认证信息
+// 该函数在应用启动时被调用，初始化全局Redis连接池
+// 返回：
+//   - *redis.Pool: Redis连接池实例
 func InitRedis() *redis.Pool {
 	log.Logger.Info("Init Redis")
 	redisConf := config.Config.Redis
@@ -48,9 +51,14 @@ func InitRedis() *redis.Pool {
 }
 
 // RedisSet 设置键值对，支持过期时间
-// key: 键名
-// data: 值（会被JSON序列化）
-// aliveSeconds: 过期时间（秒），0表示永不过期
+// 将任意类型的值序列化为JSON存储到Redis中
+// 参数：
+//   - key: 键名
+//   - data: 值（会被JSON序列化）
+//   - aliveSeconds: 过期时间（秒），0表示永不过期
+//
+// 返回：
+//   - error: 错误信息，nil表示操作成功
 func RedisSet(key string, data interface{}, aliveSeconds int) error {
 	conn := RedisConn.Get()
 	defer func() {
@@ -72,9 +80,14 @@ func RedisSet(key string, data interface{}, aliveSeconds int) error {
 }
 
 // RedisSetString 设置字符串键值对，支持过期时间
-// key: 键名
-// data: 字符串值
-// aliveSeconds: 过期时间（秒），0表示永不过期
+// 直接存储字符串值到Redis中，无需序列化
+// 参数：
+//   - key: 键名
+//   - data: 字符串值
+//   - aliveSeconds: 过期时间（秒），0表示永不过期
+//
+// 返回：
+//   - error: 错误信息，nil表示操作成功
 func RedisSetString(key string, data string, aliveSeconds int) error {
 	conn := RedisConn.Get()
 	defer func() {
@@ -93,8 +106,13 @@ func RedisSetString(key string, data string, aliveSeconds int) error {
 }
 
 // RedisGet 获取键对应的值（字节数组形式）
-// key: 键名
-// 返回: 字节数组值和错误信息
+// 适用于需要进一步处理或反序列化的场景
+// 参数：
+//   - key: 键名
+//
+// 返回：
+//   - []byte: 字节数组值，可以进一步反序列化为结构体
+//   - error: 错误信息，nil表示操作成功
 func RedisGet(key string) ([]byte, error) {
 	conn := RedisConn.Get()
 	defer func() {
@@ -108,8 +126,13 @@ func RedisGet(key string) ([]byte, error) {
 }
 
 // RedisGetString 获取键对应的字符串值
-// key: 键名
-// 返回: 字符串值和错误信息
+// 直接返回字符串格式的值，无需反序列化
+// 参数：
+//   - key: 键名
+//
+// 返回：
+//   - string: 字符串值
+//   - error: 错误信息，nil表示操作成功，redis.ErrNil表示键不存在
 func RedisGetString(key string) (string, error) {
 	conn := RedisConn.Get()
 	defer func() {
@@ -123,9 +146,14 @@ func RedisGetString(key string) (string, error) {
 }
 
 // RedisSetInt64 设置整数键值对
-// key: 键名
-// data: int64整数值
-// time: 过期时间（秒），0表示永不过期
+// 将int64类型的值存储到Redis中
+// 参数：
+//   - key: 键名
+//   - data: int64整数值
+//   - time: 过期时间（秒），0表示永不过期
+//
+// 返回：
+//   - error: 错误信息，nil表示操作成功
 func RedisSetInt64(key string, data int64, time int) error {
 	conn := RedisConn.Get()
 	defer func() {
@@ -149,8 +177,13 @@ func RedisSetInt64(key string, data int64, time int) error {
 }
 
 // RedisGetInt64 获取键对应的整数值
-// key: 键名
-// 返回: int64整数值和错误信息，如果出错则返回-1
+// 从Redis获取int64类型的值
+// 参数：
+//   - key: 键名
+//
+// 返回：
+//   - int64: 整数值，如果出错则返回-1
+//   - error: 错误信息，nil表示操作成功，redis.ErrNil表示键不存在
 func RedisGetInt64(key string) (int64, error) {
 	conn := RedisConn.Get()
 	defer func() {
@@ -164,8 +197,13 @@ func RedisGetInt64(key string) (int64, error) {
 }
 
 // RedisDelete 删除指定的键
-// key: 要删除的键名
-// 返回: 是否成功和错误信息
+// 从Redis中删除一个或多个键
+// 参数：
+//   - key: 要删除的键名
+//
+// 返回：
+//   - bool: 是否成功删除，true表示成功
+//   - error: 错误信息，nil表示操作成功
 func RedisDelete(key string) (bool, error) {
 	conn := RedisConn.Get()
 	defer func() {
@@ -175,7 +213,9 @@ func RedisDelete(key string) (bool, error) {
 }
 
 // RedisFlushDB 清空当前选择的Redis数据库
-// 返回: 错误信息
+// 慎用！该操作会删除当前数据库中的所有键
+// 返回：
+//   - error: 错误信息，nil表示操作成功
 func RedisFlushDB() error {
 	conn := RedisConn.Get()
 	defer func() {
@@ -189,9 +229,14 @@ func RedisFlushDB() error {
 }
 
 // RedisGetHashOne 获取Hash表中指定字段的值
-// key: Hash表的键名
-// name: Hash表中的字段名
-// 返回: 字段值和错误信息
+// 获取哈希表中某一个字段的值
+// 参数：
+//   - key: Hash表的键名
+//   - name: Hash表中的字段名
+//
+// 返回：
+//   - interface{}: 字段值
+//   - error: 错误信息，nil表示操作成功
 func RedisGetHashOne(key, name string) (interface{}, error) {
 	conn := RedisConn.Get()
 	defer func() {
@@ -205,25 +250,33 @@ func RedisGetHashOne(key, name string) (interface{}, error) {
 }
 
 // RedisSetHash 设置Hash表的多个字段值
-// key: Hash表的键名
-// data: 字段名和值的映射
-// time: 过期时间（秒），0表示永不过期
+// 一次性设置哈希表中多个字段的值
+// 参数：
+//   - key: Hash表的键名
+//   - data: 字段名和值的映射
+//   - time: 过期时间（秒），0或nil表示永不过期
+//
+// 返回：
+//   - error: 错误信息，nil表示操作成功
 func RedisSetHash(key string, data map[string]string, time interface{}) error {
 	conn := RedisConn.Get()
 	defer func() {
 		_ = conn.Close()
 	}()
+	// 使用Send方法批量发送命令，提高性能
 	for k, v := range data {
 		err := conn.Send("hset", key, k, v)
 		if err != nil {
 			return err
 		}
 	}
+	// 将缓冲区的命令一次性发送到Redis服务器
 	err := conn.Flush()
 	if err != nil {
 		return err
 	}
 
+	// 如果提供了过期时间，则设置键的过期时间
 	if time != nil {
 		_, err = conn.Do("expire", key, time.(int))
 		if err != nil {
@@ -233,7 +286,14 @@ func RedisSetHash(key string, data map[string]string, time interface{}) error {
 	return nil
 }
 
-// RedisGetHash 获取Hash类型
+// RedisGetHash 获取Hash表的所有字段和值
+// 返回哈希表中所有的字段和值，以map形式返回
+// 参数：
+//   - key: Hash表的键名
+//
+// 返回：
+//   - map[string]string: 字段名和值的映射
+//   - error: 错误信息，nil表示操作成功
 func RedisGetHash(key string) (map[string]string, error) {
 	conn := RedisConn.Get()
 	defer func() {
@@ -246,13 +306,25 @@ func RedisGetHash(key string) (map[string]string, error) {
 	return reply, nil
 }
 
-// RedisDelHash 删除Hash
+// RedisDelHash 删除整个Hash表
+// 删除哈希表及其所有字段（等同于删除键）
+// 参数：
+//   - key: 要删除的Hash表键名
+//
+// 返回：
+//   - bool: 是否成功删除
+//   - error: 错误信息，nil表示操作成功
 func RedisDelHash(key string) (bool, error) {
-
+	// 注意：此函数实现不完整，实际上应该调用 RedisDelete 函数删除键
 	return true, nil
 }
 
-// RedisExistsHash 检查Key是否存在
+// RedisExistsHash 检查Hash表中是否存在指定字段
+// 参数：
+//   - key: Hash表的键名
+//
+// 返回：
+//   - bool: 如果字段存在返回true，否则返回false
 func RedisExistsHash(key string) bool {
 	conn := RedisConn.Get()
 	defer func() {
@@ -265,7 +337,13 @@ func RedisExistsHash(key string) bool {
 	return exists
 }
 
-// RedisExists 检查Key是否存在
+// RedisExists 检查键是否存在
+// 判断指定的键是否存在于Redis中
+// 参数：
+//   - key: 要检查的键名
+//
+// 返回：
+//   - bool: 如果键存在返回true，否则返回false
 func RedisExists(key string) bool {
 	conn := RedisConn.Get()
 	defer func() {
@@ -278,7 +356,13 @@ func RedisExists(key string) bool {
 	return exists
 }
 
-// RedisGetTTL 获取Key剩余时间
+// RedisGetTTL 获取键的剩余生存时间
+// 返回键的剩余生存时间（秒）
+// 参数：
+//   - key: 要检查的键名
+//
+// 返回：
+//   - int64: 剩余生存时间（秒），-1表示永久，-2表示键不存在
 func RedisGetTTL(key string) int64 {
 	conn := RedisConn.Get()
 	defer func() {
@@ -291,7 +375,14 @@ func RedisGetTTL(key string) int64 {
 	return reply
 }
 
-// RedisSAdd set 集合
+// RedisSAdd 向集合添加元素
+// 将元素添加到指定的集合中
+// 参数：
+//   - k: 集合的键名
+//   - v: 要添加的元素
+//
+// 返回：
+//   - int64: 添加成功的元素数量，-1表示操作失败
 func RedisSAdd(k, v string) int64 {
 	conn := RedisConn.Get()
 	defer func() {
@@ -304,7 +395,14 @@ func RedisSAdd(k, v string) int64 {
 	return reply.(int64)
 }
 
-// RedisSmembers 获取集合元素
+// RedisSmembers 获取集合中的所有元素
+// 返回集合中的所有元素
+// 参数：
+//   - k: 集合的键名
+//
+// 返回：
+//   - []string: 集合中的所有元素
+//   - error: 错误信息，非nil表示获取失败
 func RedisSmembers(k string) ([]string, error) {
 	conn := RedisConn.Get()
 	defer func() {
@@ -317,13 +415,22 @@ func RedisSmembers(k string) ([]string, error) {
 	return reply, err
 }
 
+// RedisEncryptionTask 加密任务结构体
+// 用于存储与加密相关的任务信息
 type RedisEncryptionTask struct {
-	RecordOrderFlowId int32  `json:"recordOrderFlow"` //密码转账表ID
-	Encryption        string `json:"encryption"`      //密码串
-	EndTime           int64  `json:"endTime"`         //失效截止时间
+	RecordOrderFlowId int32  `json:"recordOrderFlow"` // 密码转账表ID
+	Encryption        string `json:"encryption"`      // 密码串
+	EndTime           int64  `json:"endTime"`         // 失效截止时间
 }
 
 // RedisListRpush 列表右侧添加数据
+// 向列表的右侧（尾部）添加一个元素
+// 参数：
+//   - listName: 列表的键名
+//   - encryption: 要添加的元素
+//
+// 返回：
+//   - error: 错误信息，nil表示操作成功
 func RedisListRpush(listName string, encryption string) error {
 	conn := RedisConn.Get()
 	defer func() {
@@ -333,7 +440,14 @@ func RedisListRpush(listName string, encryption string) error {
 	return err
 }
 
-// RedisListLRange 取出列表中所有元素
+// RedisListLRange 获取列表中的所有元素
+// 返回列表中指定范围的元素（此函数获取全部元素）
+// 参数：
+//   - listName: 列表的键名
+//
+// 返回：
+//   - []string: 列表中的所有元素
+//   - error: 错误信息，nil表示操作成功
 func RedisListLRange(listName string) ([]string, error) {
 	conn := RedisConn.Get()
 	defer func() {
@@ -343,7 +457,14 @@ func RedisListLRange(listName string) ([]string, error) {
 	return res, err
 }
 
-// RedisListLRem 删除列表中指定元素
+// RedisListLRem 从列表中删除指定元素
+// 从列表中删除等于指定值的元素
+// 参数：
+//   - listName: 列表的键名
+//   - encryption: 要删除的元素值
+//
+// 返回：
+//   - error: 错误信息，nil表示操作成功
 func RedisListLRem(listName string, encryption string) error {
 	conn := RedisConn.Get()
 	defer func() {
@@ -353,7 +474,14 @@ func RedisListLRem(listName string, encryption string) error {
 	return err
 }
 
-// RedisListLength 列表长度
+// RedisListLength 获取列表的长度
+// 返回列表中元素的数量
+// 参数：
+//   - listName: 列表的键名
+//
+// 返回：
+//   - interface{}: 列表的长度
+//   - error: 错误信息，nil表示操作成功
 func RedisListLength(listName string) (interface{}, error) {
 	conn := RedisConn.Get()
 	defer func() {
@@ -363,7 +491,13 @@ func RedisListLength(listName string) (interface{}, error) {
 	return len, err
 }
 
-// RedisDelList list 删除整个列表
+// RedisDelList 删除整个列表
+// 从Redis中删除指定的列表
+// 参数：
+//   - setName: 要删除的列表名称
+//
+// 返回：
+//   - error: 错误信息，nil表示操作成功
 func RedisDelList(setName string) error {
 	conn := RedisConn.Get()
 	defer func() {
